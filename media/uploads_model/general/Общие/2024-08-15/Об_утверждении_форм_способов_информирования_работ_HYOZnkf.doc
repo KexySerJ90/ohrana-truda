@@ -1,0 +1,370 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta><!--[if gte mso 9]>
+					<xml>
+						<w:WordDocument>
+							<w:View>Print</w:View>
+							<w:Zoom>90</w:Zoom>
+							<w:DoNotOptimizeForBrowser/>
+						</w:WordDocument>
+					</xml>
+				<![endif]--><style xmlns="" type="text/css" media="all">
+                body {
+                    font-size: 100%;
+                }
+                h1.normal {
+                    color: #000 !important;
+                    width: 75%;
+                }
+                .content_block {
+                    margin-right: 3%;
+                    width: 74%;
+                }
+                div#documentBody {
+                    margin-top: 31px;
+                    padding-bottom: 30px;
+                }
+                div.docChainList {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 7px 0 0;
+                    padding: 10px;
+                }
+                table.author-tbl {
+                    width: 40%;
+                }
+                div.page-box {
+                    width: 100%;
+                }
+                div.page-wrapper .doc-page .content {
+                    font-size: 14px;
+                }
+                pre {
+                    font-family: sans-serif;
+                    word-wrap: break-word;
+                }
+                .references {
+                    display: none;
+                }
+                span.doc__references {
+                    display: none;
+                }
+                .footer {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 50px 0 0;
+                }
+
+            </style></head><body><style xmlns="" type="text/css" media="all">
+            .doc-part_type_title {
+                margin-bottom: 0.8125em;
+                padding-bottom: 2.375em;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .doc__props {
+                font: normal 13px / 1.23076923 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__props.doc-add {
+                margin: 6.15384615em 0 2.15384615em;
+                padding-top: 1em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__props.doc-start {
+                margin-bottom: 2.15384615em;
+            }
+            .doc__type {
+                margin: 0.4em 0 0.5em;
+                font: normal 10px / 1.6 Helvetica, Arial, sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .doc__type + .main__title {
+                margin-top: 0;
+            }
+            .doc-start {
+                margin-top: 0 !important;
+                border-top: none !important;
+            }
+            .doc__part {
+                margin: 5.11538462em 0 4.15384615em;
+                font: normal 26px / 1.30769231 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                position: relative;
+            }
+            .doc__part[data-level="1"] {
+                padding-top: 0.57692308em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__part.doc-start {
+                padding-top: 0.07692308em;
+            }
+            .doc__section {
+                position: relative;
+                margin: 4.75em 0 3.32142857em;
+                font: normal 28px / 1.21428571 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc__section[data-level="1"] {
+                padding-top: 0.5em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__section[data-level="2"] {
+            margin-top: 3.85714286em;
+            }
+            .doc__section.doc-start {
+                padding-top: 0;
+            }
+            .doc__section-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc__subsection {
+                position: relative;
+                margin: 4.45833333em 0 1.75em;
+                font: bold 24px / 1.16666667 Helvetica, Arial, sans-serif;
+                letter-spacing: -1px;
+            }
+            .doc-add + .doc__subsection {
+                margin-top: 2.08333333em;
+            }
+            .doc__chapter {
+                position: relative;
+                margin: 1.82608696em 0 0.91304348em;
+                font: normal 23px / 1.2173913 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc-part .doc__chapter:first-child,
+                p + .doc__chapter,
+                ul + .doc__chapter,
+                ol + .doc__chapter {
+                    margin-top: 3.26086957em;
+                }
+            .doc__article {
+                position: relative;
+                margin: 1.25em 0 0.125em;
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__article + p,
+            .doc__article + ul,
+            .doc__article + ol {
+                margin-top: 0 !important;
+            }
+            .doc-part .doc__article:first-child,
+            p + .doc__article,
+            ul + .doc__article,
+            ol + .doc__article {
+                margin-top: 1.75em;
+            }
+            .doc-header__sticky-clone .doc__article {
+                margin-top: 0.5em;
+            }
+            .doc__paragraph {
+                margin: 1em 0 0.17391304em;
+                font: normal 23px / 1.13043478 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                position: relative;
+            }
+            .doc__paragraph-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc-part .doc__paragraph:first-child,
+            p + .doc__paragraph,
+            ul + .doc__paragraph,
+            ol + .doc__paragraph {
+                margin-top: 2.26086957em;
+            }
+            .doc__subparagraph {
+                font: normal 19px / 1.21052632 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.42105263em 0 0.31578947em;
+                position: relative;
+            }
+            .doc-part .doc__subparagraph:first-child,
+            p + .doc__subparagraph,
+            ul + .doc__subparagraph,
+            ol + .doc__subparagraph {
+                margin-top: 2.21052632em;
+            }
+            .doc__untyped {
+                font: normal 18px / 1.27777778 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.33333333em 0 1em;
+                position: relative;
+            }
+            .doc__note {
+                font: normal 11px / 1.45454545 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: -0.18181818em 0 2.54545455em 3.63636364em;
+                position: relative;
+            }
+            .doc__note + .doc__note {
+                margin-top: -1.63636364em;
+            }
+            .doc-notes {
+                display: none;
+            }
+            .doc__signature {
+                margin: 0.92857143em 0;
+            }
+            .doc__signature p {
+                text-align: left !important;
+            }
+            .doc__question {
+                background: #fbf9ef;
+                margin: -0.0625em 0 2.5em 0;
+                padding: 1em 64px 1em 1.5em;
+            }
+            .doc__question-title {
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin-bottom: 0.125em;
+            }
+            .doc__question-title + p {
+                margin-top: 0 !important;
+            }
+            .doc__expired {
+                color: #cccccc !important;
+            }
+            ul,
+            ol {
+                margin-left: 1.28571429em;
+            }
+            p {
+                margin: 0 0 0.92857143em;
+            }
+            p + ul,
+            p + ol {
+                margin-top: -0.92857143em;
+            }
+            ul li,
+            ol li {
+                margin: 0 0 0.42857143em;
+            }
+            dl dd {
+                margin: 0 0 0.42857143em;
+            }
+            ul,
+            ol,
+            dl {
+                margin: 0 0 0.92857143em 2.85714286em;
+            }
+            .list__item:before,
+            .order__item:before {
+                display: -moz-inline-stack;
+                display: inline-block;
+                vertical-align: baseline;
+                font: normal 11px / 1.18181818 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                min-width: 1.63636364em;
+                margin-left: -1.63636364em;
+                position: relative;
+                top: -1px;
+            }
+            .order__item:before {
+                content: attr(data-counter) "\a0";
+            }
+            .content_block {
+                font: normal 16px / 1.25 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            p {
+                text-align: justify;
+            }
+            p.align-center {
+                text-align: center;
+            }
+            p.align-right {
+                text-align: right;
+            }
+            p.align-left {
+                text-align: left;
+            }
+
+            table, td, th {
+                padding: 5px 10px;
+                vertical-align: middle;
+                border-collapse: collapse;
+            }
+            table.bdAll, td.bdAll, th.bdAll, table.bdAll td, table.bdAll th, table td.bdAl, table th.bdAll {
+                border: 1px solid #000;
+            }
+            table.bdTop, td.bdTop, th.bdTop {
+                border-top: 1px solid #000;
+                padding: 6px;
+            }
+            table.bdBottom, td.bdBottom, th.bdBottom {
+                border-bottom: 1px solid #000;
+            }
+
+            td.bdRight,
+            th.bdRight {
+                border-right: 1px solid #000;
+            }
+            td.bdLeft,
+            th.bdLeft {
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdBottom,
+            th.bdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdRightbdTopbdBottom,
+            th.bdRightbdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdBottombdLeftbdRight,
+            th.bdBottombdLeftbdRight {
+                border-left: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeft,
+            th.bdTopbdLeft {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdRight,
+            th.bdTopbdRight {
+                border-top: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdBottom,
+            th.bdLeftbdBottom {
+                border-bottom: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdRightbdBottom,
+            th.bdRightbdBottom {
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRight,
+            th.bdLeftbdRight {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeftbdRight,
+            th.bdTopbdLeftbdRight {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRightbdBottom,
+            th.bdLeftbdRightbdBottom {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdAll,
+            th.bdAll {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+        </style><div xmlns="" class="content_block"><p class="print_redaction-line for-print">Редакция от&#32;1 мар 2022</p><div class="above-header">Приказ Минтруда России от 29.10.2021 № 773н</div><h2 class="auth__title">Об утверждении форм (способов) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, и примерного перечня информационных материалов в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда</h2><div id="documentBody" class="content-common"><ct_versions type="DecorateManager" version="1.2.1.0" date="31.05.2024 10:18:21"></ct_versions><ct_versions type="BeautyNPDManager" version="2.2.1.0" date="31.05.2024 10:18:20"></ct_versions><p class="" data-id="7"><span data-role="phrase" data-phrase-id="6"><a data-anchor="/document/99/727092793/bssPhr6/" data-role="phrase-anchor" data-phrase-id="6" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr6"></a><a data-anchor="/document/99/727092793/ZAP2F2I3E0/"></a><a data-anchor="/document/99/727092793/ZAP29K03CF/"></a>В соответствии с частью четвертой статьи 216.2 <a data-anchor="/document/99/727092793/backlinkanchor1/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00M6G2N3/">Трудового кодекса Российской Федерации</a> (Собрание законодательства Российской Федерации, 2002, № 1, ст.3; 2021, № 27, ст.5139) и подпунктом 5.2.19(1) <a data-anchor="/document/99/727092793/backlinkanchor2/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/902353905/XA00M3G2M3/">пункта 5 Положения о Министерстве труда и социальной защиты Российской Федерации</a>, утвержденного <a data-anchor="/document/99/727092793/backlinkanchor3/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/902353905/XA00M1S2LR/">постановлением Правительства Российской Федерации от 19 июня 2012 г. № 610</a> (Собрание законодательства Российской Федерации, 2012, № 26, ст.3528; 2021, № 42, ст.7120),</span></p><p class="" data-id="8"><span data-role="phrase" data-phrase-id="7"><a data-anchor="/document/99/727092793/bssPhr7/" data-role="phrase-anchor" data-phrase-id="7" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr7"></a><a data-anchor="/document/99/727092793/ZAP27QS3DL/"></a><a data-anchor="/document/99/727092793/ZAP22CA3C4/"></a>приказываю:</span></p><p class="" data-id="9"><span data-role="phrase" data-phrase-id="8"><a data-anchor="/document/99/727092793/bssPhr8/" data-role="phrase-anchor" data-phrase-id="8" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr8"></a><a data-anchor="/document/99/727092793/ZAP23NQ3AV/"></a><a data-anchor="/document/99/727092793/XA00LU62M3/"></a><a data-anchor="/document/99/727092793/ZAP1U9839E/"></a>1. Утвердить:</span></p><p class="" data-id="10"><span data-role="phrase" data-phrase-id="9"><a data-anchor="/document/99/727092793/bssPhr9/" data-role="phrase-anchor" data-phrase-id="9" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr9"></a><a data-anchor="/document/99/727092793/ZAP272U3BT/"></a><a data-anchor="/document/99/727092793/ZAP21KC3AC/"></a>формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, согласно <a href="https://ot.action360.ru/#/document/99/727092793/XA00LVA2M9/" class="anc npd" target="_self">приложению № 1</a>;</span></p><p class="" data-id="11"><span data-role="phrase" data-phrase-id="10"><a data-anchor="/document/99/727092793/bssPhr10/" data-role="phrase-anchor" data-phrase-id="10" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr10"></a><a data-anchor="/document/99/727092793/ZAP2LSE3O0/"></a><a data-anchor="/document/99/727092793/ZAP2GDS3MF/"></a>примерный перечень информационных материалов в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, согласно <a href="https://ot.action360.ru/#/document/99/727092793/XA00MA22N7/" class="anc npd" target="_self">приложению № 2</a>.</span></p><p class="" data-id="12"><span data-role="phrase" data-phrase-id="11"><a data-anchor="/document/99/727092793/bssPhr11/" data-role="phrase-anchor" data-phrase-id="11" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr11"></a><a data-anchor="/document/99/727092793/ZAP29HE3KG/"></a><a data-anchor="/document/99/727092793/XA00LUO2M6/"></a><a data-anchor="/document/99/727092793/ZAP242S3IV/"></a>2. Установить, что настоящий приказ вступает в силу с 1 марта 2022 г.</span></p><div class="doc__signature"><p class="align-right" data-id="13"><span data-role="phrase" data-phrase-id="12"><a data-anchor="/document/99/727092793/bssPhr12/" data-role="phrase-anchor" data-phrase-id="12" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr12"></a><a data-anchor="/document/99/727092793/ZAP34R63UE/"></a><a data-anchor="/document/99/727092793/ZAP34NK3UD/"></a><a data-anchor="/document/99/727092793/ZAP2V923SS/"></a>Министр<br><a data-anchor="/document/99/727092793/ZAP35A43TU/"></a>А.О.Котяков </span></p></div><div class="doc__props"><p class="" data-id="15"><span data-role="phrase" data-phrase-id="13"><a data-anchor="/document/99/727092793/bssPhr13/" data-role="phrase-anchor" data-phrase-id="13" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr13"></a><a data-anchor="/document/99/727092793/ZAP2S7I3N0/"></a><a data-anchor="/document/99/727092793/ZAP2S403MV/"></a><a data-anchor="/document/99/727092793/ZAP2MLE3LE/"></a>Зарегистрировано<br><a data-anchor="/document/99/727092793/ZAP2NOA3L0/"></a>в Министерстве юстиции<br><a data-anchor="/document/99/727092793/ZAP26Q23DE/"></a>Российской Федерации<br><a data-anchor="/document/99/727092793/ZAP1V943DU/"></a>14 декабря 2021 года,<br><a data-anchor="/document/99/727092793/ZAP1PBC359/"></a>регистрационный № 66317</span></p></div><p class="align-right" data-id="16"><span data-role="phrase" data-phrase-id="14"><a data-anchor="/document/99/727092793/bssPhr14/" data-role="phrase-anchor" data-phrase-id="14" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr14"></a><a data-anchor="/document/99/727092793/ZAP1QQE36B/"></a><a data-anchor="/document/99/727092793/XA00LVA2M9/"></a><a data-role="toc" data-anchor="/document/99/727092793/ZA00MIC2NJ/"></a><a data-anchor="/document/99/727092793/ZAP1QMS36A/"></a><a data-anchor="/document/99/727092793/ZAP1L8A34P/"></a>Приложение № 1<br><a data-anchor="/document/99/727092793/ZAP1NHG3CS/"></a>к приказу Министерства труда<br><a data-anchor="/document/99/727092793/ZAP223G3CH/"></a>и социальной защиты<br><a data-anchor="/document/99/727092793/ZAP1VEC39R/"></a>Российской Федерации<br><a data-anchor="/document/99/727092793/ZAP1L2Q392/"></a>от 29 октября 2021 года № 773н </span></p><div data-structid="2" data-level="2" data-type="supplement" data-id="68" class="doc__supplement doc-start"><span data-role="phrase" data-phrase-id="15"><a data-anchor="/document/99/727092793/bssPhr15/" data-role="phrase-anchor" data-phrase-id="15" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr15"></a><a data-anchor="/document/99/727092793/ZAP23VA3AT/"></a><a data-anchor="/document/99/727092793/XA00LVS2MC/"></a><a data-anchor="/document/99/727092793/ZAP23RO3AS/"></a><a data-anchor="/document/99/727092793/ZAP1UD639B/"></a><span class="doc__supplement-number">Приложение&nbsp;1. </span><span class="doc__supplement-name">Формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда</span></span></div><p class="" data-id="20"><span data-role="phrase" data-phrase-id="16"><a data-anchor="/document/99/727092793/bssPhr16/" data-role="phrase-anchor" data-phrase-id="16" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr16"></a><a data-anchor="/document/99/727092793/ZAP1SVA38P/"></a><a data-anchor="/document/99/727092793/XA00M262MM/"></a><a data-anchor="/document/99/727092793/ZAP1NGO378/"></a>1. Формами (способами) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, с использованием визуальной/печатной информации являются:</span></p><p class="" data-id="21"><span data-role="phrase" data-phrase-id="17"><a data-anchor="/document/99/727092793/bssPhr17/" data-role="phrase-anchor" data-phrase-id="17" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr17"></a><a data-anchor="/document/99/727092793/ZAP2K2O3GT/"></a><a data-anchor="/document/99/727092793/XA00M2O2MP/"></a><a data-anchor="/document/99/727092793/ZAP2EK63FC/"></a>а) ознакомление работника при приеме на работу с условиями трудового договора, заключаемого с работодателем, в котором указываются трудовые права работника и информация об условиях труда<img class="inimg" height="23" width="9" name="i1" src="https://ot.action360.ru/system/content/image/196/1/2782424/">;</span></p><brake-footnote parent-data-id="21"></brake-footnote><p class="" parent-data-id="21" data-splited-par="true" data-id="71"><span data-role="phrase" data-phrase-id="18"><div class="doc__note"><span class="doc__note-number"><img class="inimg" height="23" width="9" name="i2" src="https://ot.action360.ru/system/content/image/196/1/2808963/"></span><span class="doc__note-text"><a data-anchor="/document/99/727092793/bssPhr18/" data-role="phrase-anchor" data-phrase-id="18" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr18"></a><a data-anchor="/document/99/727092793/ZAP2B943HV/"></a><a data-anchor="/document/99/727092793/ZAP25QI3GE/"></a><a data-anchor="/document/99/727092793/backlinkanchor4/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00M4S2ML/">Статья 57 Трудового кодекса Российской Федерации</a> (Собрание законодательства Российской Федерации, 2002, № 1, ст.3)</span></div></span></p><p class="" data-id="22"><span data-role="phrase" data-phrase-id="19"><a data-anchor="/document/99/727092793/bssPhr19/" data-role="phrase-anchor" data-phrase-id="19" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr19"></a><a data-anchor="/document/99/727092793/ZAP2JQU3KF/"></a><a data-anchor="/document/99/727092793/XA00M3A2MS/"></a><a data-anchor="/document/99/727092793/ZAP2JNC3KE/"></a><a data-anchor="/document/99/727092793/ZAP2E8Q3IT/"></a>б) ознакомление работников с результатами специальной оценки условий труда на их рабочих местах<img class="inimg" height="23" width="11" name="i3" src="https://ot.action360.ru/system/content/image/196/1/2782425/">;</span></p><brake-footnote parent-data-id="22"></brake-footnote><p class="" parent-data-id="22" data-splited-par="true" data-id="72"><span data-role="phrase" data-phrase-id="20"><div class="doc__note"><span class="doc__note-number"><img class="inimg" height="23" width="11" name="i4" src="https://ot.action360.ru/system/content/image/196/1/2782425/"></span><span class="doc__note-text"><a data-anchor="/document/99/727092793/bssPhr20/" data-role="phrase-anchor" data-phrase-id="20" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr20"></a><a data-anchor="/document/99/727092793/ZAP1MGA35R/"></a><a data-anchor="/document/99/727092793/ZAP1H1O34A/"></a><a data-anchor="/document/99/727092793/backlinkanchor5/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/499067392/XA00MAM2NB/">Статьи 5</a> и <a data-anchor="/document/99/727092793/backlinkanchor6/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/499067392/XA00MDI2O1/">15 Федерального закона от 28 декабря 2013 г. № 426-ФЗ "О специальной оценке условий труда"</a> (Собрание законодательства Российской Федерации, 2013, № 52, ст.6991)</span></div></span></p><p class="" data-id="23"><span data-role="phrase" data-phrase-id="21"><a data-anchor="/document/99/727092793/bssPhr21/" data-role="phrase-anchor" data-phrase-id="21" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr21"></a><a data-anchor="/document/99/727092793/ZAP2HUO3IP/"></a><a data-anchor="/document/99/727092793/XA00M2U2M0/"></a><a data-anchor="/document/99/727092793/ZAP2HR63IO/"></a><a data-anchor="/document/99/727092793/ZAP2CCK3H7/"></a>в) ознакомление с информацией о существующих профессиональных рисках и их уровнях<img class="inimg" height="23" width="11" name="i5" src="https://ot.action360.ru/system/content/image/196/1/2782426/">;</span></p><brake-footnote parent-data-id="23"></brake-footnote><p class="" parent-data-id="23" data-splited-par="true" data-id="73"><span data-role="phrase" data-phrase-id="22"><div class="doc__note"><span class="doc__note-number"><img class="inimg" height="23" width="11" name="i6" src="https://ot.action360.ru/system/content/image/196/1/2782426/"></span><span class="doc__note-text"><a data-anchor="/document/99/727092793/bssPhr22/" data-role="phrase-anchor" data-phrase-id="22" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr22"></a><a data-anchor="/document/99/727092793/ZAP2E063IU/"></a><a data-anchor="/document/99/727092793/ZAP28HK3HD/"></a><a data-anchor="/document/99/727092793/backlinkanchor7/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00M782MO/">Статья 218 Трудового кодекса Российской Федерации</a> (Собрание законодательства Российской Федерации, 2002, № 1, ст.3; 2021, № 27, ст.5139)</span></div></span></p><p class="" data-id="24"><span data-role="phrase" data-phrase-id="23"><a data-anchor="/document/99/727092793/bssPhr23/" data-role="phrase-anchor" data-phrase-id="23" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr23"></a><a data-anchor="/document/99/727092793/ZAP2N0E3NU/"></a><a data-anchor="/document/99/727092793/XA00M3G2M3/"></a><a data-anchor="/document/99/727092793/ZAP2MSS3NT/"></a><a data-anchor="/document/99/727092793/ZAP2HEA3MC/"></a>г) ознакомление работника с требованиями должностной инструкции, инструкций по охране труда (с визуализацией (при необходимости) опасных зон (участков) оборудования), перечнем выдаваемых на рабочем месте средств индивидуальной защиты, требованиями правил (стандартов) по охране труда и других локальных нормативных актов работодателя. Указанное ознакомление осуществляется под роспись работника, в том числе с выдачей на руки указанных нормативных актов работнику для изучения при проведении инструктажа по охране труда на рабочем месте<img class="inimg" height="23" width="11" name="i7" src="https://ot.action360.ru/system/content/image/196/1/2808964/">. При наличии у работодателя электронного документооборота ознакомление работников допускается осуществлять в электронной форме с учетом установленных для электронного документооборота законодательных требований (в частности подтверждения факта ознакомления с документами электронной цифровой подписью).</span></p><brake-footnote parent-data-id="24"></brake-footnote><p class="" parent-data-id="24" data-splited-par="true" data-id="74"><span data-role="phrase" data-phrase-id="24"><div class="doc__note"><span class="doc__note-number"><img class="inimg" height="23" width="11" name="i8" src="https://ot.action360.ru/system/content/image/196/1/2808964/"></span><span class="doc__note-text"><a data-anchor="/document/99/727092793/bssPhr24/" data-role="phrase-anchor" data-phrase-id="24" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr24"></a><a data-anchor="/document/99/727092793/ZAP24S03GI/"></a><a data-anchor="/document/99/727092793/ZAP1VDE3F1/"></a><a data-anchor="/document/99/727092793/backlinkanchor8/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00MCS2N5/">Статьи 214</a> и <a data-anchor="/document/99/727092793/backlinkanchor9/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00RN82OT/">219 Трудового кодекса Российской Федерации</a> (Собрание законодательства Российской Федерации, 2002, № 1, ст.3; 2021, № 27, ст.5139)</span></div></span></p><p class="" data-id="25"><span data-role="phrase" data-phrase-id="25"><a data-anchor="/document/99/727092793/bssPhr25/" data-role="phrase-anchor" data-phrase-id="25" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr25"></a><a data-anchor="/document/99/727092793/ZAP2HQ43LB/"></a><a data-anchor="/document/99/727092793/XA00M5Q2MD/"></a><a data-anchor="/document/99/727092793/ZAP2HMI3LA/"></a><a data-anchor="/document/99/727092793/ZAP2C803JP/"></a>2. Работодатели могут в зависимости от своих финансовых возможностей в дополнение к предусмотренным в <a href="https://ot.action360.ru/#/document/99/727092793/XA00M262MM/" class="anc npd" target="_self">пункте 1</a> формам (способам) применять следующие формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, с использованием визуальной/печатной информации:</span></p><p class="" data-id="26"><span data-role="phrase" data-phrase-id="26"><a data-anchor="/document/99/727092793/bssPhr26/" data-role="phrase-anchor" data-phrase-id="26" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr26"></a><a data-anchor="/document/99/727092793/ZAP2MNS3H6/"></a><a data-anchor="/document/99/727092793/XA00M6C2MG/"></a><a data-anchor="/document/99/727092793/ZAP2H9A3FL/"></a>а) размещение плакатов и листовок, содержащих информацию о трудовых правах работников, на рабочих местах в структурных подразделениях работодателя, кабинетах охраны труда, уголках охраны труда, а также в общедоступных местах на территории работодателя;</span></p><p class="" data-id="27"><span data-role="phrase" data-phrase-id="27"><a data-anchor="/document/99/727092793/bssPhr27/" data-role="phrase-anchor" data-phrase-id="27" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr27"></a><a data-anchor="/document/99/727092793/ZAP2ILA3FD/"></a><a data-anchor="/document/99/727092793/XA00M6U2MJ/"></a><a data-anchor="/document/99/727092793/ZAP2D6O3DS/"></a>б) ознакомление работников с положениями коллективного договора и (или) отраслевого соглашения, распространяемых на работодателей и работников, в том числе при участии первичной профсоюзной организации (при наличии);</span></p><p class="" data-id="28"><span data-role="phrase" data-phrase-id="28"><a data-anchor="/document/99/727092793/bssPhr28/" data-role="phrase-anchor" data-phrase-id="28" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr28"></a><a data-anchor="/document/99/727092793/ZAP2GG43FL/"></a><a data-anchor="/document/99/727092793/XA00M7G2MM/"></a><a data-anchor="/document/99/727092793/ZAP2B1I3E4/"></a>в) посещение рабочих мест (рабочих зон) с визуализацией (при необходимости) опасных зон (участков) оборудования, в том числе посредством обозначения знаками безопасности, сигнальными цветами, сигнальной разметкой зон, участков, элементов оборудования, машин, механизмов, агрегатов с высоким риском получения работником травмы, а также обозначения соответствующими знаками безопасности зон, участков, оборудования, где обязательно применение средств индивидуальной защиты;</span></p><p class="" data-id="29"><span data-role="phrase" data-phrase-id="29"><a data-anchor="/document/99/727092793/bssPhr29/" data-role="phrase-anchor" data-phrase-id="29" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr29"></a><a data-anchor="/document/99/727092793/ZAP2T7I3NS/"></a><a data-anchor="/document/99/727092793/XA00M8G2N0/"></a><a data-anchor="/document/99/727092793/ZAP2NP03MB/"></a>г) распространение периодических корпоративных изданий (журналов, информационных бюллетеней, информационных листков и иных аналогичных материалов), плакатов, содержащих информацию о трудовых правах работников, среди работников и иных заинтересованных лиц, в том числе по электронной почте;</span></p><p class="" data-id="30"><span data-role="phrase" data-phrase-id="30"><a data-anchor="/document/99/727092793/bssPhr30/" data-role="phrase-anchor" data-phrase-id="30" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr30"></a><a data-anchor="/document/99/727092793/ZAP29PK3HD/"></a><a data-anchor="/document/99/727092793/XA00M922N3/"></a><a data-anchor="/document/99/727092793/ZAP24B23FS/"></a>д) распространение печатных информационных материалов (журналов, листовок, газет и иных аналогичных материалов), содержащих информацию о трудовых правах работников, на профильных тематических выставках, конференциях, круглых столах и семинарах;</span></p><p class="" data-id="31"><span data-role="phrase" data-phrase-id="31"><a data-anchor="/document/99/727092793/bssPhr31/" data-role="phrase-anchor" data-phrase-id="31" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr31"></a><a data-anchor="/document/99/727092793/ZAP1LOS38Q/"></a><a data-anchor="/document/99/727092793/XA00M9K2N6/"></a><a data-anchor="/document/99/727092793/ZAP1GAA379/"></a>е) рассылка по электронной почте или почтовой связью печатных информационных материалов (журналов, листовок, газет и иных аналогичных материалов) и листовок, содержащих информацию о трудовых правах работников, заинтересованным лицам.</span></p><p class="" data-id="32"><span data-role="phrase" data-phrase-id="32"><a data-anchor="/document/99/727092793/bssPhr32/" data-role="phrase-anchor" data-phrase-id="32" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr32"></a><a data-anchor="/document/99/727092793/ZAP2HPM3LB/"></a><a data-anchor="/document/99/727092793/XA00MA62N9/"></a><a data-anchor="/document/99/727092793/ZAP2CB43JQ/"></a>3. Работодатели могут в зависимости от своих финансовых возможностей применять следующие формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, с использованием видеоматериалов:</span></p><p class="" data-id="33"><span data-role="phrase" data-phrase-id="33"><a data-anchor="/document/99/727092793/bssPhr33/" data-role="phrase-anchor" data-phrase-id="33" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr33"></a><a data-anchor="/document/99/727092793/ZAP2ITU3IU/"></a><a data-anchor="/document/99/727092793/XA00M5O2MC/"></a><a data-anchor="/document/99/727092793/ZAP2DFC3HD/"></a>а) демонстрацию информационных тематических видеороликов или сюжетов, снятых по материалам реальных событий, при проведении инструктажей и обучения работников по охране труда, а также на вводных инструктажах для сотрудников;</span></p><p class="" data-id="34"><span data-role="phrase" data-phrase-id="34"><a data-anchor="/document/99/727092793/bssPhr34/" data-role="phrase-anchor" data-phrase-id="34" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr34"></a><a data-anchor="/document/99/727092793/ZAP2J123IV/"></a><a data-anchor="/document/99/727092793/XA00M6A2MF/"></a><a data-anchor="/document/99/727092793/ZAP2DIG3HE/"></a>б) демонстрацию информационных тематических видеороликов или сюжетов, снятых по материалам реальных событий, по корпоративному телевидению (при его наличии) и видеоканалам в производственных помещениях, кабинетах (уголках) по охране труда, а также общедоступных местах, где установлены телевизионные панели (с видеосвязью или без), а также проекторы;</span></p><p class="" data-id="35"><span data-role="phrase" data-phrase-id="35"><a data-anchor="/document/99/727092793/bssPhr35/" data-role="phrase-anchor" data-phrase-id="35" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr35"></a><a data-anchor="/document/99/727092793/ZAP2FFU3IO/"></a><a data-anchor="/document/99/727092793/XA00M6S2MI/"></a><a data-anchor="/document/99/727092793/ZAP2A1C3H7/"></a>в) информирование работников об их трудовых правах в формате интернет-журнала событий (блога);</span></p><p class="" data-id="36"><span data-role="phrase" data-phrase-id="36"><a data-anchor="/document/99/727092793/bssPhr36/" data-role="phrase-anchor" data-phrase-id="36" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr36"></a><a data-anchor="/document/99/727092793/ZAP2OII3MA/"></a><a data-anchor="/document/99/727092793/XA00M7E2ML/"></a><a data-anchor="/document/99/727092793/ZAP2J403KP/"></a>г) демонстрацию видеоматериалов (роликов, посвященных трудовым правам работников, включая право на безопасные условия и охрану труда) на профильных тематических выставках, конференциях, круглых столах и семинарах.</span></p><p class="" data-id="37"><span data-role="phrase" data-phrase-id="37"><a data-anchor="/document/99/727092793/bssPhr37/" data-role="phrase-anchor" data-phrase-id="37" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr37"></a><a data-anchor="/document/99/727092793/ZAP2HSQ3LC/"></a><a data-anchor="/document/99/727092793/XA00M802MO/"></a><a data-anchor="/document/99/727092793/ZAP2CE83JR/"></a>4. Работодатели могут в зависимости от своих финансовых возможностей применять следующие формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда, с использованием интернет-ресурсов:</span></p><p class="" data-id="38"><span data-role="phrase" data-phrase-id="38"><a data-anchor="/document/99/727092793/bssPhr38/" data-role="phrase-anchor" data-phrase-id="38" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr38"></a><a data-anchor="/document/99/727092793/ZAP2O8Q3O2/"></a><a data-anchor="/document/99/727092793/XA00M902N2/"></a><a data-anchor="/document/99/727092793/ZAP2IQ83MH/"></a>а) размещение на официальном сайте работодателя в информационно-телекоммуникационной сети "Интернет" (далее - интернет-сайт работодателя) (при наличии) сведений о результатах проведения специальной оценки условий труда<img class="inimg" height="21" width="11" name="i9" src="https://ot.action360.ru/system/content/image/196/1/2808965/">;</span></p><brake-footnote parent-data-id="38"></brake-footnote><p class="" parent-data-id="38" data-splited-par="true" data-id="75"><span data-role="phrase" data-phrase-id="39"><div class="doc__note"><span class="doc__note-number"><img class="inimg" height="21" width="11" name="i10" src="https://ot.action360.ru/system/content/image/196/1/2808965/"></span><span class="doc__note-text"><a data-anchor="/document/99/727092793/bssPhr39/" data-role="phrase-anchor" data-phrase-id="39" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr39"></a><a data-anchor="/document/99/727092793/ZAP1OF0372/"></a><a data-anchor="/document/99/727092793/ZAP1J0E35H/"></a><a data-anchor="/document/99/727092793/backlinkanchor10/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/499067392/XA00MCS2NS/">Часть 6 статьи 15 Федерального закона от 28 декабря 2013 г. № 426-ФЗ "О специальной оценке условий труда"</a> (Собрание законодательства Российской Федерации, 2013, № 52, ст.6991)</span></div></span></p><p class="" data-id="39"><span data-role="phrase" data-phrase-id="40"><a data-anchor="/document/99/727092793/bssPhr40/" data-role="phrase-anchor" data-phrase-id="40" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr40"></a><a data-anchor="/document/99/727092793/ZAP2R2S3LN/"></a><a data-anchor="/document/99/727092793/XA00M9I2N5/"></a><a data-anchor="/document/99/727092793/ZAP2QVA3LM/"></a><a data-anchor="/document/99/727092793/ZAP2LGO3K5/"></a>б) размещение информационных тематических видеороликов или сюжетов, снятых по материалам реальных событий, как на закрытых, так и на общедоступных страницах видеоканалов;</span></p><p class="" data-id="40"><span data-role="phrase" data-phrase-id="41"><a data-anchor="/document/99/727092793/bssPhr41/" data-role="phrase-anchor" data-phrase-id="41" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr41"></a><a data-anchor="/document/99/727092793/ZAP2LPQ3J1/"></a><a data-anchor="/document/99/727092793/XA00MA42N8/"></a><a data-anchor="/document/99/727092793/ZAP2GB83HG/"></a>в) размещение на корпоративном портале (как внутреннем, предназначенном только для сотрудников, так и открытом для всех заинтересованных лиц) (далее - корпоративный портал), а также на официальном интернет-сайте работодателя (при наличии) электронных периодических корпоративных изданий, а также электронных листовок по вопросам обеспечения трудовых прав работников, включая право на безопасные условия и охрану труда;</span></p><p class="" data-id="41"><span data-role="phrase" data-phrase-id="42"><a data-anchor="/document/99/727092793/bssPhr42/" data-role="phrase-anchor" data-phrase-id="42" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr42"></a><a data-anchor="/document/99/727092793/ZAP2QMC3MC/"></a><a data-anchor="/document/99/727092793/XA00MAM2NB/"></a><a data-anchor="/document/99/727092793/ZAP2L7Q3KR/"></a>г) размещение на корпоративном портале, а также на официальном интернет-сайте работодателя (при наличии) актуальной информации о политике работодателя, связанной с гарантией соблюдения трудовых прав работников, библиотеки трудовых ситуаций и разъяснений спорных ситуаций с ответами на часто задаваемые вопросы о трудовых правах работников;</span></p><p class="" data-id="42"><span data-role="phrase" data-phrase-id="43"><a data-anchor="/document/99/727092793/bssPhr43/" data-role="phrase-anchor" data-phrase-id="43" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr43"></a><a data-anchor="/document/99/727092793/ZAP29J03H7/"></a><a data-anchor="/document/99/727092793/XA00MB82NE/"></a><a data-anchor="/document/99/727092793/ZAP244E3FM/"></a>д) размещение на корпоративном портале, а также на официальном интернет-сайте работодателя (при наличии) ссылок на сайт Министерства труда и социальной защиты Российской Федерации (Минтруд России) https://mintrud.gov.ru/, Федеральной службы по труду и занятости (Роструд) https://rostrud.gov.ru/, на официальный ресурс Роструда http://онлайнинспекция.рф, где размещена необходимая работникам информация о трудовых правах и способах их защиты, а также на официальные интернет-сайты и иные интернет-ресурсы органов исполнительной власти субъектов Российской Федерации по труду;</span></p><p class="" data-id="43"><span data-role="phrase" data-phrase-id="44"><a data-anchor="/document/99/727092793/bssPhr44/" data-role="phrase-anchor" data-phrase-id="44" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr44"></a><a data-anchor="/document/99/727092793/ZAP232S3F6/"></a><a data-anchor="/document/99/727092793/XA00M6Q2MH/"></a><a data-anchor="/document/99/727092793/ZAP1TKA3DL/"></a>е) размещение на корпоративном портале, а также на официальном интернет-сайте работодателя (при наличии) ссылок на сайт Пенсионного фонда Российской Федерации https://pfr.gov.ru/, где работник может ознакомиться со своими правами на страховую пенсию, в том числе с правилами и порядком назначения досрочной страховой пенсии в связи с работой во вредных и/или опасных условиях труда или принадлежностью к той или иной профессии, а также Фонда социального страхования Российской Федерации https://fss.ru/, где работник может найти информацию о положенных ему страховых выплатах, в том числе в связи с несчастным случаем на производстве или профессиональным заболеванием;</span></p><p class="" data-id="44"><span data-role="phrase" data-phrase-id="45"><a data-anchor="/document/99/727092793/bssPhr45/" data-role="phrase-anchor" data-phrase-id="45" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr45"></a><a data-anchor="/document/99/727092793/ZAP1U1G3BL/"></a><a data-anchor="/document/99/727092793/XA00M7C2MK/"></a><a data-anchor="/document/99/727092793/ZAP1OIU3A4/"></a>ж) возможность доступа (с учетом должностных обязанностей) к справочным правовым информационным системам, содержащим необходимую правовую актуальную информацию о трудовом законодательстве Российской Федерации, аналитические и справочные материалы, а также к публикуемой указанными системами тематической обзорной информации о трудовых правах работников через корпоративный портал, а также через официальный интернет-сайт работодателя (при наличии) или через оборудование, установленное в кабинете охраны труда или в уголке охраны труда;</span></p><p class="" data-id="45"><span data-role="phrase" data-phrase-id="46"><a data-anchor="/document/99/727092793/bssPhr46/" data-role="phrase-anchor" data-phrase-id="46" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr46"></a><a data-anchor="/document/99/727092793/ZAP1URA3C5/"></a><a data-anchor="/document/99/727092793/XA00M7U2MN/"></a><a data-anchor="/document/99/727092793/ZAP1PCO3AK/"></a>з) возможность использования для размещения актуальной информации о трудовых правах работников, изменениях трудового законодательства и мерах по обеспечению трудовых прав работников страниц в социальных сетях или групп в системах мгновенного обмена сообщениями (при их наличии у работодателя) с обязательными ссылками на официальные источники информации с целью обеспечения возможности их проверки и установления достоверности;</span></p><p class="" data-id="46"><span data-role="phrase" data-phrase-id="47"><a data-anchor="/document/99/727092793/bssPhr47/" data-role="phrase-anchor" data-phrase-id="47" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr47"></a><a data-anchor="/document/99/727092793/ZAP23C83F9/"></a><a data-anchor="/document/99/727092793/XA00M8G2MQ/"></a><a data-anchor="/document/99/727092793/ZAP1TTM3DO/"></a>и) размещение на корпоративном портале, а также на официальном интернет-сайте работодателя (при наличии) текста коллективного договора, отраслевого соглашения (при наличии).</span></p><p class="" data-id="47"><span data-role="phrase" data-phrase-id="48"><a data-anchor="/document/99/727092793/bssPhr48/" data-role="phrase-anchor" data-phrase-id="48" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr48"></a><a data-anchor="/document/99/727092793/ZAP23G43FT/"></a><a data-anchor="/document/99/727092793/XA00M9G2N4/"></a><a data-anchor="/document/99/727092793/ZAP1U1I3EC/"></a>5. Работодатель может применять любые из перечисленных в <a href="https://ot.action360.ru/#/document/99/727092793/XA00M5Q2MD/" class="anc npd" target="_self">пунктах 2-4 настоящего приложения</a> формы (способы) информирования по отдельности или совместно, а также применять иные предусмотренные законодательством Российской Федерации формы (способы) информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда.</span></p><p class="align-right" data-id="48"><span data-role="phrase" data-phrase-id="49"><a data-anchor="/document/99/727092793/bssPhr49/" data-role="phrase-anchor" data-phrase-id="49" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr49"></a><a data-anchor="/document/99/727092793/ZAP1QSM36C/"></a><a data-anchor="/document/99/727092793/XA00MA22N7/"></a><a data-role="toc" data-anchor="/document/99/727092793/ZA00MFI2NR/"></a><a data-anchor="/document/99/727092793/ZAP1QP436B/"></a><a data-anchor="/document/99/727092793/ZAP1LAI34Q/"></a>Приложение № 2<br><a data-anchor="/document/99/727092793/ZAP1T023ED/"></a>к приказу Министерства труда<br><a data-anchor="/document/99/727092793/ZAP27I23E2/"></a>и социальной защиты<br><a data-anchor="/document/99/727092793/ZAP24SU3BC/"></a>Российской Федерации<br><a data-anchor="/document/99/727092793/ZAP1KTU393/"></a>от 29 октября 2021 года № 773н</span></p><div data-structid="3" data-level="2" data-type="supplement" data-id="69" class="doc__supplement"><span data-role="phrase" data-phrase-id="50"><a data-anchor="/document/99/727092793/bssPhr50/" data-role="phrase-anchor" data-phrase-id="50" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr50"></a><a data-anchor="/document/99/727092793/ZAP2H263MI/"></a><a data-anchor="/document/99/727092793/XA00MAK2NA/"></a><a data-anchor="/document/99/727092793/ZAP2GUK3MH/"></a><a data-anchor="/document/99/727092793/ZAP2BG23L0/"></a><span class="doc__supplement-number">Приложение&nbsp;2. </span><span class="doc__supplement-name">Примерный перечень информационных материалов в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда</span></span></div><p class="" data-id="52"><span data-role="phrase" data-phrase-id="51"><a data-anchor="/document/99/727092793/bssPhr51/" data-role="phrase-anchor" data-phrase-id="51" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr51"></a><a data-anchor="/document/99/727092793/ZAP287M3HN/"></a><a data-anchor="/document/99/727092793/XA00MB62ND/"></a><a data-anchor="/document/99/727092793/ZAP22P43G6/"></a>1. Визуальная/печатная информация:</span></p><p class="" data-id="53"><span data-role="phrase" data-phrase-id="52"><a data-anchor="/document/99/727092793/bssPhr52/" data-role="phrase-anchor" data-phrase-id="52" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr52"></a><a data-anchor="/document/99/727092793/ZAP2R5S3P3/"></a><a data-anchor="/document/99/727092793/XA00MBO2NG/"></a><a data-anchor="/document/99/727092793/ZAP2LNA3NI/"></a>а) коллективные договоры, отраслевые соглашения, заключенные работодателем, содержащие разделы, посвященные реализации трудовых прав и гарантий, включая гарантии (компенсации) за работу во вредных (опасных) условиях труда, если указанные условия труда установлены по результатам проведения специальной оценки условий труда на рабочих местах информируемых работников, а также дополнительные трудовые гарантии (компенсации), установленные по результатам коллективных переговоров;</span></p><p class="" data-id="54"><span data-role="phrase" data-phrase-id="53"><a data-anchor="/document/99/727092793/bssPhr53/" data-role="phrase-anchor" data-phrase-id="53" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr53"></a><a data-anchor="/document/99/727092793/ZAP2V3Q3Q9/"></a><a data-anchor="/document/99/727092793/XA00M2S2MD/"></a><a data-anchor="/document/99/727092793/ZAP2PL83OO/"></a>б) периодические корпоративные издания - газеты, журналы, иная аналогичная печатная продукция, выпускаемая работодателем или распространяемая им в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда;</span></p><p class="" data-id="55"><span data-role="phrase" data-phrase-id="54"><a data-anchor="/document/99/727092793/bssPhr54/" data-role="phrase-anchor" data-phrase-id="54" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr54"></a><a data-anchor="/document/99/727092793/ZAP2NKA3MJ/"></a><a data-anchor="/document/99/727092793/XA00M7S2MM/"></a><a data-anchor="/document/99/727092793/ZAP2I5O3L2/"></a>в) листовки, буклеты, плакаты, выпускаемые или распространяемые работодателем в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда.</span></p><p class="" data-id="56"><span data-role="phrase" data-phrase-id="55"><a data-anchor="/document/99/727092793/bssPhr55/" data-role="phrase-anchor" data-phrase-id="55" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr55"></a><a data-anchor="/document/99/727092793/ZAP28AS3KP/"></a><a data-anchor="/document/99/727092793/XA00M8E2MP/"></a><a data-anchor="/document/99/727092793/ZAP22SA3J8/"></a>2. Видеоматериалы:</span></p><p class="" data-id="57"><span data-role="phrase" data-phrase-id="56"><a data-anchor="/document/99/727092793/bssPhr56/" data-role="phrase-anchor" data-phrase-id="56" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr56"></a><a data-anchor="/document/99/727092793/ZAP2OA23ON/"></a><a data-anchor="/document/99/727092793/XA00M902MS/"></a><a data-anchor="/document/99/727092793/ZAP2IRG3N6/"></a>а) информационные видеоролики, выпускаемые работодателем в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда;</span></p><p class="" data-id="58"><span data-role="phrase" data-phrase-id="57"><a data-anchor="/document/99/727092793/bssPhr57/" data-role="phrase-anchor" data-phrase-id="57" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr57"></a><a data-anchor="/document/99/727092793/ZAP2BHA3JB/"></a><a data-anchor="/document/99/727092793/XA00MA02N6/"></a><a data-anchor="/document/99/727092793/ZAP262O3HQ/"></a>б) информационные программы на корпоративном телевидении работодателя в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда.</span></p><p class="" data-id="59"><span data-role="phrase" data-phrase-id="58"><a data-anchor="/document/99/727092793/bssPhr58/" data-role="phrase-anchor" data-phrase-id="58" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr58"></a><a data-anchor="/document/99/727092793/ZAP26923DL/"></a><a data-anchor="/document/99/727092793/XA00MAI2N9/"></a><a data-anchor="/document/99/727092793/ZAP20QG3C4/"></a>3. Интернет-ресурсы:</span></p><p class="" data-id="60"><span data-role="phrase" data-phrase-id="59"><a data-anchor="/document/99/727092793/bssPhr59/" data-role="phrase-anchor" data-phrase-id="59" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr59"></a><a data-anchor="/document/99/727092793/ZAP2C0M3IR/"></a><a data-anchor="/document/99/727092793/XA00MB42NC/"></a><a data-anchor="/document/99/727092793/ZAP26I43HA/"></a>а) информационные ресурсы на корпоративном портале/интернет-сайте работодателя в целях информирования работников об их трудовых правах, включая право на безопасные условия и охрану труда;</span></p><p class="" data-id="61"><span data-role="phrase" data-phrase-id="60"><a data-anchor="/document/99/727092793/bssPhr60/" data-role="phrase-anchor" data-phrase-id="60" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr60"></a><a data-anchor="/document/99/727092793/ZAP2EBQ3KQ/"></a><a data-anchor="/document/99/727092793/XA00MBM2NF/"></a><a data-anchor="/document/99/727092793/ZAP28T83J9/"></a>б) информационные ресурсы на интернет-сайтах федеральных органов исполнительной власти - Министерства труда и социальной защиты Российской Федерации, Федеральной службы по труду и занятости, а также на интернет-сайтах органов исполнительной власти субъектов Российской Федерации по труду;</span></p><p class="" data-id="62"><span data-role="phrase" data-phrase-id="61"><a data-anchor="/document/99/727092793/bssPhr61/" data-role="phrase-anchor" data-phrase-id="61" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr61"></a><a data-anchor="/document/99/727092793/ZAP31243P2/"></a><a data-anchor="/document/99/727092793/XA00M2Q2MC/"></a><a data-anchor="/document/99/727092793/ZAP2RJI3NH/"></a>в) информация, содержащаяся в официальных справочных правовых информационных системах, в том числе в публикуемой указанными системами тематической обзорной информации о трудовых правах работников;</span></p><p class="" data-id="63"><span data-role="phrase" data-phrase-id="62"><a data-anchor="/document/99/727092793/bssPhr62/" data-role="phrase-anchor" data-phrase-id="62" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr62"></a><a data-anchor="/document/99/727092793/ZAP2LUA3J9/"></a><a data-anchor="/document/99/727092793/XA00M3C2MF/"></a><a data-anchor="/document/99/727092793/ZAP2GFO3HO/"></a>г) тематическая информация о трудовых правах работников, содержащаяся и распространяемая в социальных сетях (при условии подтверждения достоверности и легитимности распространителя) и иных интернет-ресурсах.</span></p><p class="" data-id="64"><span data-role="phrase" data-phrase-id="63"></span></p><p class="" data-id="65"><span data-role="phrase" data-phrase-id="64"><br data-action="delete"><br data-action="delete"></span></p><p class="" data-id="66"><span data-role="phrase" data-phrase-id="65"></span></p></div></div><div xmlns="" class="footer">© Материал из Справочной системы «Актион Охрана труда»<br />https://ot.action360.ru<br />Дата копирования: 15.08.2024</div></body></html>

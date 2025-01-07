@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-4">История Входов Пользователя {{ request.user }}</h1>
+        {% if history %}
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">Время Входа</th>
+                        <th scope="col">IP Адрес</th>
+                        <th scope="col">Местоположение</th>
+                        <th scope="col">Тип Устройства</th>
+                        <th scope="col">Браузер</th>
+                        <th scope="col">Операционная Система</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in history %}
+                        <tr>
+                            <td>{{ entry.login_time }}</td>
+                            <td>{{ entry.ip_address }}</td>
+                            <td>{{ entry.location }}</td>
+                            <td>{{ entry.device_type }}</td>
+                            <td>{{ entry.browser }}</td>
+                            <td>{{ entry.os }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="mt-4">Нет записей о входах.</p>
+        {% endif %}
+    </div>
+{% endblock %}

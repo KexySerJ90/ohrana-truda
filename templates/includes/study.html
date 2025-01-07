@@ -1,0 +1,14 @@
+<li class="list-group-item">
+    <strong>{{ subject.subjects }}:</strong>
+    {% if subject.completed %}
+    <span>Сдал</span>
+    {% else %}
+    {% if user.calculate_date > 0 %}
+    <span class="text-warning">Не сдал</span>
+    <p>До окончания сдачи осталось <strong>{{ user.calculate_date }} дней</strong></p>
+    {% else %}
+    <span class="text-danger">Внимание</span>
+    <p class="blink text-danger">Вас должны немедленно отстранить от работы</p>
+    {% endif %}
+    {% endif %}
+</li>

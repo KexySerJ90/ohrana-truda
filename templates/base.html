@@ -1,0 +1,200 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'deps/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/f139337a84.js" crossorigin="anonymous"></script>
+    <!-- Стиль footer-a для главной страницы -->
+    {% block css %}
+
+    {% endblock %}
+    <!-- Favicons for different platforms -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'deps/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'deps/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'deps/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'deps/favicon/site.webmanifest' %}">
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="{% url 'main:index' %}"><i class="fa-solid fa-house-medical"></i></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-item nav-link"  href="#"  role="tab" aria-selected="true"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Информация
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item text-white" href="{% url 'main:home' %}">Cтатьи</a></li>
+                        {% if user.is_authenticated and not request.session.form_not_saved %}
+                        {% if user.cat2.slug %}
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' user.cat2.slug %}">{{user.cat2.name}}</a></li>
+                        {% endif %}
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'administraciya' %}">Локально-нормативные документы</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'obshie' %}">ФЗ и другие документы по охране труда</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'sout' %}">СОУТ</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'users:siz' %}">Калькулятор СИЗ</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+
+{% if user.is_authenticated and user.status%}
+    <li class="nav-item dropdown">
+        <a class="nav-item nav-link" href="#" role="tab" aria-selected="false" data-bs-toggle="dropdown" aria-expanded="false">
+            Обучение
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-white" href="{% url 'main:video_detail' 'nachalo' %}">Вводный инструктаж</a></li>
+            {% for sub_completion in subject_completions %}
+                <li><a class="dropdown-item text-white" href="{% url 'main:subject_detail' sub_completion.subjects.slug %}">{{ sub_completion.subjects }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+         {% if user.status %}
+    <li class="nav-item dropdown">
+        <a class="nav-item nav-link" href="#" role="tab" aria-selected="false" data-bs-toggle="dropdown" aria-expanded="false">
+            Тестирование
+        </a>
+        <ul class="dropdown-menu">
+            {% for sub_completion in subject_completions %}
+                <li><a class="dropdown-item text-white" href="{% url 'main:test' sub_completion.subjects.slug %}">{{ sub_completion.subjects }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endif %}
+{% endif %}
+
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" href="{% url 'user:login' %}" role="tab" aria-selected="false">Войти</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" href="{% url 'users:register' %}" role="tab" aria-selected="false">Регистрация</a>
+                                </li>
+                        {% else %}
+                            <li class="nav-item dropdown ">
+                                <a class="nav-item nav-link" href="#" role="tab" aria-selected="false"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Мой профиль
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% if not request.user.status%}
+                                        <li><a class="dropdown-item text-white" href="{% url 'user:welcome_social' %}">Завершить регистрацию</a></li>
+                                    {% else %}
+                                    <li><a class="dropdown-item  text-white" href="{% url 'user:profile' %}">Личный кабинет</a></li>
+
+                                    {% if user.subject.all or user.is_admin or user.is_staff %}
+                                    <li><a class="dropdown-item text-white" href="{% url 'user:result' %}">Мои результаты</a></li>
+                                    {% endif %}
+                                    </li>
+                                    {% if user.status == 'leader' or user.is_admin or user.is_staff %}
+                                    <li><a class="dropdown-item text-white" href="{% url 'user:leader_results' %}">Моё подразделение</a></li>
+                                    {% endif %}
+                                    </li>
+                                    {% if user.is_admin or user.is_staff %}
+                                     <li><a class="dropdown-item  text-white" href="{% url 'main:add_file' %}">Добавить документ</a>
+                                    </li>
+                                        <li><a class="dropdown-item  text-white" href="{% url 'admin:index' %}">Админ панель</a></li>
+                                    {% endif %}
+                                        {% endif %}
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <form  method="post" action="{% url 'user:logout' %}">
+                                            {% csrf_token %}
+                                            <button class="dropdown-item  text-white ">Выйти</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if notifications or notice%}
+    <a href="{% url 'main:notification-list' %}" class="position-relative">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{notifications_count}}
+        </span>
+        <i class="bi bi-bell" style="font-size: 1.5rem; "></i>
+    </a>
+        {% endif %}
+    </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <form action="{% url 'main:post_search' %}" method="get" class="input-group">
+                            <input type="text" name="query" class="form-control me-2" placeholder="Введите название интересующего документа(статьи)"
+                                   required="" id="id_query">
+                            <button class="btn btn-outline-primary text-white" id="button-search" type="submit">Поиск</button>
+                        </form>
+                    </div>
+                </div>
+               </ul>
+        </div>
+            </div>
+        </nav>
+    </header>
+<section>
+        <!-- Контент -->
+        <div class="container">
+            <div class="row mt-1 justify-content-center">
+                <div class="col-lg-10">
+                    {% include "includes/messages.html" %}
+                    <!-- Контент на странице -->
+                    {% include "includes/notifications.html" %}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block navigation %}{% endblock %}
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>Контакты</h5>
+                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
+                <p>Email: info@example.com</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Поддержка</h5>
+                <p><a class="text-white me-2" href="{% url 'users:contact' %}">Контактная информация</a></p>
+                <p><a class="text-white me-2" href="{% url 'main:about' %}">Про нас</a></p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Следите за нами</h5>
+                <p>
+                    <a href="https://vk.com/ikb1dzm" class="text-white me-2"><i class="fa-brands fa-vk"></i>
+                    <a href="https://t.me/ikb1_dzm" class="text-white me-2"><i class="fa-brands fa-telegram"></i>
+                    <a href="https://ikb1.ru/" class="text-white me-2"><i class="fa-solid fa-house"></i></a>
+                </p>
+            </div>
+        </div>
+        <hr class="my-3">
+        <p>&copy; {% now 'Y' %} Все права защищены</p>
+    </div>
+</footer>
+
+
+    <script src="{% static 'deps/js/jquery/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'deps/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'deps/js/backend.js' %}"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {{ form.media }}
+{% block script %}{% endblock %}
+</body>
+
+</html>

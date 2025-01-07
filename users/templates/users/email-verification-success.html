@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+        body{
+        background-color:grey;}
+    </style>
+    <body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <div class="text-center">
+        <i class="fa fa-check fa-3x text-success" aria-hidden="true"></i>
+        <br>
+        <h5><strong>Your account is now active</strong></h5>
+        <hr>
+    <p >Вы успешно прошли верификацию. <a href="{% url 'users:login' %}">Войти в профиль.</a></p>
+
+    <p>Вы будете перенаправлены на страницу аутентификации через <span id="countdown">10</span> секунд.</p>
+
+
+            </div>
+    </div>
+    </body>
+
+<script>
+let countdownElement = document.getElementById('countdown');
+let countdown = 10;
+
+let countdownInterval = setInterval(function() {
+  countdown--;
+  countdownElement.textContent = countdown;
+
+  if (countdown <= 0) {
+    clearInterval(countdownInterval);
+    window.location.href = "{% url 'users:login' %}";
+  }
+}, 1000);
+</script>
+{% endblock %}

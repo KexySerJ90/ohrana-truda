@@ -1,0 +1,370 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta><!--[if gte mso 9]>
+					<xml>
+						<w:WordDocument>
+							<w:View>Print</w:View>
+							<w:Zoom>90</w:Zoom>
+							<w:DoNotOptimizeForBrowser/>
+						</w:WordDocument>
+					</xml>
+				<![endif]--><style xmlns="" type="text/css" media="all">
+                body {
+                    font-size: 100%;
+                }
+                h1.normal {
+                    color: #000 !important;
+                    width: 75%;
+                }
+                .content_block {
+                    margin-right: 3%;
+                    width: 74%;
+                }
+                div#documentBody {
+                    margin-top: 31px;
+                    padding-bottom: 30px;
+                }
+                div.docChainList {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 7px 0 0;
+                    padding: 10px;
+                }
+                table.author-tbl {
+                    width: 40%;
+                }
+                div.page-box {
+                    width: 100%;
+                }
+                div.page-wrapper .doc-page .content {
+                    font-size: 14px;
+                }
+                pre {
+                    font-family: sans-serif;
+                    word-wrap: break-word;
+                }
+                .references {
+                    display: none;
+                }
+                span.doc__references {
+                    display: none;
+                }
+                .footer {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 50px 0 0;
+                }
+
+            </style></head><body><style xmlns="" type="text/css" media="all">
+            .doc-part_type_title {
+                margin-bottom: 0.8125em;
+                padding-bottom: 2.375em;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .doc__props {
+                font: normal 13px / 1.23076923 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__props.doc-add {
+                margin: 6.15384615em 0 2.15384615em;
+                padding-top: 1em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__props.doc-start {
+                margin-bottom: 2.15384615em;
+            }
+            .doc__type {
+                margin: 0.4em 0 0.5em;
+                font: normal 10px / 1.6 Helvetica, Arial, sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .doc__type + .main__title {
+                margin-top: 0;
+            }
+            .doc-start {
+                margin-top: 0 !important;
+                border-top: none !important;
+            }
+            .doc__part {
+                margin: 5.11538462em 0 4.15384615em;
+                font: normal 26px / 1.30769231 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                position: relative;
+            }
+            .doc__part[data-level="1"] {
+                padding-top: 0.57692308em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__part.doc-start {
+                padding-top: 0.07692308em;
+            }
+            .doc__section {
+                position: relative;
+                margin: 4.75em 0 3.32142857em;
+                font: normal 28px / 1.21428571 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc__section[data-level="1"] {
+                padding-top: 0.5em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__section[data-level="2"] {
+            margin-top: 3.85714286em;
+            }
+            .doc__section.doc-start {
+                padding-top: 0;
+            }
+            .doc__section-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc__subsection {
+                position: relative;
+                margin: 4.45833333em 0 1.75em;
+                font: bold 24px / 1.16666667 Helvetica, Arial, sans-serif;
+                letter-spacing: -1px;
+            }
+            .doc-add + .doc__subsection {
+                margin-top: 2.08333333em;
+            }
+            .doc__chapter {
+                position: relative;
+                margin: 1.82608696em 0 0.91304348em;
+                font: normal 23px / 1.2173913 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc-part .doc__chapter:first-child,
+                p + .doc__chapter,
+                ul + .doc__chapter,
+                ol + .doc__chapter {
+                    margin-top: 3.26086957em;
+                }
+            .doc__article {
+                position: relative;
+                margin: 1.25em 0 0.125em;
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__article + p,
+            .doc__article + ul,
+            .doc__article + ol {
+                margin-top: 0 !important;
+            }
+            .doc-part .doc__article:first-child,
+            p + .doc__article,
+            ul + .doc__article,
+            ol + .doc__article {
+                margin-top: 1.75em;
+            }
+            .doc-header__sticky-clone .doc__article {
+                margin-top: 0.5em;
+            }
+            .doc__paragraph {
+                margin: 1em 0 0.17391304em;
+                font: normal 23px / 1.13043478 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                position: relative;
+            }
+            .doc__paragraph-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc-part .doc__paragraph:first-child,
+            p + .doc__paragraph,
+            ul + .doc__paragraph,
+            ol + .doc__paragraph {
+                margin-top: 2.26086957em;
+            }
+            .doc__subparagraph {
+                font: normal 19px / 1.21052632 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.42105263em 0 0.31578947em;
+                position: relative;
+            }
+            .doc-part .doc__subparagraph:first-child,
+            p + .doc__subparagraph,
+            ul + .doc__subparagraph,
+            ol + .doc__subparagraph {
+                margin-top: 2.21052632em;
+            }
+            .doc__untyped {
+                font: normal 18px / 1.27777778 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.33333333em 0 1em;
+                position: relative;
+            }
+            .doc__note {
+                font: normal 11px / 1.45454545 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: -0.18181818em 0 2.54545455em 3.63636364em;
+                position: relative;
+            }
+            .doc__note + .doc__note {
+                margin-top: -1.63636364em;
+            }
+            .doc-notes {
+                display: none;
+            }
+            .doc__signature {
+                margin: 0.92857143em 0;
+            }
+            .doc__signature p {
+                text-align: left !important;
+            }
+            .doc__question {
+                background: #fbf9ef;
+                margin: -0.0625em 0 2.5em 0;
+                padding: 1em 64px 1em 1.5em;
+            }
+            .doc__question-title {
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin-bottom: 0.125em;
+            }
+            .doc__question-title + p {
+                margin-top: 0 !important;
+            }
+            .doc__expired {
+                color: #cccccc !important;
+            }
+            ul,
+            ol {
+                margin-left: 1.28571429em;
+            }
+            p {
+                margin: 0 0 0.92857143em;
+            }
+            p + ul,
+            p + ol {
+                margin-top: -0.92857143em;
+            }
+            ul li,
+            ol li {
+                margin: 0 0 0.42857143em;
+            }
+            dl dd {
+                margin: 0 0 0.42857143em;
+            }
+            ul,
+            ol,
+            dl {
+                margin: 0 0 0.92857143em 2.85714286em;
+            }
+            .list__item:before,
+            .order__item:before {
+                display: -moz-inline-stack;
+                display: inline-block;
+                vertical-align: baseline;
+                font: normal 11px / 1.18181818 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                min-width: 1.63636364em;
+                margin-left: -1.63636364em;
+                position: relative;
+                top: -1px;
+            }
+            .order__item:before {
+                content: attr(data-counter) "\a0";
+            }
+            .content_block {
+                font: normal 16px / 1.25 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            p {
+                text-align: justify;
+            }
+            p.align-center {
+                text-align: center;
+            }
+            p.align-right {
+                text-align: right;
+            }
+            p.align-left {
+                text-align: left;
+            }
+
+            table, td, th {
+                padding: 5px 10px;
+                vertical-align: middle;
+                border-collapse: collapse;
+            }
+            table.bdAll, td.bdAll, th.bdAll, table.bdAll td, table.bdAll th, table td.bdAl, table th.bdAll {
+                border: 1px solid #000;
+            }
+            table.bdTop, td.bdTop, th.bdTop {
+                border-top: 1px solid #000;
+                padding: 6px;
+            }
+            table.bdBottom, td.bdBottom, th.bdBottom {
+                border-bottom: 1px solid #000;
+            }
+
+            td.bdRight,
+            th.bdRight {
+                border-right: 1px solid #000;
+            }
+            td.bdLeft,
+            th.bdLeft {
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdBottom,
+            th.bdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdRightbdTopbdBottom,
+            th.bdRightbdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdBottombdLeftbdRight,
+            th.bdBottombdLeftbdRight {
+                border-left: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeft,
+            th.bdTopbdLeft {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdRight,
+            th.bdTopbdRight {
+                border-top: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdBottom,
+            th.bdLeftbdBottom {
+                border-bottom: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdRightbdBottom,
+            th.bdRightbdBottom {
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRight,
+            th.bdLeftbdRight {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeftbdRight,
+            th.bdTopbdLeftbdRight {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRightbdBottom,
+            th.bdLeftbdRightbdBottom {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdAll,
+            th.bdAll {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+        </style><div xmlns="" class="content_block"><p class="print_redaction-line for-print">Редакция от&#32;1 мар 2022</p><div class="above-header">Приказ Минтруда России от 22.09.2021 № 650н</div><h2 class="auth__title">Об утверждении примерного положения о комитете (комиссии) по охране труда</h2><div id="documentBody" class="content-common"><ct_versions type="DecorateManager" version="1.2.1.0" date="02.02.2023 14:54:54"></ct_versions><ct_versions type="BeautyNPDManager" version="2.2.1.0" date="02.02.2023 14:54:54"></ct_versions><p class="" data-id="7"><span data-role="phrase" data-phrase-id="6"><a data-anchor="/document/99/726730633/bssPhr6/" data-role="phrase-anchor" data-phrase-id="6" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr6"></a><a data-anchor="/document/99/726730633/ZAP2OHS3MQ/"></a><a data-anchor="/document/99/726730633/ZAP2J3A3L9/"></a>В соответствии со <a data-anchor="/document/99/726730633/backlinkanchor1/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00M9K2NH/">статьей 224 Трудового кодекса Российской Федерации</a> (Собрание законодательства Российской Федерации, 2002, № 1, ст.3; 2021, № 27, ст.5139) и <a data-anchor="/document/99/726730633/backlinkanchor2/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/902353905/XA00LVS2MC/">пунктом 1 Положения о Министерстве труда и социальной защиты Российской Федерации</a>, утвержденного <a data-anchor="/document/99/726730633/backlinkanchor3/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/902353905/XA00M1S2LR/">постановлением Правительства Российской Федерации от 19 июня 2012 г. № 610</a> (Собрание законодательства Российской Федерации, 2012, № 26, ст.3528; 2017, № 7, ст.1093),</span></p><p class="" data-id="8"><span data-role="phrase" data-phrase-id="7"><a data-anchor="/document/99/726730633/bssPhr7/" data-role="phrase-anchor" data-phrase-id="7" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr7"></a><a data-anchor="/document/99/726730633/ZAP24OO3CB/"></a><a data-anchor="/document/99/726730633/ZAP1VA63AQ/"></a>приказываю:</span></p><p class="" data-id="9"><span data-role="phrase" data-phrase-id="8"><a data-anchor="/document/99/726730633/bssPhr8/" data-role="phrase-anchor" data-phrase-id="8" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr8"></a><a data-anchor="/document/99/726730633/ZAP203M39B/"></a><a data-anchor="/document/99/726730633/XA00LTK2M0/"></a><a data-anchor="/document/99/726730633/ZAP1QL437Q/"></a>1. Утвердить примерное <a href="https://ot.action360.ru/#/document/99/726730633/XA00M3C2MF/" class="anc npd" target="_self">положение о комитете (комиссии) по охране труда</a>.</span></p><p class="" data-id="10"><span data-role="phrase" data-phrase-id="9"><a data-anchor="/document/99/726730633/bssPhr9/" data-role="phrase-anchor" data-phrase-id="9" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr9"></a><a data-anchor="/document/99/726730633/ZAP25Q83DC/"></a><a data-anchor="/document/99/726730633/XA00LU62M3/"></a><a data-anchor="/document/99/726730633/ZAP20BM3BR/"></a>2. Признать утратившим силу <a data-anchor="/document/99/726730633/backlinkanchor4/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/420205038/XA00M6G2N3/">приказ Министерства труда и социальной защиты Российской Федерации от 24 июня 2014 г. № 412н "Об утверждении Типового положения о комитете (комиссии) по охране труда"</a> (зарегистрирован Министерством юстиции Российской Федерации 28 июля 2014 г., регистрационный № 33294).</span></p><p class="" data-id="11"><span data-role="phrase" data-phrase-id="10"><a data-anchor="/document/99/726730633/bssPhr10/" data-role="phrase-anchor" data-phrase-id="10" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr10"></a><a data-anchor="/document/99/726730633/ZAP29KI3KH/"></a><a data-anchor="/document/99/726730633/XA00LUO2M6/"></a><a data-anchor="/document/99/726730633/ZAP24603J0/"></a>3. Установить, что настоящий приказ вступает в силу с 1 марта 2022 года.</span></p><div class="doc__signature"><p class="align-right" data-id="12"><span data-role="phrase" data-phrase-id="11"><a data-anchor="/document/99/726730633/bssPhr11/" data-role="phrase-anchor" data-phrase-id="11" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr11"></a><a data-anchor="/document/99/726730633/ZAP34R63UE/"></a><a data-anchor="/document/99/726730633/ZAP34NK3UD/"></a><a data-anchor="/document/99/726730633/ZAP2V923SS/"></a>Министр<br><a data-anchor="/document/99/726730633/ZAP35A43TU/"></a>А.О.Котяков </span></p></div><div class="doc__props"><p class="" data-id="14"><span data-role="phrase" data-phrase-id="12"><a data-anchor="/document/99/726730633/bssPhr12/" data-role="phrase-anchor" data-phrase-id="12" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr12"></a><a data-anchor="/document/99/726730633/ZAP2SBU3NP/"></a><a data-anchor="/document/99/726730633/ZAP2S8C3NO/"></a><a data-anchor="/document/99/726730633/ZAP2MPQ3M7/"></a>Зарегистрировано<br><a data-anchor="/document/99/726730633/ZAP2O7K3LP/"></a>в Министерстве юстиции<br><a data-anchor="/document/99/726730633/ZAP28A63E7/"></a>Российской Федерации<br><a data-anchor="/document/99/726730633/ZAP210E3C2/"></a>30 ноября 2021 года,<br><a data-anchor="/document/99/726730633/ZAP1U5C39K/"></a>регистрационный № 66145</span></p></div><div class="doc__props doc-add"><p class="align-right" data-id="15"><span data-role="phrase" data-phrase-id="13"><a data-anchor="/document/99/726730633/bssPhr13/" data-role="phrase-anchor" data-phrase-id="13" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr13"></a><a data-anchor="/document/99/726730633/ZAP26FU3HD/"></a><a data-anchor="/document/99/726730633/XA00M3C2MF/"></a><a data-role="toc" data-anchor="/document/99/726730633/ZA00MAC2N2/"></a><a data-anchor="/document/99/726730633/ZAP26CC3HC/"></a><a data-anchor="/document/99/726730633/ZAP20TQ3FR/"></a>УТВЕРЖДЕНО<br><a data-anchor="/document/99/726730633/ZAP25K03HI/"></a>приказом Министерства труда<br><a data-anchor="/document/99/726730633/ZAP235A3ET/"></a>и социальной защиты<br><a data-anchor="/document/99/726730633/ZAP23JU3C7/"></a>Российской Федерации<br><a data-anchor="/document/99/726730633/ZAP1RGA3C5/"></a>от 22 сентября 2021 года № 650н </span></p></div><div data-structid="2" data-level="1" data-type="untyped" data-id="63" class="doc__untyped doc-start"><span data-role="phrase" data-phrase-id="14"><a data-anchor="/document/99/726730633/bssPhr14/" data-role="phrase-anchor" data-phrase-id="14" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr14"></a><a data-anchor="/document/99/726730633/ZAP1TH039E/"></a><a data-anchor="/document/99/726730633/XA00LVA2M9/"></a><a data-anchor="/document/99/726730633/ZAP1TDE39D/"></a><a data-anchor="/document/99/726730633/ZAP1NUS37S/"></a><span class="doc__untyped-name">Примерное положение о комитете (комиссии) по охране труда</span></span></div><p class="" data-id="19"><span data-role="phrase" data-phrase-id="15"><a data-anchor="/document/99/726730633/bssPhr15/" data-role="phrase-anchor" data-phrase-id="15" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr15"></a><a data-anchor="/document/99/726730633/ZAP1NJ637G/"></a><a data-anchor="/document/99/726730633/XA00LVS2MC/"></a><a data-anchor="/document/99/726730633/ZAP1I4K35V/"></a>1. Примерное положение о комитете (комиссии) по охране труда (далее - Положение) разработано с целью организации совместных действий работодателя, работников, выборного органа первичной профсоюзной организации или иного уполномоченного работниками представительного органа по обеспечению требований охраны труда, предупреждению производственного травматизма и профессиональных заболеваний, сохранению здоровья работников.</span></p><p class="" data-id="20"><span data-role="phrase" data-phrase-id="16"><a data-anchor="/document/99/726730633/bssPhr16/" data-role="phrase-anchor" data-phrase-id="16" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr16"></a><a data-anchor="/document/99/726730633/ZAP2B9K3EB/"></a><a data-anchor="/document/99/726730633/XA00M262MM/"></a><a data-anchor="/document/99/726730633/ZAP25R23CQ/"></a>2. На основе Положения приказом (распоряжением) работодателя с учетом мнения выборного органа первичной профсоюзной организации или иного уполномоченного работниками представительного органа утверждается положение о комитете (комиссии) по охране труда (далее - Комитет) с учетом специфики деятельности работодателя.</span></p><p class="" data-id="21"><span data-role="phrase" data-phrase-id="17"><a data-anchor="/document/99/726730633/bssPhr17/" data-role="phrase-anchor" data-phrase-id="17" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr17"></a><a data-anchor="/document/99/726730633/ZAP27LS3EV/"></a><a data-anchor="/document/99/726730633/XA00M2O2MP/"></a><a data-anchor="/document/99/726730633/ZAP227A3DE/"></a>3. Положение предусматривает основные задачи, функции и права Комитета.</span></p><p class="" data-id="22"><span data-role="phrase" data-phrase-id="18"><a data-anchor="/document/99/726730633/bssPhr18/" data-role="phrase-anchor" data-phrase-id="18" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr18"></a><a data-anchor="/document/99/726730633/ZAP21SG3GP/"></a><a data-anchor="/document/99/726730633/XA00M3A2MS/"></a><a data-anchor="/document/99/726730633/ZAP1SDU3F8/"></a>4. Комитет является составной частью системы управления охраной труда у работодателя, а также одной из форм участия работников в управлении охраной труда. Работа Комитета строится на принципах социального партнерства.</span></p><p class="" data-id="23"><span data-role="phrase" data-phrase-id="19"><a data-anchor="/document/99/726730633/bssPhr19/" data-role="phrase-anchor" data-phrase-id="19" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr19"></a><a data-anchor="/document/99/726730633/ZAP201O3GE/"></a><a data-anchor="/document/99/726730633/XA00M2U2M0/"></a><a data-anchor="/document/99/726730633/ZAP1QJ63ET/"></a>5. Комитет взаимодействует с органом исполнительной власти субъекта Российской Федерации в области охраны труда, на территории которого осуществляет деятельность работодатель, органами государственного надзора (контроля) за соблюдением трудового законодательства указанного субъекта Российской Федерации, другими органами государственного надзора (контроля), а также с технической инспекцией труда профсоюзов.</span></p><p class="" data-id="24"><span data-role="phrase" data-phrase-id="20"><a data-anchor="/document/99/726730633/bssPhr20/" data-role="phrase-anchor" data-phrase-id="20" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr20"></a><a data-anchor="/document/99/726730633/ZAP27LC3EP/"></a><a data-anchor="/document/99/726730633/XA00M3G2M3/"></a><a data-anchor="/document/99/726730633/ZAP226Q3D8/"></a>6. Комитет в своей деятельности руководствуется законами и иными нормативными правовыми актами Российской Федерации, законами и иными нормативными правовыми актами субъектов Российской Федерации об охране труда, генеральным, региональным, отраслевым (межотраслевым), территориальным соглашениями, действующими в отношении работодателя, коллективным договором (соглашением по охране труда), локальными нормативными актами работодателя.</span></p><p class="" data-id="25"><span data-role="phrase" data-phrase-id="21"><a data-anchor="/document/99/726730633/bssPhr21/" data-role="phrase-anchor" data-phrase-id="21" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr21"></a><a data-anchor="/document/99/726730633/ZAP2F8A3J5/"></a><a data-anchor="/document/99/726730633/XA00M5Q2MD/"></a><a data-anchor="/document/99/726730633/ZAP29PO3HK/"></a>7. Задачами Комитета являются:</span></p><p class="" data-id="26"><span data-role="phrase" data-phrase-id="22"><a data-anchor="/document/99/726730633/bssPhr22/" data-role="phrase-anchor" data-phrase-id="22" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr22"></a><a data-anchor="/document/99/726730633/ZAP2IEA3G4/"></a><a data-anchor="/document/99/726730633/XA00M6C2MG/"></a><a data-anchor="/document/99/726730633/ZAP2CVO3EJ/"></a>а) разработка и дальнейшее совершенствование программы совместных действий работодателя, работников, профессиональных союзов и (или) иных уполномоченных представительных органов работников (при наличии таких представительных органов) по обеспечению безопасных условий труда и соблюдению требований охраны труда;</span></p><p class="" data-id="27"><span data-role="phrase" data-phrase-id="23"><a data-anchor="/document/99/726730633/bssPhr23/" data-role="phrase-anchor" data-phrase-id="23" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr23"></a><a data-anchor="/document/99/726730633/ZAP2RIK3JR/"></a><a data-anchor="/document/99/726730633/XA00M6U2MJ/"></a><a data-anchor="/document/99/726730633/ZAP2M423IA/"></a>б) рассмотрение проектов локальных нормативных актов работодателя по охране труда и формирование предложений по их корректировке в целях недопущения противоречий с требованиями действующего законодательства или ущемления прав работников;</span></p><p class="" data-id="28"><span data-role="phrase" data-phrase-id="24"><a data-anchor="/document/99/726730633/bssPhr24/" data-role="phrase-anchor" data-phrase-id="24" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr24"></a><a data-anchor="/document/99/726730633/ZAP2UVG3MV/"></a><a data-anchor="/document/99/726730633/XA00M7G2MM/"></a><a data-anchor="/document/99/726730633/ZAP2PGU3LE/"></a>в) участие в организации и проведении контроля за состоянием условий труда на рабочих местах, выполнением требований охраны труда, а также за правильностью обеспечения и применения работниками средств индивидуальной и коллективной защиты;</span></p><p class="" data-id="29"><span data-role="phrase" data-phrase-id="25"><a data-anchor="/document/99/726730633/bssPhr25/" data-role="phrase-anchor" data-phrase-id="25" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr25"></a><a data-anchor="/document/99/726730633/ZAP2AR23E6/"></a><a data-anchor="/document/99/726730633/XA00M8G2N0/"></a><a data-anchor="/document/99/726730633/ZAP25CG3CL/"></a>г) подготовка и представление работодателю предложений по улучшению условий и охраны труда по результатам проведения проверок, а также на основе анализа причин производственного травматизма и профессиональной заболеваемости;</span></p><p class="" data-id="30"><span data-role="phrase" data-phrase-id="26"><a data-anchor="/document/99/726730633/bssPhr26/" data-role="phrase-anchor" data-phrase-id="26" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr26"></a><a data-anchor="/document/99/726730633/ZAP2AJE3IC/"></a><a data-anchor="/document/99/726730633/XA00M922N3/"></a><a data-anchor="/document/99/726730633/ZAP254S3GR/"></a>д) рассматривать результаты проведения специальной оценки условий труда и оценки профессиональных рисков, поступившие особые мнения, а также замечания и предложения первичной профсоюзной организации и (или) иных уполномоченных представительных органов работников (при наличии таких представительных органов);</span></p><p class="" data-id="31"><span data-role="phrase" data-phrase-id="27"><a data-anchor="/document/99/726730633/bssPhr27/" data-role="phrase-anchor" data-phrase-id="27" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr27"></a><a data-anchor="/document/99/726730633/ZAP25GE3EL/"></a><a data-anchor="/document/99/726730633/XA00M9K2N6/"></a><a data-anchor="/document/99/726730633/ZAP201S3D4/"></a>е) содействие работодателю в информировании работников о состоянии условий и охраны труда на рабочих местах, существующем риске повреждения здоровья и о полагающихся работникам компенсациях за работу во вредных и (или) опасных условиях труда, средствах индивидуальной защиты.</span></p><p class="" data-id="32"><span data-role="phrase" data-phrase-id="28"><a data-anchor="/document/99/726730633/bssPhr28/" data-role="phrase-anchor" data-phrase-id="28" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr28"></a><a data-anchor="/document/99/726730633/ZAP2D543L9/"></a><a data-anchor="/document/99/726730633/XA00MA62N9/"></a><a data-anchor="/document/99/726730633/ZAP27MI3JO/"></a>8. Функциями Комитета являются:</span></p><p class="" data-id="33"><span data-role="phrase" data-phrase-id="29"><a data-anchor="/document/99/726730633/bssPhr29/" data-role="phrase-anchor" data-phrase-id="29" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr29"></a><a data-anchor="/document/99/726730633/ZAP2UU43NF/"></a><a data-anchor="/document/99/726730633/XA00M5O2MC/"></a><a data-anchor="/document/99/726730633/ZAP2PFI3LU/"></a>а) рассмотрение предложений работодателя, работников, выборного органа первичной профсоюзной организации или иного уполномоченного работниками представительного органа с целью выработки рекомендаций по улучшению условий и охраны труда;</span></p><p class="" data-id="34"><span data-role="phrase" data-phrase-id="30"><a data-anchor="/document/99/726730633/bssPhr30/" data-role="phrase-anchor" data-phrase-id="30" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr30"></a><a data-anchor="/document/99/726730633/ZAP2TLI3MM/"></a><a data-anchor="/document/99/726730633/XA00M6A2MF/"></a><a data-anchor="/document/99/726730633/ZAP2O703L5/"></a>б) содействие работодателю в организации обучения по охране труда, безопасным методам и приемам выполнения работ, а также в организации проверки знаний требований охраны труда и проведения инструктажей по охране труда;</span></p><p class="" data-id="35"><span data-role="phrase" data-phrase-id="31"><a data-anchor="/document/99/726730633/bssPhr31/" data-role="phrase-anchor" data-phrase-id="31" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr31"></a><a data-anchor="/document/99/726730633/ZAP340O3OJ/"></a><a data-anchor="/document/99/726730633/XA00M6S2MI/"></a><a data-anchor="/document/99/726730633/ZAP2UI63N2/"></a>в) участие в проведении проверок состояния условий и охраны труда на рабочих местах, рассмотрении их результатов, выработка предложений работодателю по приведению условий и охраны труда в соответствие с обязательными требованиями охраны труда;</span></p><p class="" data-id="36"><span data-role="phrase" data-phrase-id="32"><a data-anchor="/document/99/726730633/bssPhr32/" data-role="phrase-anchor" data-phrase-id="32" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr32"></a><a data-anchor="/document/99/726730633/ZAP2G8C3G1/"></a><a data-anchor="/document/99/726730633/XA00M7E2ML/"></a><a data-anchor="/document/99/726730633/ZAP2APQ3EG/"></a>г) информирование работников о проводимых мероприятиях по улучшению условий и охраны труда, профилактике производственного травматизма, профессиональных заболеваний;</span></p><p class="" data-id="37"><span data-role="phrase" data-phrase-id="33"><a data-anchor="/document/99/726730633/bssPhr33/" data-role="phrase-anchor" data-phrase-id="33" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr33"></a><a data-anchor="/document/99/726730633/ZAP23PI3FS/"></a><a data-anchor="/document/99/726730633/XA00M802MO/"></a><a data-anchor="/document/99/726730633/ZAP1UB03EB/"></a>д) информирование работников о результатах специальной оценки условий труда на их рабочих местах, в том числе о декларировании соответствия условий труда на рабочих местах государственным нормативным требованиям охраны труда;</span></p><p class="" data-id="38"><span data-role="phrase" data-phrase-id="34"><a data-anchor="/document/99/726730633/bssPhr34/" data-role="phrase-anchor" data-phrase-id="34" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr34"></a><a data-anchor="/document/99/726730633/ZAP1RPU3C4/"></a><a data-anchor="/document/99/726730633/XA00M902N2/"></a><a data-anchor="/document/99/726730633/ZAP1MBC3AJ/"></a>е) информирование работников о действующих нормативах по обеспечению смывающими и обезвреживающими средствами, прошедшей обязательную сертификацию или декларирование соответствия специальной одеждой, специальной обувью и другими средствами индивидуальной защиты, содействие осуществляемому у работодателя контролю за обеспечением ими работников, правильностью их применения, организацией их хранения, стирки, чистки, ремонта, дезинфекции и обеззараживания;</span></p><p class="" data-id="39"><span data-role="phrase" data-phrase-id="35"><a data-anchor="/document/99/726730633/bssPhr35/" data-role="phrase-anchor" data-phrase-id="35" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr35"></a><a data-anchor="/document/99/726730633/ZAP26EU3HJ/"></a><a data-anchor="/document/99/726730633/XA00M9I2N5/"></a><a data-anchor="/document/99/726730633/ZAP210C3G2/"></a>ж) содействие работодателю в мероприятиях по организации проведения предварительных при поступлении на работу и периодических медицинских осмотров и учету результатов медицинских осмотров при трудоустройстве;</span></p><p class="" data-id="40"><span data-role="phrase" data-phrase-id="36"><a data-anchor="/document/99/726730633/bssPhr36/" data-role="phrase-anchor" data-phrase-id="36" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr36"></a><a data-anchor="/document/99/726730633/ZAP1S2K3B1/"></a><a data-anchor="/document/99/726730633/XA00MA42N8/"></a><a data-anchor="/document/99/726730633/ZAP1MK239G/"></a>з) содействие своевременной бесплатной выдаче работникам, занятым на работах с вредными (опасными) условиями труда, молока и других равноценных пищевых продуктов, лечебно-профилактического питания;</span></p><p class="" data-id="41"><span data-role="phrase" data-phrase-id="37"><a data-anchor="/document/99/726730633/bssPhr37/" data-role="phrase-anchor" data-phrase-id="37" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr37"></a><a data-anchor="/document/99/726730633/ZAP27OQ3GS/"></a><a data-anchor="/document/99/726730633/XA00MAM2NB/"></a><a data-anchor="/document/99/726730633/ZAP22A83FB/"></a>и) содействие работодателю в рассмотрении вопросов финансирования мероприятий по охране труда, обязательного социального страхования от несчастных случаев на производстве и профессиональных заболеваний, а также осуществлении контроля за расходованием средств, направляемых на предупредительные меры по сокращению производственного травматизма и профессиональной заболеваемости;</span></p><p class="" data-id="42"><span data-role="phrase" data-phrase-id="38"><a data-anchor="/document/99/726730633/bssPhr38/" data-role="phrase-anchor" data-phrase-id="38" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr38"></a><a data-anchor="/document/99/726730633/ZAP26SM3GO/"></a><a data-anchor="/document/99/726730633/XA00MB82NE/"></a><a data-anchor="/document/99/726730633/ZAP21E43F7/"></a>к) содействие работодателю во внедрении более совершенных технологий производства, нового оборудования, средств автоматизации и механизации производственных процессов с целью создания безопасных условий труда, ликвидации (сокращении числа) рабочих мест с вредными (опасными) условиями труда;</span></p><p class="" data-id="43"><span data-role="phrase" data-phrase-id="39"><a data-anchor="/document/99/726730633/bssPhr39/" data-role="phrase-anchor" data-phrase-id="39" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr39"></a><a data-anchor="/document/99/726730633/ZAP1JOK365/"></a><a data-anchor="/document/99/726730633/XA00M6Q2MH/"></a><a data-anchor="/document/99/726730633/ZAP1EA234K/"></a>л) подготовка и представление работодателю предложений по совершенствованию организации работ с целью обеспечения охраны труда и сохранения здоровья работников, созданию системы поощрения работников, соблюдающих требования охраны труда;</span></p><p class="" data-id="44"><span data-role="phrase" data-phrase-id="40"><a data-anchor="/document/99/726730633/bssPhr40/" data-role="phrase-anchor" data-phrase-id="40" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr40"></a><a data-anchor="/document/99/726730633/ZAP1LOO38G/"></a><a data-anchor="/document/99/726730633/XA00M7C2MK/"></a><a data-anchor="/document/99/726730633/ZAP1GA636V/"></a>м) подготовка и представление работодателю, выборному органу первичной профсоюзной организации или иному уполномоченному работниками представительному органу предложений по разработке проектов локальных нормативных актов по охране труда, участие в разработке и рассмотрении указанных проектов;</span></p><p class="" data-id="45"><span data-role="phrase" data-phrase-id="41"><a data-anchor="/document/99/726730633/bssPhr41/" data-role="phrase-anchor" data-phrase-id="41" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr41"></a><a data-anchor="/document/99/726730633/ZAP2B683JT/"></a><a data-anchor="/document/99/726730633/XA00M7U2MN/"></a><a data-anchor="/document/99/726730633/ZAP25NM3IC/"></a>н) содействовать работодателю в рассмотрении обстоятельств, выявление причин, приводящих к микроповреждениям (микротравмам).</span></p><p class="" data-id="46"><span data-role="phrase" data-phrase-id="42"><a data-anchor="/document/99/726730633/bssPhr42/" data-role="phrase-anchor" data-phrase-id="42" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr42"></a><a data-anchor="/document/99/726730633/ZAP27VM3IN/"></a><a data-anchor="/document/99/726730633/XA00M8G2MQ/"></a><a data-anchor="/document/99/726730633/ZAP22H43H6/"></a>9. Для осуществления возложенных функций Комитет вправе:</span></p><p class="" data-id="47"><span data-role="phrase" data-phrase-id="43"><a data-anchor="/document/99/726730633/bssPhr43/" data-role="phrase-anchor" data-phrase-id="43" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr43"></a><a data-anchor="/document/99/726730633/ZAP2AME3F9/"></a><a data-anchor="/document/99/726730633/XA00M9G2N4/"></a><a data-anchor="/document/99/726730633/ZAP257S3DO/"></a>а) запрашивать от работодателя информацию о состоянии условий труда на рабочих местах, производственного травматизма и профессиональной заболеваемости, наличии опасных и вредных производственных факторов и принятых мерах по защите от их воздействия, о существующем риске повреждения здоровья;</span></p><p class="" data-id="48"><span data-role="phrase" data-phrase-id="44"><a data-anchor="/document/99/726730633/bssPhr44/" data-role="phrase-anchor" data-phrase-id="44" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr44"></a><a data-anchor="/document/99/726730633/ZAP2PQE3NA/"></a><a data-anchor="/document/99/726730633/XA00MA22N7/"></a><a data-anchor="/document/99/726730633/ZAP2KBS3LP/"></a>б) заслушивать на заседаниях Комитета сообщения работодателя (его представителей), руководителей структурных подразделений и других работников организации по вопросам об обеспечении безопасных условий и охраны труда на рабочих местах работников и соблюдении их гарантий и прав на охрану труда;</span></p><p class="" data-id="49"><span data-role="phrase" data-phrase-id="45"><a data-anchor="/document/99/726730633/bssPhr45/" data-role="phrase-anchor" data-phrase-id="45" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr45"></a><a data-anchor="/document/99/726730633/ZAP2P6E3O3/"></a><a data-anchor="/document/99/726730633/XA00MAK2NA/"></a><a data-anchor="/document/99/726730633/ZAP2JNS3MI/"></a>в) заслушивать на заседаниях Комитета руководителей структурных подразделений работодателя и иных должностных лиц, работников, допустивших нарушения требований охраны труда, повлекшие за собой тяжелые последствия, и вносить работодателю предложения о привлечении их к ответственности в соответствии с законодательством Российской Федерации;</span></p><p class="" data-id="50"><span data-role="phrase" data-phrase-id="46"><a data-anchor="/document/99/726730633/bssPhr46/" data-role="phrase-anchor" data-phrase-id="46" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr46"></a><a data-anchor="/document/99/726730633/ZAP2SMG3LL/"></a><a data-anchor="/document/99/726730633/XA00MB62ND/"></a><a data-anchor="/document/99/726730633/ZAP2N7U3K4/"></a>г) участвовать в подготовке предложений к разделу коллективного договора (соглашения) по охране труда по вопросам, находящимся в компетенции Комитета;</span></p><p class="" data-id="51"><span data-role="phrase" data-phrase-id="47"><a data-anchor="/document/99/726730633/bssPhr47/" data-role="phrase-anchor" data-phrase-id="47" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr47"></a><a data-anchor="/document/99/726730633/ZAP22HC3CC/"></a><a data-anchor="/document/99/726730633/XA00MBO2NG/"></a><a data-anchor="/document/99/726730633/ZAP1T2Q3AR/"></a>д) вносить работодателю предложения о стимулировании работников за активное участие в мероприятиях по улучшению условий и охраны труда;</span></p><p class="" data-id="52"><span data-role="phrase" data-phrase-id="48"><a data-anchor="/document/99/726730633/bssPhr48/" data-role="phrase-anchor" data-phrase-id="48" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr48"></a><a data-anchor="/document/99/726730633/ZAP215C3CN/"></a><a data-anchor="/document/99/726730633/XA00M2S2MD/"></a><a data-anchor="/document/99/726730633/ZAP1RMQ3B6/"></a>е) содействовать разрешению трудовых споров, связанных с применением законодательства об охране труда, изменением условий труда, предоставлением работникам, занятым во вредных и (или) опасных условиях труда, предусмотренных законодательством гарантий и компенсаций.</span></p><p class="" data-id="53"><span data-role="phrase" data-phrase-id="49"><a data-anchor="/document/99/726730633/bssPhr49/" data-role="phrase-anchor" data-phrase-id="49" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr49"></a><a data-anchor="/document/99/726730633/ZAP20CI38M/"></a><a data-anchor="/document/99/726730633/XA00M7S2MM/"></a><a data-anchor="/document/99/726730633/ZAP1QU0375/"></a>10. Комитет создается по инициативе работодателя и (или) по инициативе работников либо их представительного органа на паритетной основе (каждая сторона имеет один голос вне зависимости от общего числа представителей стороны) из представителей работодателя, профессионального союза или иного представительного органа работников.</span></p><p class="" data-id="54"><span data-role="phrase" data-phrase-id="50"><a data-anchor="/document/99/726730633/bssPhr50/" data-role="phrase-anchor" data-phrase-id="50" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr50"></a><a data-anchor="/document/99/726730633/ZAP2MCS3N6/"></a><a data-anchor="/document/99/726730633/XA00M8E2MP/"></a><a data-anchor="/document/99/726730633/ZAP2GUA3LL/"></a>11. Численность членов Комитета определяется в зависимости от численности работников, занятых у работодателя, организационной структуры, специфики производства и других особенностей по взаимной договоренности сторон, представляющих интересы работодателя и работников.</span></p><p class="" data-id="55"><span data-role="phrase" data-phrase-id="51"><a data-anchor="/document/99/726730633/bssPhr51/" data-role="phrase-anchor" data-phrase-id="51" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr51"></a><a data-anchor="/document/99/726730633/ZAP2CH63HH/"></a><a data-anchor="/document/99/726730633/XA00M902MS/"></a><a data-anchor="/document/99/726730633/ZAP272K3G0/"></a>12. Выдвижение в Комитет представителей работников может осуществляться на основании решения выборного органа первичной профсоюзной организации, если он объединяет более половины работающих, или на собрании (конференции) работников организации; представители работодателя выдвигаются работодателем. Состав Комитета утверждается приказом (распоряжением) работодателя.</span></p><p class="" data-id="56"><span data-role="phrase" data-phrase-id="52"><a data-anchor="/document/99/726730633/bssPhr52/" data-role="phrase-anchor" data-phrase-id="52" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr52"></a><a data-anchor="/document/99/726730633/ZAP1UIQ3AB/"></a><a data-anchor="/document/99/726730633/XA00MA02N6/"></a><a data-anchor="/document/99/726730633/ZAP1P4838Q/"></a>13. Комитет избирает из своего состава председателя, заместителей от каждой стороны социального партнерства и секретаря. Председателем Комитета, как правило, является непосредственно работодатель или его уполномоченный представитель, одним из заместителей является представитель выборного органа первичной профсоюзной организации или иного уполномоченного работниками представительного органа, секретарем - работник службы охраны труда работодателя.</span></p><p class="" data-id="57"><span data-role="phrase" data-phrase-id="53"><a data-anchor="/document/99/726730633/bssPhr53/" data-role="phrase-anchor" data-phrase-id="53" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr53"></a><a data-anchor="/document/99/726730633/ZAP29IO3HC/"></a><a data-anchor="/document/99/726730633/XA00MAI2N9/"></a><a data-anchor="/document/99/726730633/ZAP24463FR/"></a>14. Комитет осуществляет свою деятельность в соответствии с разрабатываемыми им регламентом и планом работы, которые утверждаются председателем Комитета.</span></p><p class="" data-id="58"><span data-role="phrase" data-phrase-id="54"><a data-anchor="/document/99/726730633/bssPhr54/" data-role="phrase-anchor" data-phrase-id="54" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr54"></a><a data-anchor="/document/99/726730633/ZAP2AUK3F7/"></a><a data-anchor="/document/99/726730633/XA00MB42NC/"></a><a data-anchor="/document/99/726730633/ZAP25G23DM/"></a>15. Члены Комитета проходят обучение по охране труда и проверку знания требований охраны труда в порядке, установленном Правительством Российской Федерации.</span></p><p class="" data-id="59"><span data-role="phrase" data-phrase-id="55"><a data-anchor="/document/99/726730633/bssPhr55/" data-role="phrase-anchor" data-phrase-id="55" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr55"></a><a data-anchor="/document/99/726730633/ZAP2IBQ3KH/"></a><a data-anchor="/document/99/726730633/XA00MBM2NF/"></a><a data-anchor="/document/99/726730633/ZAP2CT83J0/"></a>16. Члены Комитета, представляющие работников, отчитываются не реже одного раза в год перед выборным органом первичной профсоюзной организации или собранием (конференцией) работников о проделанной ими в Комитете работе. Выборный орган первичной профсоюзной организации или собрание (конференция) работников вправе отзывать из состава Комитета своих представителей и выдвигать в его состав новых представителей. Работодатель вправе своим распоряжением отзывать своих представителей из состава Комитета и назначать вместо них новых представителей.</span></p><p class="" data-id="60"><span data-role="phrase" data-phrase-id="56"><a data-anchor="/document/99/726730633/bssPhr56/" data-role="phrase-anchor" data-phrase-id="56" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr56"></a><a data-anchor="/document/99/726730633/ZAP2AI83I0/"></a><a data-anchor="/document/99/726730633/XA00M2Q2MC/"></a><a data-anchor="/document/99/726730633/ZAP253M3GF/"></a>17. Обеспечение деятельности Комитета, его членов (освобождение от основной работы на время исполнения обязанностей, прохождения обучения по охране труда) устанавливается коллективным договором, локальным нормативным актом работодателя.</span></p><p class="" data-id="61"><span data-role="phrase" data-phrase-id="57"></span><br><br><span data-role="phrase" data-phrase-id="58"><br data-action="delete"><br data-action="delete"><br data-action="delete"></span></p></div></div><div xmlns="" class="footer">© Материал из Справочной системы «Актион Охрана труда»<br />https://ot.action360.ru<br />Дата копирования: 15.08.2024</div></body></html>

@@ -1,0 +1,370 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta><!--[if gte mso 9]>
+					<xml>
+						<w:WordDocument>
+							<w:View>Print</w:View>
+							<w:Zoom>90</w:Zoom>
+							<w:DoNotOptimizeForBrowser/>
+						</w:WordDocument>
+					</xml>
+				<![endif]--><style xmlns="" type="text/css" media="all">
+                body {
+                    font-size: 100%;
+                }
+                h1.normal {
+                    color: #000 !important;
+                    width: 75%;
+                }
+                .content_block {
+                    margin-right: 3%;
+                    width: 74%;
+                }
+                div#documentBody {
+                    margin-top: 31px;
+                    padding-bottom: 30px;
+                }
+                div.docChainList {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 7px 0 0;
+                    padding: 10px;
+                }
+                table.author-tbl {
+                    width: 40%;
+                }
+                div.page-box {
+                    width: 100%;
+                }
+                div.page-wrapper .doc-page .content {
+                    font-size: 14px;
+                }
+                pre {
+                    font-family: sans-serif;
+                    word-wrap: break-word;
+                }
+                .references {
+                    display: none;
+                }
+                span.doc__references {
+                    display: none;
+                }
+                .footer {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 50px 0 0;
+                }
+
+            </style></head><body><style xmlns="" type="text/css" media="all">
+            .doc-part_type_title {
+                margin-bottom: 0.8125em;
+                padding-bottom: 2.375em;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .doc__props {
+                font: normal 13px / 1.23076923 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__props.doc-add {
+                margin: 6.15384615em 0 2.15384615em;
+                padding-top: 1em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__props.doc-start {
+                margin-bottom: 2.15384615em;
+            }
+            .doc__type {
+                margin: 0.4em 0 0.5em;
+                font: normal 10px / 1.6 Helvetica, Arial, sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .doc__type + .main__title {
+                margin-top: 0;
+            }
+            .doc-start {
+                margin-top: 0 !important;
+                border-top: none !important;
+            }
+            .doc__part {
+                margin: 5.11538462em 0 4.15384615em;
+                font: normal 26px / 1.30769231 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                position: relative;
+            }
+            .doc__part[data-level="1"] {
+                padding-top: 0.57692308em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__part.doc-start {
+                padding-top: 0.07692308em;
+            }
+            .doc__section {
+                position: relative;
+                margin: 4.75em 0 3.32142857em;
+                font: normal 28px / 1.21428571 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc__section[data-level="1"] {
+                padding-top: 0.5em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__section[data-level="2"] {
+            margin-top: 3.85714286em;
+            }
+            .doc__section.doc-start {
+                padding-top: 0;
+            }
+            .doc__section-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc__subsection {
+                position: relative;
+                margin: 4.45833333em 0 1.75em;
+                font: bold 24px / 1.16666667 Helvetica, Arial, sans-serif;
+                letter-spacing: -1px;
+            }
+            .doc-add + .doc__subsection {
+                margin-top: 2.08333333em;
+            }
+            .doc__chapter {
+                position: relative;
+                margin: 1.82608696em 0 0.91304348em;
+                font: normal 23px / 1.2173913 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc-part .doc__chapter:first-child,
+                p + .doc__chapter,
+                ul + .doc__chapter,
+                ol + .doc__chapter {
+                    margin-top: 3.26086957em;
+                }
+            .doc__article {
+                position: relative;
+                margin: 1.25em 0 0.125em;
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__article + p,
+            .doc__article + ul,
+            .doc__article + ol {
+                margin-top: 0 !important;
+            }
+            .doc-part .doc__article:first-child,
+            p + .doc__article,
+            ul + .doc__article,
+            ol + .doc__article {
+                margin-top: 1.75em;
+            }
+            .doc-header__sticky-clone .doc__article {
+                margin-top: 0.5em;
+            }
+            .doc__paragraph {
+                margin: 1em 0 0.17391304em;
+                font: normal 23px / 1.13043478 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                position: relative;
+            }
+            .doc__paragraph-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc-part .doc__paragraph:first-child,
+            p + .doc__paragraph,
+            ul + .doc__paragraph,
+            ol + .doc__paragraph {
+                margin-top: 2.26086957em;
+            }
+            .doc__subparagraph {
+                font: normal 19px / 1.21052632 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.42105263em 0 0.31578947em;
+                position: relative;
+            }
+            .doc-part .doc__subparagraph:first-child,
+            p + .doc__subparagraph,
+            ul + .doc__subparagraph,
+            ol + .doc__subparagraph {
+                margin-top: 2.21052632em;
+            }
+            .doc__untyped {
+                font: normal 18px / 1.27777778 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.33333333em 0 1em;
+                position: relative;
+            }
+            .doc__note {
+                font: normal 11px / 1.45454545 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: -0.18181818em 0 2.54545455em 3.63636364em;
+                position: relative;
+            }
+            .doc__note + .doc__note {
+                margin-top: -1.63636364em;
+            }
+            .doc-notes {
+                display: none;
+            }
+            .doc__signature {
+                margin: 0.92857143em 0;
+            }
+            .doc__signature p {
+                text-align: left !important;
+            }
+            .doc__question {
+                background: #fbf9ef;
+                margin: -0.0625em 0 2.5em 0;
+                padding: 1em 64px 1em 1.5em;
+            }
+            .doc__question-title {
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin-bottom: 0.125em;
+            }
+            .doc__question-title + p {
+                margin-top: 0 !important;
+            }
+            .doc__expired {
+                color: #cccccc !important;
+            }
+            ul,
+            ol {
+                margin-left: 1.28571429em;
+            }
+            p {
+                margin: 0 0 0.92857143em;
+            }
+            p + ul,
+            p + ol {
+                margin-top: -0.92857143em;
+            }
+            ul li,
+            ol li {
+                margin: 0 0 0.42857143em;
+            }
+            dl dd {
+                margin: 0 0 0.42857143em;
+            }
+            ul,
+            ol,
+            dl {
+                margin: 0 0 0.92857143em 2.85714286em;
+            }
+            .list__item:before,
+            .order__item:before {
+                display: -moz-inline-stack;
+                display: inline-block;
+                vertical-align: baseline;
+                font: normal 11px / 1.18181818 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                min-width: 1.63636364em;
+                margin-left: -1.63636364em;
+                position: relative;
+                top: -1px;
+            }
+            .order__item:before {
+                content: attr(data-counter) "\a0";
+            }
+            .content_block {
+                font: normal 16px / 1.25 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            p {
+                text-align: justify;
+            }
+            p.align-center {
+                text-align: center;
+            }
+            p.align-right {
+                text-align: right;
+            }
+            p.align-left {
+                text-align: left;
+            }
+
+            table, td, th {
+                padding: 5px 10px;
+                vertical-align: middle;
+                border-collapse: collapse;
+            }
+            table.bdAll, td.bdAll, th.bdAll, table.bdAll td, table.bdAll th, table td.bdAl, table th.bdAll {
+                border: 1px solid #000;
+            }
+            table.bdTop, td.bdTop, th.bdTop {
+                border-top: 1px solid #000;
+                padding: 6px;
+            }
+            table.bdBottom, td.bdBottom, th.bdBottom {
+                border-bottom: 1px solid #000;
+            }
+
+            td.bdRight,
+            th.bdRight {
+                border-right: 1px solid #000;
+            }
+            td.bdLeft,
+            th.bdLeft {
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdBottom,
+            th.bdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdRightbdTopbdBottom,
+            th.bdRightbdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdBottombdLeftbdRight,
+            th.bdBottombdLeftbdRight {
+                border-left: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeft,
+            th.bdTopbdLeft {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdRight,
+            th.bdTopbdRight {
+                border-top: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdBottom,
+            th.bdLeftbdBottom {
+                border-bottom: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdRightbdBottom,
+            th.bdRightbdBottom {
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRight,
+            th.bdLeftbdRight {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeftbdRight,
+            th.bdTopbdLeftbdRight {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRightbdBottom,
+            th.bdLeftbdRightbdBottom {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdAll,
+            th.bdAll {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+        </style><div xmlns="" class="content_block"><p class="print_redaction-line for-print">Редакция от&#32;1 сен 2022</p><div class="above-header">Постановление Правительства РФ от 26.02.2022 № 255</div><h2 class="auth__title">О разработке, утверждении и изменении нормативных правовых актов федеральных органов исполнительной власти, содержащих государственные нормативные требования охраны труда</h2><div id="documentBody" class="content-common"><ct_versions type="DecorateManager" version="1.2.1.0" date="02.09.2022 13:45:28"></ct_versions><ct_versions type="BeautyNPDManager" version="2.2.1.0" date="02.09.2022 13:45:28"></ct_versions><p class="" data-id="7"><span data-role="phrase" data-phrase-id="6"><a data-anchor="/document/99/728311428/bssPhr6/" data-role="phrase-anchor" data-phrase-id="6" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr6"></a><a data-anchor="/document/99/728311428/ZAP2M4A3JT/"></a><a data-anchor="/document/99/728311428/XA00LUO2M6/"></a><a data-anchor="/document/99/728311428/ZAP2GLO3IC/"></a>В соответствии со <a data-anchor="/document/99/728311428/backlinkanchor1/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901807664/XA00RRS2PH/">статьей 211.1 Трудового кодекса Российской Федерации</a> Правительство Российской Федерации </span></p><p class="" data-id="8"><span data-role="phrase" data-phrase-id="7"><a data-anchor="/document/99/728311428/bssPhr7/" data-role="phrase-anchor" data-phrase-id="7" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr7"></a><a data-anchor="/document/99/728311428/ZAP28B63EE/"></a><a data-anchor="/document/99/728311428/ZAP22SK3CT/"></a>постановляет:</span></p><p class="" data-id="9"><span data-role="phrase" data-phrase-id="8"><a data-anchor="/document/99/728311428/bssPhr8/" data-role="phrase-anchor" data-phrase-id="8" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr8"></a><a data-anchor="/document/99/728311428/ZAP258Q3DF/"></a><a data-anchor="/document/99/728311428/XA00LVA2M9/"></a><a data-anchor="/document/99/728311428/ZAP1VQ83BU/"></a>1. Утвердить прилагаемые <a href="https://ot.action360.ru/#/document/99/728311428/XA00M3A2MS/" class="anc npd" target="_self">Правила разработки, утверждения и изменения нормативных правовых актов федеральных органов исполнительной власти, содержащих государственные нормативные требования охраны труда</a>.</span></p><p class="" data-id="10"><span data-role="phrase" data-phrase-id="9"><a data-anchor="/document/99/728311428/bssPhr9/" data-role="phrase-anchor" data-phrase-id="9" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr9"></a><a data-anchor="/document/99/728311428/ZAP24SM3HB/"></a><a data-anchor="/document/99/728311428/XA00LVS2MC/"></a><a data-anchor="/document/99/728311428/ZAP1VE43FQ/"></a>2. Министерству труда и социальной защиты Российской Федерации давать разъяснения по вопросам, связанным с применением <a href="https://ot.action360.ru/#/document/99/728311428/XA00M3A2MS/" class="anc npd" target="_self">Правил разработки, утверждения и изменения нормативных правовых актов федеральных органов исполнительной власти, содержащих государственные нормативные требования охраны труда</a>, утвержденных настоящим постановлением.</span></p><p class="" data-id="11"><span data-role="phrase" data-phrase-id="10"><a data-anchor="/document/99/728311428/bssPhr10/" data-role="phrase-anchor" data-phrase-id="10" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr10"></a><a data-anchor="/document/99/728311428/ZAP29MI3J9/"></a><a data-anchor="/document/99/728311428/XA00M262MM/"></a><a data-anchor="/document/99/728311428/ZAP24803HO/"></a>3. Признать утратившими силу:</span></p><p class="" data-id="12"><span data-role="phrase" data-phrase-id="11"><a data-anchor="/document/99/728311428/bssPhr11/" data-role="phrase-anchor" data-phrase-id="11" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr11"></a><a data-anchor="/document/99/728311428/ZAP2FMA3HO/"></a><a data-anchor="/document/99/728311428/ZAP2A7O3G7/"></a><a data-anchor="/document/99/728311428/backlinkanchor2/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/902254580/XA00M6G2N3/">постановление Правительства Российской Федерации от 27 декабря 2010 г. № 1160 "Об утверждении Положения о разработке, утверждении и изменении нормативных правовых актов, содержащих государственные нормативные требования охраны труда"</a> (Собрание законодательства Российской Федерации, 2011, № 2, ст.342);</span></p><p class="" data-id="13"><span data-role="phrase" data-phrase-id="12"><a data-anchor="/document/99/728311428/bssPhr12/" data-role="phrase-anchor" data-phrase-id="12" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr12"></a><a data-anchor="/document/99/728311428/ZAP2FVU3O5/"></a><a data-anchor="/document/99/728311428/ZAP2AHC3MK/"></a><a data-anchor="/document/99/728311428/backlinkanchor3/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/499009888/XA00MCC2NQ/">пункт 90 изменений, которые вносятся в акты Правительства Российской Федерации по вопросам деятельности Министерства труда и социальной защиты Российской Федерации</a>, утвержденных <a data-anchor="/document/99/728311428/backlinkanchor4/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/499009888/XA00M6G2N3/">постановлением Правительства Российской Федерации от 25 марта 2013 г. № 257 "Об изменении и признании утратившими силу некоторых актов Правительства Российской Федерации по вопросам деятельности Министерства труда и социальной защиты Российской Федерации"</a> (Собрание законодательства Российской Федерации, 2013, № 13, ст.1559);</span></p><p class="" data-id="14"><span data-role="phrase" data-phrase-id="13"><a data-anchor="/document/99/728311428/bssPhr13/" data-role="phrase-anchor" data-phrase-id="13" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr13"></a><a data-anchor="/document/99/728311428/ZAP2D303N4/"></a><a data-anchor="/document/99/728311428/ZAP27KE3LJ/"></a><a data-anchor="/document/99/728311428/backlinkanchor5/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/420211271/XA00M6U2MJ/">пункт 4 изменений, которые вносятся в акты Правительства Российской Федерации</a>, утвержденных <a data-anchor="/document/99/728311428/backlinkanchor6/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/420211271/XA00M6G2N3/">постановлением Правительства Российской Федерации от 30 июля 2014 г. № 726 "Об изменении некоторых актов Правительства Российской Федерации и признании утратившим силу постановления Правительства Российской Федерации от 20 ноября 2008 г. № 870"</a> (Собрание законодательства Российской Федерации, 2014, № 32, ст.4499).</span></p><p class="" data-id="15"><span data-role="phrase" data-phrase-id="14"><a data-anchor="/document/99/728311428/bssPhr14/" data-role="phrase-anchor" data-phrase-id="14" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr14"></a><a data-anchor="/document/99/728311428/ZAP253S3CA/"></a><a data-anchor="/document/99/728311428/XA00M2O2MP/"></a><a data-anchor="/document/99/728311428/ZAP1VLA3AP/"></a>4. Настоящее постановление вступает в силу с 1 сентября 2022 г. и действует до 1 сентября 2028 г.</span></p><div class="doc__signature"><p class="align-right" data-id="16"><span data-role="phrase" data-phrase-id="15"><a data-anchor="/document/99/728311428/bssPhr15/" data-role="phrase-anchor" data-phrase-id="15" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr15"></a><a data-anchor="/document/99/728311428/ZAP2HAO3K9/"></a><a data-anchor="/document/99/728311428/ZAP2H763K8/"></a><a data-anchor="/document/99/728311428/ZAP2BOK3IN/"></a>Председатель Правительства<br><a data-anchor="/document/99/728311428/ZAP2I443LB/"></a>Российской Федерации<br><a data-anchor="/document/99/728311428/ZAP2GD63HN/"></a>М.Мишустин </span></p></div><div class="doc__props doc-add"><p class="align-right" data-id="18"><span data-role="phrase" data-phrase-id="16"><a data-anchor="/document/99/728311428/bssPhr16/" data-role="phrase-anchor" data-phrase-id="16" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr16"></a><a data-anchor="/document/99/728311428/ZAP27883DU/"></a><a data-anchor="/document/99/728311428/XA00M3A2MS/"></a><a data-role="toc" data-anchor="/document/99/728311428/ZA00MKI2OG/"></a><a data-anchor="/document/99/728311428/ZAP274M3DT/"></a><a data-anchor="/document/99/728311428/ZAP21M43CC/"></a>УТВЕРЖДЕНЫ<br><a data-anchor="/document/99/728311428/ZAP27E43EB/"></a>постановлением Правительства<br><a data-anchor="/document/99/728311428/ZAP21723AH/"></a>Российской Федерации<br><a data-anchor="/document/99/728311428/ZAP1LC437C/"></a>от 26 февраля 2022 года № 255 </span></p></div><div data-structid="2" data-level="1" data-type="untyped" data-id="38" class="doc__untyped doc-start"><span data-role="phrase" data-phrase-id="17"><a data-anchor="/document/99/728311428/bssPhr17/" data-role="phrase-anchor" data-phrase-id="17" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr17"></a><a data-anchor="/document/99/728311428/ZAP2BHM3H7/"></a><a data-anchor="/document/99/728311428/XA00M2U2M0/"></a><a data-anchor="/document/99/728311428/ZAP2BE43H6/"></a><a data-anchor="/document/99/728311428/ZAP25VI3FL/"></a><span class="doc__untyped-name">Правила разработки, утверждения и изменения нормативных правовых актов федеральных органов исполнительной власти, содержащих государственные нормативные требования охраны труда</span></span></div><p class="" data-id="22"><span data-role="phrase" data-phrase-id="18"><a data-anchor="/document/99/728311428/bssPhr18/" data-role="phrase-anchor" data-phrase-id="18" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr18"></a><a data-anchor="/document/99/728311428/ZAP208A3AT/"></a><a data-anchor="/document/99/728311428/XA00M3G2M3/"></a><a data-anchor="/document/99/728311428/ZAP1QPO39C/"></a>1. Настоящие Правила определяют порядок разработки, утверждения и изменения нормативных правовых актов федеральных органов исполнительной власти, содержащих государственные нормативные требования охраны труда.</span></p><p class="" data-id="23"><span data-role="phrase" data-phrase-id="19"><a data-anchor="/document/99/728311428/bssPhr19/" data-role="phrase-anchor" data-phrase-id="19" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr19"></a><a data-anchor="/document/99/728311428/ZAP2F563N9/"></a><a data-anchor="/document/99/728311428/XA00M5Q2MD/"></a><a data-anchor="/document/99/728311428/ZAP29MK3LO/"></a>2. К нормативным правовым актам федеральных органов исполнительной власти, содержащим государственные нормативные требования охраны труда, относятся правила по охране труда, а также иные нормативные правовые акты, содержащие государственные нормативные требования охраны труда, единые типовые нормы бесплатной выдачи работникам средств индивидуальной защиты (далее - акты, содержащие требования охраны труда).</span></p><p class="" data-id="24"><span data-role="phrase" data-phrase-id="20"><a data-anchor="/document/99/728311428/bssPhr20/" data-role="phrase-anchor" data-phrase-id="20" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr20"></a><a data-anchor="/document/99/728311428/ZAP20PG3CT/"></a><a data-anchor="/document/99/728311428/XA00M6C2MG/"></a><a data-anchor="/document/99/728311428/ZAP1RAU3BC/"></a>3. Проекты актов, содержащих требования охраны труда, разрабатываются:</span></p><p class="" data-id="25"><span data-role="phrase" data-phrase-id="21"><a data-anchor="/document/99/728311428/bssPhr21/" data-role="phrase-anchor" data-phrase-id="21" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr21"></a><a data-anchor="/document/99/728311428/ZAP2ONC3MJ/"></a><a data-anchor="/document/99/728311428/XA00M6U2MJ/"></a><a data-anchor="/document/99/728311428/ZAP2J8Q3L2/"></a>а) организациями, учреждениями, ассоциациями, объединениями, государственными внебюджетными фондами;</span></p><p class="" data-id="26"><span data-role="phrase" data-phrase-id="22"><a data-anchor="/document/99/728311428/bssPhr22/" data-role="phrase-anchor" data-phrase-id="22" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr22"></a><a data-anchor="/document/99/728311428/ZAP32CK3PG/"></a><a data-anchor="/document/99/728311428/XA00M7G2MM/"></a><a data-anchor="/document/99/728311428/ZAP2SU23NV/"></a>б) федеральными органами исполнительной власти, осуществляющими функции по выработке государственной политики и нормативно-правовому регулированию в установленной сфере деятельности, с участием представителей отраслевых объединений профсоюзов и отраслевых объединений работодателей.</span></p><p class="" data-id="27"><span data-role="phrase" data-phrase-id="23"><a data-anchor="/document/99/728311428/bssPhr23/" data-role="phrase-anchor" data-phrase-id="23" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr23"></a><a data-anchor="/document/99/728311428/ZAP21AQ3CK/"></a><a data-anchor="/document/99/728311428/XA00M8G2N0/"></a><a data-anchor="/document/99/728311428/ZAP1RS83B3/"></a>4. Разработанные проекты актов, содержащие требования охраны труда, направляются в бумажной и электронной формах:</span></p><p class="" data-id="28"><span data-role="phrase" data-phrase-id="24"><a data-anchor="/document/99/728311428/bssPhr24/" data-role="phrase-anchor" data-phrase-id="24" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr24"></a><a data-anchor="/document/99/728311428/ZAP2OUG3ML/"></a><a data-anchor="/document/99/728311428/XA00M922N3/"></a><a data-anchor="/document/99/728311428/ZAP2OQU3MK/"></a>а) организациями, учреждениями, ассоциациями, объединениями, государственными внебюджетными фондами - в федеральный орган исполнительной власти, осуществляющий функции по выработке государственной политики и нормативно-правовому регулированию в установленной сфере деятельности, а при отсутствии такого органа - в Министерство труда и социальной защиты Российской Федерации;</span></p><p class="" data-id="29"><span data-role="phrase" data-phrase-id="25"><a data-anchor="/document/99/728311428/bssPhr25/" data-role="phrase-anchor" data-phrase-id="25" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr25"></a><a data-anchor="/document/99/728311428/ZAP32JO3PI/"></a><a data-anchor="/document/99/728311428/XA00M9K2N6/"></a><a data-anchor="/document/99/728311428/ZAP32G63PH/"></a>б) федеральными органами исполнительной власти, осуществляющими функции по выработке государственной политики и нормативно-правовому регулированию в установленной сфере деятельности, - в Министерство труда и социальной защиты Российской Федерации с приложением заключений отраслевых объединений профсоюзов и отраслевых объединений работодателей.</span></p><p class="" data-id="30"><span data-role="phrase" data-phrase-id="26"><a data-anchor="/document/99/728311428/bssPhr26/" data-role="phrase-anchor" data-phrase-id="26" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr26"></a><a data-anchor="/document/99/728311428/ZAP27DC3G6/"></a><a data-anchor="/document/99/728311428/XA00MA62N9/"></a><a data-anchor="/document/99/728311428/ZAP21UQ3EL/"></a>5. Акты, содержащие требования охраны труда, утверждаются Министерством труда и социальной защиты Российской Федерации после рассмотрения проектов актов, содержащих требования охраны труда, на заседании Российской трехсторонней комиссии по регулированию социально-трудовых отношений.</span></p><p class="" data-id="31"><span data-role="phrase" data-phrase-id="27"><a data-anchor="/document/99/728311428/bssPhr27/" data-role="phrase-anchor" data-phrase-id="27" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr27"></a><a data-anchor="/document/99/728311428/ZAP2A1K3I8/"></a><a data-anchor="/document/99/728311428/XA00M5O2MC/"></a><a data-anchor="/document/99/728311428/ZAP24J23GN/"></a>6. Внесение изменений в акты, содержащие требования охраны труда, осуществляется Министерством труда и социальной защиты Российской Федерации в порядке, предусмотренном настоящими Правилами для их разработки и утверждения, в следующих случаях:</span></p><p class="" data-id="32"><span data-role="phrase" data-phrase-id="28"><a data-anchor="/document/99/728311428/bssPhr28/" data-role="phrase-anchor" data-phrase-id="28" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr28"></a><a data-anchor="/document/99/728311428/ZAP2DMA3FK/"></a><a data-anchor="/document/99/728311428/XA00M6A2MF/"></a><a data-anchor="/document/99/728311428/ZAP287O3E3/"></a>а) при изменении законодательства Российской Федерации об охране труда;</span></p><p class="" data-id="33"><span data-role="phrase" data-phrase-id="29"><a data-anchor="/document/99/728311428/bssPhr29/" data-role="phrase-anchor" data-phrase-id="29" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr29"></a><a data-anchor="/document/99/728311428/ZAP2DAG3GT/"></a><a data-anchor="/document/99/728311428/XA00M6S2MI/"></a><a data-anchor="/document/99/728311428/ZAP27RU3FC/"></a>б) по результатам комплексных (с участием сторон социального партнерства) исследований состояния и причин производственного травматизма и профессиональных заболеваний, анализа результатов проведения специальной оценки условий труда, результатов внедрения новой техники и технологий;</span></p><p class="" data-id="34"><span data-role="phrase" data-phrase-id="30"><a data-anchor="/document/99/728311428/bssPhr30/" data-role="phrase-anchor" data-phrase-id="30" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr30"></a><a data-anchor="/document/99/728311428/ZAP2ILG3IN/"></a><a data-anchor="/document/99/728311428/XA00M7E2ML/"></a><a data-anchor="/document/99/728311428/ZAP2D6U3H6/"></a>в) по результатам изучения российского и международного опыта работы по улучшению условий труда;</span></p><p class="" data-id="35"><span data-role="phrase" data-phrase-id="31"><a data-anchor="/document/99/728311428/bssPhr31/" data-role="phrase-anchor" data-phrase-id="31" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr31"></a><a data-anchor="/document/99/728311428/ZAP2INO3N5/"></a><a data-anchor="/document/99/728311428/XA00M802MO/"></a><a data-anchor="/document/99/728311428/ZAP2D963LK/"></a>г) по предложениям (с обоснованием) федеральных органов исполнительной власти и (или) органов исполнительной власти субъектов Российской Федерации, в том числе о гармонизации актов, содержащих требования охраны труда, с нормами международного права в области охраны труда.</span></p><p class="" data-id="36"><span data-role="phrase" data-phrase-id="32"></span><br><br><span data-role="phrase" data-phrase-id="33"><br data-action="delete"><br data-action="delete"><br data-action="delete"></span></p></div></div><div xmlns="" class="footer">© Материал из Справочной системы «Актион Охрана труда»<br />https://ot.action360.ru<br />Дата копирования: 15.08.2024</div></body></html>

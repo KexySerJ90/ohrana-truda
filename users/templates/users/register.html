@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Регистрация</h1>
+
+<p class="alert alert-info">Пожалуйста, внимательно выберите поле "Статус". Это определит, какие виды обучения будут доступны для вас.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}" />
+
+    {% for f in form %}
+    <p>
+        <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+        <div class="input-group">
+        {{ f }}
+        {% if f.name == 'password1' or f.name == 'password2' %}
+            <button type="button" class="btn btn-secondary btn-sm toggle-password" data-target="{{ f.name }}">Показать пароль</button>
+        {% endif %}
+</div>
+    </p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+
+    <p><button class="btn btn-dark" type="submit">Регистрация</button></p>
+</form>
+
+<script>
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function () {
+            const passwordField = document.querySelector(`input[name="${this.dataset.target}"]`);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                this.textContent = 'Скрыть пароль'; // Измените текст кнопки
+            } else {
+                passwordField.type = 'password';
+                this.textContent = 'Показать пароль'; // Верните текст кнопки
+            }
+        });
+    });
+</script>
+{% endblock %}

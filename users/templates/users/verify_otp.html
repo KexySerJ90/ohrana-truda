@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" style="max-width: 280px; margin: auto;" class="border p-4 rounded bg-light">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="otp" class="form-label">{{ form.otp.label }}</label>  <!-- Используем метку формы -->
+        {{ form.otp }}  <!-- Поле ввода для OTP с классом Bootstrap -->
+        <div class="text-danger">{{ form.otp.errors }}</div>  <!-- Ошибки для поля otp -->
+    </div>
+    <button class="btn btn-dark w-100" type="submit">Подтвердить</button>
+    <div id="otp-message" class="otp-message mt-2"></div>
+    <div class="text-danger">{{ form.non_field_errors }}</div>  <!-- Общие ошибки формы -->
+</form>
+
+<br>
+<div class="text-center">
+{% if request.session.otp_sent_time %}
+        <button class="btn btn-secondary" type="button" id="resend-otp">Отправить повторный код</button>
+{% endif %}
+</div>
+
+<script>
+document.getElementById('resend-otp').onclick = function() {
+    fetch("{% url 'users:resend_otp' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          const messageElement = document.getElementById('otp-message');
+          messageElement.innerText = data.message;
+          messageElement.style.color = data.success ? 'green' : 'red'; // Успешное сообщение или ошибка
+
+          // Показываем сообщение и скрываем его через 5 секунд
+          messageElement.classList.add('alert', data.success ? 'alert-success' : 'alert-danger');
+          setTimeout(() => {
+              messageElement.innerText = '';
+              messageElement.classList.remove('alert', 'alert-success', 'alert-danger');
+          }, 5000);
+      });
+};
+</script>
+{% endblock %}
+

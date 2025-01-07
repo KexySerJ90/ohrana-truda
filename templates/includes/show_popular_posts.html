@@ -1,0 +1,9 @@
+    {% load main_filters %}
+
+            <div class="card mb-4">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item active" aria-current="true"
+                       style="background-color:#212529; border-color:#212529">Популярные статьи</a>
+                    {% show_popular_posts 3 %}
+                </div>
+            </div>

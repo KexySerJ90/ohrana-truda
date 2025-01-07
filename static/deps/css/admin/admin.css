@@ -1,0 +1,7 @@
+#header, .module caption, #changelist-filter h2 {
+    background: #212529;
+}
+
+div.breadcrumbs {
+    rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}

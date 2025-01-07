@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  {% if user_completion.study_completed %}
+    <h1 class="text-center">{{ subject.get_title_display }}</h1>
+    <div id="timer" class="alert alert-info text-center" data-time="{{ time_remaining }}">
+      Оставшееся время: <span id="time-remaining">10:00</span>
+    </div>
+
+    <form id="test-form" method="post" class="mt-4">
+      {% csrf_token %}
+      <div class="card">
+        <div class="card-body">
+          {% for question in questions %}
+            <div class="form-group">
+              <h5>{{ question.text }}</h5>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="1" id="q{{ question.id }}_1">
+                <label class="form-check-label" for="q{{ question.id }}_1">{{ question.option1 }}</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="2" id="q{{ question.id }}_2">
+                <label class="form-check-label" for="q{{ question.id }}_2">{{ question.option2 }}</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="3" id="q{{ question.id }}_3">
+                <label class="form-check-label" for="q{{ question.id }}_3">{{ question.option3 }}</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="4" id="q{{ question.id }}_4">
+                <label class="form-check-label" for="q{{ question.id }}_4">{{ question.option4 }}</label>
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
+          <button class="btn btn-primary btn-dark" type="submit">Отправить</button>
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <div class="alert alert-warning text-center" role="alert">
+      Для прохождения тестирования пройдите обучение.
+    </div>
+    <div class="text-center">
+      <a class="btn btn-dark" href="{% url 'main:subject_detail' subject.slug %}">Перейти к Обучению</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  let timeLeft = parseInt(document.getElementById('timer').getAttribute('data-time'), 10); // Получаем оставшееся время из атрибута data-time
+  function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    document.getElementById('time-remaining').innerText = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    if (timeLeft === 0) {
+      clearInterval(timerInterval);
+      document.getElementById('test-form').submit();
+    } else {
+      timeLeft--; // Уменьшаем время на 1 секунду
+    }
+  }
+  let timerInterval = setInterval(updateTimer, 1000); // Вызываем функцию обновления каждую секунду
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Привет,
+
+Спасибо за регистрацию на нашем сайте.
+
+Пожалуйста, будьте добры подтвердить свой адрес электронной почты, кликнув по ссылке ниже:
+
+http://{{domain}}{% url 'users:email-verification' uidb64=uid token=token %}
+
+
+
+
+
+{% endautoescape %}

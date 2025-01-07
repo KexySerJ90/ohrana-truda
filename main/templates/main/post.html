@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load main_filters %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-6">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 class="mb-4">{{ post.title }}</h1>
+            {% if post.photo %}
+                <div class="mb-3">
+                    <p><img class="img-fluid rounded" src="{{post.photo.url}}" alt="{{ post.title }}"></p>
+                </div>
+            {% endif %}
+            {{post.content|markdown|safe}}
+            {% if user.is_admin or user.is_staff %}
+                <p><a href="{% url 'main:edit_page' post.slug %}">Редактировать</a></p>
+            {% endif %}
+            <div class="rating-buttons">
+                <button class="btn btn-sm btn-primary" data-post="{{ post.id }}" data-value="1">Лайк</button>
+                <button class="btn btn-sm btn-secondary" data-post="{{ post.id }}" data-value="-1">Дизлайк</button>
+                <button class="btn btn-sm btn-secondary rating-sum">{{ post.get_sum_rating }}</button>
+            </div>
+            <br>
+            <a href="{% url 'main:home' %}" class="btn btn-dark">Вернуться к статьям</a>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item active" aria-current="true"
+                       style="background-color:#212529; border-color:#212529">Категории</a>
+                    {% if cat_selected == 0 %}
+                        <a class="list-group-item list-group-item-action list-group-item active"
+                           style="background-color:#212529; border-color:#212529" href="{% url 'main:home' %}">Все категории</a>
+                    {% else %}
+                        <a class="list-group-item list-group-item-action" href="{% url 'main:home' %}">Все категории</a>
+                    {% endif %}
+                    {% show_categories cat_selected %}
+                </div>
+            </div>
+        {% include "includes/show_popular_posts.html" %}
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+{% include "includes/comments_list.html" %}
+<script src="{% static 'deps/js/ratings.js' %}"></script>
+{% endblock %}
+{% block script %}{% endblock %}
+

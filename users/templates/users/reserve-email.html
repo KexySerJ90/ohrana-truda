@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Резервный Email</h1>
+<p class="text-muted">Резервный email позволяет вам восстановить доступ к вашему аккаунту в случае потери основного адреса электронной почты. Пожалуйста, укажите резервный адрес, на который будет отправлен код подтверждения.</p>
+
+<form method="post" class="border p-4 rounded bg-light d-flex flex-column" id="reserve-email-form">
+    {% csrf_token %}
+    <p>
+        <label class="form-label" for="{{ form.id_for_label }}">{{ form.label }}</label>
+        {{ form }}
+    </p>
+    <div class="text-danger alert alert-danger d-none" id="form-errors">{{ form.name.errors }}</div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="card-footer" style="width: 30%;">
+            <button class="btn btn-dark" type="submit">Отправить</button>
+        </div>
+    </div>
+
+    <div id="otp-container" style="display:none; margin-top: 10px;">
+        <input type="number" id="otp-input" class="form-control" style="width: 15%;" placeholder="Введите OTP код" />
+        <button id="verify-otp" class="btn btn-dark">Проверить</button>
+        <div id="otp-message" class="alert alert-danger d-none"></div>
+    </div>
+
+    <div class="text-danger alert alert-danger d-none" id="non-field-errors">{{ form.non_field_errors }}</div>
+</form>
+
+<!-- Сообщение об успешной отправке кода -->
+<div id="success-message" class="alert alert-success d-none" role="alert">
+    Код отправлен на резервный Email!
+</div>
+<br>
+<a class="btn btn-dark" href="{% url 'users:settings_user' %}">
+        Вернуться к настройкам
+    </a>
+{% endblock %}
+
+{% block script %}
+<script>
+document.getElementById('reserve-email-form').onsubmit = function(event) {
+    event.preventDefault(); // предотвращаем стандартное поведение формы
+    const formData = new FormData(this);
+    const errorContainer = document.getElementById('form-errors');
+    errorContainer.classList.add('d-none'); // Скрываем ошибки перед отправкой
+
+    fetch("{% url 'users:reserve_email' %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('otp-container').style.display = 'flex';
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.remove('d-none'); // Показываем сообщение
+            successMessage.textContent = data.message; // Устанавливаем текст сообщения
+            setTimeout(() => {
+                successMessage.classList.add('d-none'); // Скрываем сообщение через 5 секунд
+            }, 5000);
+        } else {
+            errorContainer.textContent = data.message;
+            errorContainer.classList.remove('d-none'); // Показываем ошибки
+            setTimeout(() => {
+                errorContainer.classList.add('d-none'); // Скрываем ошибки через 5 секунд
+            }, 5000);
+        }
+    });
+};
+
+document.getElementById('verify-otp').onclick = function(event) {
+    event.preventDefault(); // предотвращаем стандартное поведение кнопки
+    const token = document.getElementById('otp-input').value;
+    const otpMessage = document.getElementById('otp-message');
+
+    // Проверка длины OTP
+    if (token.length !== 6) {
+        otpMessage.textContent = 'OTP код должен состоять ровно из 6 символов.';
+        otpMessage.classList.remove('d-none'); // Показываем сообщение об ошибке
+        setTimeout(() => {
+            otpMessage.classList.add('d-none'); // Скрываем сообщение об ошибке через 5 секунд
+        }, 5000);
+        return; // Прекращаем выполнение функции
+    }
+
+    fetch("{% url 'users:token_verification_reserve_email' %}", {
+        method: "POST",
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: new URLSearchParams({ token: token })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            window.location.href = "{% url 'users:settings_user' %}";
+        } else {
+            otpMessage.textContent = data.message;
+            otpMessage.classList.remove('d-none'); // Показываем сообщение об ошибке
+            setTimeout(() => {
+                otpMessage.classList.add('d-none'); // Скрываем сообщение об ошибке через 5 секунд
+            }, 5000);
+        }
+    });
+};
+</script>
+{% endblock %}

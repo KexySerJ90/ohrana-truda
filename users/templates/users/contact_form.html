@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Свяжитесь с нами!</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+         {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>  <!-- Отображаем ошибку -->
+    {% endif %}
+        <button class="btn btn-dark" type="submit">Отправить</button>
+    </form>
+<br>
+<p class="alert alert-info" style="font-weight: bold;">Вы также можете связаться с Вашим специалистом по охране труда по номеру {{phone}}</p>
+{% endblock %}
+
+
+
+

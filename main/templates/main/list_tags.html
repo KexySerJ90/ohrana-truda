@@ -1,0 +1,8 @@
+{% if tags %}
+    <a class="list-group-item list-group-item-action list-group-item active" aria-current="true" style="background-color:#212529; border-color:#212529">Теги</a>
+    <ul class="list-group">
+        {% for t in tags %}
+        <a class="list-group-item list-group-item-action" href="{{t.get_absolute_url}}" >{{t.tag}}</a>
+        {% endfor %}
+    </ul>
+{% endif %}

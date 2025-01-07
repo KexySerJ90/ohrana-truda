@@ -1,0 +1,370 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta><!--[if gte mso 9]>
+					<xml>
+						<w:WordDocument>
+							<w:View>Print</w:View>
+							<w:Zoom>90</w:Zoom>
+							<w:DoNotOptimizeForBrowser/>
+						</w:WordDocument>
+					</xml>
+				<![endif]--><style xmlns="" type="text/css" media="all">
+                body {
+                    font-size: 100%;
+                }
+                h1.normal {
+                    color: #000 !important;
+                    width: 75%;
+                }
+                .content_block {
+                    margin-right: 3%;
+                    width: 74%;
+                }
+                div#documentBody {
+                    margin-top: 31px;
+                    padding-bottom: 30px;
+                }
+                div.docChainList {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 7px 0 0;
+                    padding: 10px;
+                }
+                table.author-tbl {
+                    width: 40%;
+                }
+                div.page-box {
+                    width: 100%;
+                }
+                div.page-wrapper .doc-page .content {
+                    font-size: 14px;
+                }
+                pre {
+                    font-family: sans-serif;
+                    word-wrap: break-word;
+                }
+                .references {
+                    display: none;
+                }
+                span.doc__references {
+                    display: none;
+                }
+                .footer {
+                    font-family: Arial;
+                    font-size: 13px;
+                    margin: 50px 0 0;
+                }
+
+            </style></head><body><style xmlns="" type="text/css" media="all">
+            .doc-part_type_title {
+                margin-bottom: 0.8125em;
+                padding-bottom: 2.375em;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .doc__props {
+                font: normal 13px / 1.23076923 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__props.doc-add {
+                margin: 6.15384615em 0 2.15384615em;
+                padding-top: 1em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__props.doc-start {
+                margin-bottom: 2.15384615em;
+            }
+            .doc__type {
+                margin: 0.4em 0 0.5em;
+                font: normal 10px / 1.6 Helvetica, Arial, sans-serif;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .doc__type + .main__title {
+                margin-top: 0;
+            }
+            .doc-start {
+                margin-top: 0 !important;
+                border-top: none !important;
+            }
+            .doc__part {
+                margin: 5.11538462em 0 4.15384615em;
+                font: normal 26px / 1.30769231 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                position: relative;
+            }
+            .doc__part[data-level="1"] {
+                padding-top: 0.57692308em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__part.doc-start {
+                padding-top: 0.07692308em;
+            }
+            .doc__section {
+                position: relative;
+                margin: 4.75em 0 3.32142857em;
+                font: normal 28px / 1.21428571 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc__section[data-level="1"] {
+                padding-top: 0.5em;
+                border-top: 1px solid #e5e5e5;
+            }
+            .doc__section[data-level="2"] {
+            margin-top: 3.85714286em;
+            }
+            .doc__section.doc-start {
+                padding-top: 0;
+            }
+            .doc__section-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc__subsection {
+                position: relative;
+                margin: 4.45833333em 0 1.75em;
+                font: bold 24px / 1.16666667 Helvetica, Arial, sans-serif;
+                letter-spacing: -1px;
+            }
+            .doc-add + .doc__subsection {
+                margin-top: 2.08333333em;
+            }
+            .doc__chapter {
+                position: relative;
+                margin: 1.82608696em 0 0.91304348em;
+                font: normal 23px / 1.2173913 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            .doc-part .doc__chapter:first-child,
+                p + .doc__chapter,
+                ul + .doc__chapter,
+                ol + .doc__chapter {
+                    margin-top: 3.26086957em;
+                }
+            .doc__article {
+                position: relative;
+                margin: 1.25em 0 0.125em;
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+            }
+            .doc__article + p,
+            .doc__article + ul,
+            .doc__article + ol {
+                margin-top: 0 !important;
+            }
+            .doc-part .doc__article:first-child,
+            p + .doc__article,
+            ul + .doc__article,
+            ol + .doc__article {
+                margin-top: 1.75em;
+            }
+            .doc-header__sticky-clone .doc__article {
+                margin-top: 0.5em;
+            }
+            .doc__paragraph {
+                margin: 1em 0 0.17391304em;
+                font: normal 23px / 1.13043478 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                position: relative;
+            }
+            .doc__paragraph-name {
+                font-family: "PT Serif", Georgia, "Times New Roman", Times, serif;
+                font-style: italic;
+            }
+            .doc-part .doc__paragraph:first-child,
+            p + .doc__paragraph,
+            ul + .doc__paragraph,
+            ol + .doc__paragraph {
+                margin-top: 2.26086957em;
+            }
+            .doc__subparagraph {
+                font: normal 19px / 1.21052632 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.42105263em 0 0.31578947em;
+                position: relative;
+            }
+            .doc-part .doc__subparagraph:first-child,
+            p + .doc__subparagraph,
+            ul + .doc__subparagraph,
+            ol + .doc__subparagraph {
+                margin-top: 2.21052632em;
+            }
+            .doc__untyped {
+                font: normal 18px / 1.27777778 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: 1.33333333em 0 1em;
+                position: relative;
+            }
+            .doc__note {
+                font: normal 11px / 1.45454545 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin: -0.18181818em 0 2.54545455em 3.63636364em;
+                position: relative;
+            }
+            .doc__note + .doc__note {
+                margin-top: -1.63636364em;
+            }
+            .doc-notes {
+                display: none;
+            }
+            .doc__signature {
+                margin: 0.92857143em 0;
+            }
+            .doc__signature p {
+                text-align: left !important;
+            }
+            .doc__question {
+                background: #fbf9ef;
+                margin: -0.0625em 0 2.5em 0;
+                padding: 1em 64px 1em 1.5em;
+            }
+            .doc__question-title {
+                font: bold 16px / 1.25 Helvetica, Arial, sans-serif;
+                letter-spacing: normal;
+                margin-bottom: 0.125em;
+            }
+            .doc__question-title + p {
+                margin-top: 0 !important;
+            }
+            .doc__expired {
+                color: #cccccc !important;
+            }
+            ul,
+            ol {
+                margin-left: 1.28571429em;
+            }
+            p {
+                margin: 0 0 0.92857143em;
+            }
+            p + ul,
+            p + ol {
+                margin-top: -0.92857143em;
+            }
+            ul li,
+            ol li {
+                margin: 0 0 0.42857143em;
+            }
+            dl dd {
+                margin: 0 0 0.42857143em;
+            }
+            ul,
+            ol,
+            dl {
+                margin: 0 0 0.92857143em 2.85714286em;
+            }
+            .list__item:before,
+            .order__item:before {
+                display: -moz-inline-stack;
+                display: inline-block;
+                vertical-align: baseline;
+                font: normal 11px / 1.18181818 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                min-width: 1.63636364em;
+                margin-left: -1.63636364em;
+                position: relative;
+                top: -1px;
+            }
+            .order__item:before {
+                content: attr(data-counter) "\a0";
+            }
+            .content_block {
+                font: normal 16px / 1.25 "PT Serif", Georgia, "Times New Roman", Times, serif;
+                letter-spacing: normal;
+            }
+            p {
+                text-align: justify;
+            }
+            p.align-center {
+                text-align: center;
+            }
+            p.align-right {
+                text-align: right;
+            }
+            p.align-left {
+                text-align: left;
+            }
+
+            table, td, th {
+                padding: 5px 10px;
+                vertical-align: middle;
+                border-collapse: collapse;
+            }
+            table.bdAll, td.bdAll, th.bdAll, table.bdAll td, table.bdAll th, table td.bdAl, table th.bdAll {
+                border: 1px solid #000;
+            }
+            table.bdTop, td.bdTop, th.bdTop {
+                border-top: 1px solid #000;
+                padding: 6px;
+            }
+            table.bdBottom, td.bdBottom, th.bdBottom {
+                border-bottom: 1px solid #000;
+            }
+
+            td.bdRight,
+            th.bdRight {
+                border-right: 1px solid #000;
+            }
+            td.bdLeft,
+            th.bdLeft {
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdBottom,
+            th.bdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdRightbdTopbdBottom,
+            th.bdRightbdTopbdBottom {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdBottombdLeftbdRight,
+            th.bdBottombdLeftbdRight {
+                border-left: 1px solid #000;
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeft,
+            th.bdTopbdLeft {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdTopbdRight,
+            th.bdTopbdRight {
+                border-top: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdBottom,
+            th.bdLeftbdBottom {
+                border-bottom: 1px solid #000;
+                border-left: 1px solid #000;
+            }
+            td.bdRightbdBottom,
+            th.bdRightbdBottom {
+                border-bottom: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRight,
+            th.bdLeftbdRight {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdTopbdLeftbdRight,
+            th.bdTopbdLeftbdRight {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+            td.bdLeftbdRightbdBottom,
+            th.bdLeftbdRightbdBottom {
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+            td.bdAll,
+            th.bdAll {
+                border-top: 1px solid #000;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                border-bottom: 1px solid #000;
+            }
+        </style><div xmlns="" class="content_block"><p class="print_redaction-line for-print">Редакция от&#32;1 сен 2023</p><div class="above-header">Приказ Минздравсоцразвития России от 17.12.2010 № 1122н</div><h2 class="auth__title">Об утверждении типовых норм бесплатной выдачи работникам смывающих и (или) обезвреживающих средств и стандарта безопасности труда "Обеспечение работников смывающими и (или) обезвреживающими средствами"</h2><div id="documentBody" class="content-common"><ct_versions type="DecorateManager" version="1.2.1.0" date="25.06.2024 18:58:24"></ct_versions><ct_versions type="BeautyNPDManager" version="2.2.1.0" date="25.06.2024 18:58:23"></ct_versions><p class="" data-id="14"><span data-role="phrase" data-phrase-id="10"><a data-anchor="/document/99/902253149/bssPhr10/" data-role="phrase-anchor" data-phrase-id="10" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr10"></a><a data-anchor="/document/99/902253149/ZAP2AN839L/"></a><a data-anchor="/document/99/902253149/ZAP2AJM39K/"></a><a data-anchor="/document/99/902253149/ZAP2AG439J/"></a><a data-anchor="/document/99/902253149/ZAP2D9U3I1/"></a><a data-anchor="/document/99/902253149/ZAP251I382/"></a>В соответствии с <a data-anchor="/document/99/902253149/backlinkanchor8/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901901770/XA00M7G2N5/">пунктами 5.2.70</a> и <a data-anchor="/document/99/902253149/backlinkanchor9/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901901770/XA00M9O2NH/">5.2.74 Положения о Министерстве здравоохранения и социального развития Российской Федерации</a>, утверждённого <a data-anchor="/document/99/902253149/backlinkanchor10/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901901770/XA00M6G2N3/">постановлением Правительства Российской Федерации от 30 июня 2004 года № 321</a> (Собрание законодательства Российской Федерации, 2004, № 28, ст.2898; 2005, № 2, ст.162; 2006, № 19, ст.2080; 2008, № 11 (ч.1), ст.1036; № 15, ст.1555; № 23, ст.2713; № 42, ст.4825; № 46, ст.5337; № 48, ст.5618; 2009, № 2, ст.244; № 3, ст.378; № 6, ст.738; № 12, ст.1427, 1434; № 33, ст.4083, 4088; № 43, ст.5064; № 45, ст.5350; 2010, № 4, ст.394; № 11, ст.1225; № 25, ст.3167; № 26, ст.3350; № 31, ст.4251; № 35, ст.4574),</span><br><br><span data-role="phrase" data-phrase-id="11"><a data-anchor="/document/99/902253149/bssPhr11/" data-role="phrase-anchor" data-phrase-id="11" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr11"></a><a data-anchor="/document/99/902253149/ZAP291I3I7/"></a><a data-anchor="/document/99/902253149/ZAP23J03GM/"></a>приказываю:</span><a data-src="ep" data-anchor="/document/99/902253149/ZAP2QTC3PS/"></a><a data-src="ep" data-anchor="/document/99/902253149/ZAP2LEQ3OB/"></a></p><p class="" data-id="15"><span data-role="phrase" data-phrase-id="12"><a data-anchor="/document/99/902253149/bssPhr12/" data-role="phrase-anchor" data-phrase-id="12" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr12"></a><a data-anchor="/document/99/902253149/ZAP27I23IB/"></a><a data-anchor="/document/99/902253149/XA00LTK2M0/"></a><a data-anchor="/document/99/902253149/ZAP223G3GQ/"></a>1. Утвердить:</span><br><br><span data-role="phrase" data-phrase-id="13"><a data-anchor="/document/99/902253149/bssPhr13/" data-role="phrase-anchor" data-phrase-id="13" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr13"></a><a data-anchor="/document/99/902253149/ZAP2F423F7/"></a><a data-anchor="/document/99/902253149/ZAP29LG3DM/"></a>типовые нормы бесплатной выдачи работникам смывающих и (или) обезвреживающих средств согласно <a href="https://ot.action360.ru/#/document/99/902253149/XA00LUO2M6/" class="anc npd" target="_self">приложению № 1</a>;</span><br><br><span data-role="phrase" data-phrase-id="14"><a data-anchor="/document/99/902253149/bssPhr14/" data-role="phrase-anchor" data-phrase-id="14" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr14"></a><a data-anchor="/document/99/902253149/ZAP2A7K3DV/"></a><a data-anchor="/document/99/902253149/ZAP24P23CE/"></a>стандарт безопасности труда "Обеспечение работников смывающими и (или) обезвреживающими средствами" согласно <a href="https://ot.action360.ru/#/document/99/902253149/XA00LVA2M9/" class="anc npd" target="_self">приложению № 2</a>.</span></p><p class="" data-id="16"><span data-role="phrase" data-phrase-id="15"><a data-anchor="/document/99/902253149/bssPhr15/" data-role="phrase-anchor" data-phrase-id="15" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr15"></a><a data-anchor="/document/99/902253149/ZAP24CM3CG/"></a><a data-anchor="/document/99/902253149/XA00LU62M3/"></a><a data-anchor="/document/99/902253149/ZAP1UU43AV/"></a>2. Признать утратившим силу <a data-anchor="/document/99/902253149/backlinkanchor11/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/901869332/XA00M6G2N3/">постановление Министерства труда и социального развития Российской Федерации от 4 июля 2003 года № 45 "Об утверждении норм бесплатной выдачи работникам смывающих и обезвреживающих средств, порядка и условий их выдачи"</a> (зарегистрировано Министерством юстиции Российской Федерации 15 июля 2003 года № 4901).</span></p><div class="doc__signature"><p class="align-right" data-id="17"><span data-role="phrase" data-phrase-id="16"><a data-anchor="/document/99/902253149/bssPhr16/" data-role="phrase-anchor" data-phrase-id="16" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr16"></a><a data-anchor="/document/99/902253149/ZAP2RP83QI/"></a><a data-anchor="/document/99/902253149/ZAP2RLM3QH/"></a><a data-anchor="/document/99/902253149/ZAP2M743P0/"></a>Министр<br><a data-anchor="/document/99/902253149/ZAP2QBQ3PE/"></a>Т.Голикова </span></p></div><div class="doc__props"><p class="" data-id="18"><span data-role="phrase" data-phrase-id="17"><a data-anchor="/document/99/902253149/bssPhr17/" data-role="phrase-anchor" data-phrase-id="17" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr17"></a><a data-anchor="/document/99/902253149/ZAP2SRU3NK/"></a><a data-anchor="/document/99/902253149/ZAP2NDC3M3/"></a>Зарегистрировано<br><a data-anchor="/document/99/902253149/ZAP2OOI3LH/"></a>в Министерстве юстиции<br><a data-anchor="/document/99/902253149/ZAP28GK3DV/"></a>Российской Федерации<br><a data-anchor="/document/99/902253149/ZAP201G3CB/"></a>22 апреля 2011 года,<br><a data-anchor="/document/99/902253149/ZAP1K7A335/"></a>регистрационный № 20562</span></p></div><p class="align-right" data-id="19"><span data-role="phrase" data-phrase-id="18"><a data-anchor="/document/99/902253149/bssPhr18/" data-role="phrase-anchor" data-phrase-id="18" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr18"></a><a data-anchor="/document/99/902253149/ZAP1SOE39G/"></a><a data-anchor="/document/99/902253149/XA00LUO2M6/"></a><a data-role="toc" data-anchor="/document/99/902253149/ZA00MQA2OK/"></a><a data-anchor="/document/99/902253149/ZAP1SKS39F/"></a><a data-anchor="/document/99/902253149/ZAP1N6A37U/"></a>Приложение № 1<br><a data-anchor="/document/99/902253149/ZAP1OIC3A1/"></a>к приказу<br><a data-anchor="/document/99/902253149/ZAP251C3BP/"></a>Минздравсоцразвития России<br><a data-anchor="/document/99/902253149/ZAP1LK438G/"></a>от 17 декабря 2010 года № 1122н</span></p><div data-structid="2" data-level="2" data-type="supplement" data-id="183" class="doc__supplement doc-start"><span data-role="phrase" data-phrase-id="19"><a data-anchor="/document/99/902253149/bssPhr19/" data-role="phrase-anchor" data-phrase-id="19" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr19"></a><a data-anchor="/document/99/902253149/ZAP2JKI3GJ/"></a><a data-anchor="/document/99/902253149/ZAP2E603F2/"></a><span class="doc__supplement-number">Приложение&nbsp;1. </span><span class="doc__supplement-name">Типовые нормы бесплатной выдачи работникам смывающих и (или) обезвреживающих средств</span><span class="bl-anchors"><a data-anchor="/document/99/902253149/bssPhr20/" data-role="phrase-anchor" data-phrase-id="20" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr20"></a><a data-anchor="/document/99/902253149/ZAP1I2E34T/"></a></span></span></div><div class="table-wide"><div><div><table data-id="24"><tr data-id="25"><td style="width: 2.31em" data-id="26"></td><td style="width: 13.09em" data-id="27"></td><td style="width: 23.87em" data-id="28"></td><td style="width: 7.70em" data-id="29"></td></tr><tr data-id="30" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="31"><span data-role="phrase" data-phrase-id="21"><p class="align-center" data-id="32"><a data-anchor="/document/99/902253149/bssPhr21/" data-role="phrase-anchor" data-phrase-id="21" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr21"></a><a data-anchor="/document/99/902253149/ZAP1RL63C4/"></a><a data-anchor="/document/99/902253149/ZAP1M6K3AJ/"></a>№ п/п </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="33"><p class="align-center" data-id="34"><a data-anchor="/document/99/902253149/bssPhr22/" data-role="phrase-anchor" data-phrase-id="22" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr22"></a><a data-anchor="/document/99/902253149/ZAP22SE3EG/"></a>Виды смывающих и (или) обезвреживающих средств </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="35"><p class="align-center" data-id="36"><a data-anchor="/document/99/902253149/bssPhr23/" data-role="phrase-anchor" data-phrase-id="23" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr23"></a><a data-anchor="/document/99/902253149/ZAP1V5G3CD/"></a>Наименование работ и производственных факторов </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="37"><p class="align-center" data-id="38"><a data-anchor="/document/99/902253149/bssPhr24/" data-role="phrase-anchor" data-phrase-id="24" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr24"></a><a data-anchor="/document/99/902253149/ZAP23LM3EN/"></a>Норма выдачи на 1 работника в месяц </p></td></tr><tr data-id="39" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="40"><span data-role="phrase" data-phrase-id="25"><p class="align-center" data-id="41"><a data-anchor="/document/99/902253149/bssPhr25/" data-role="phrase-anchor" data-phrase-id="25" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr25"></a><a data-anchor="/document/99/902253149/ZAP150U30S/"></a>1 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="42"><p class="align-center" data-id="43"><a data-anchor="/document/99/902253149/bssPhr26/" data-role="phrase-anchor" data-phrase-id="26" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr26"></a><a data-anchor="/document/99/902253149/ZAP18VE33A/"></a>2 </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="44"><p class="align-center" data-id="45"><a data-anchor="/document/99/902253149/bssPhr27/" data-role="phrase-anchor" data-phrase-id="27" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr27"></a><a data-anchor="/document/99/902253149/ZAP1DO035D/"></a>3 </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="46"><p class="align-center" data-id="47"><a data-anchor="/document/99/902253149/bssPhr28/" data-role="phrase-anchor" data-phrase-id="28" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr28"></a><a data-anchor="/document/99/902253149/ZAP1JG2386/"></a>4 </p></td></tr><tr data-id="48" data-role="phrase-row"><td colspan="4" style="width: 46.97em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="49"><span data-role="phrase" data-phrase-id="29"><p class="align-center" data-id="50"><b><a data-anchor="/document/99/902253149/ZAP1QNA3CA/"></a><a data-anchor="/document/99/902253149/bssPhr29/" data-role="phrase-anchor" data-phrase-id="29" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr29"></a>I. Защитные средства  </b></p></span></td></tr><tr data-id="51" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="52"><span data-role="phrase" data-phrase-id="30"><p class="formattext" data-id="53"><a data-anchor="/document/99/902253149/bssPhr30/" data-role="phrase-anchor" data-phrase-id="30" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr30"></a><a data-anchor="/document/99/902253149/ZAP1TMO3FB/"></a>1.</p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="54"><p class="formattext" data-id="55"><a data-anchor="/document/99/902253149/bssPhr31/" data-role="phrase-anchor" data-phrase-id="31" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr31"></a><a data-anchor="/document/99/902253149/ZAP286M3J2/"></a>Средства гидрофильного действия (впитывающие влагу, увлажняющие кожу)</p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="56"><p class="formattext" data-id="57"><a data-anchor="/document/99/902253149/bssPhr32/" data-role="phrase-anchor" data-phrase-id="32" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr32"></a><a data-anchor="/document/99/902253149/ZAP1UTM3F0/"></a>Работы с органическими растворителями, техническими маслами, смазками, сажей, лаками и красками, смолами, нефтью и нефтепродуктами, графитом, различными видами производственной пыли (в том числе угольной, металлической, стекольной, бумажной и другими), мазутом, стекловолокном, смазочно-охлаждающими жидкостями (далее - СОЖ) на масляной основе и другими водонерастворимыми материалами и веществами </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="58"><p class="align-center" data-id="59"><a data-anchor="/document/99/902253149/bssPhr33/" data-role="phrase-anchor" data-phrase-id="33" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr33"></a><a data-anchor="/document/99/902253149/ZAP1PK03BV/"></a>100 мл </p></td></tr><tr data-id="60" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="61"><span data-role="phrase" data-phrase-id="34"><p class="formattext" data-id="62"><a data-anchor="/document/99/902253149/bssPhr34/" data-role="phrase-anchor" data-phrase-id="34" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr34"></a><a data-anchor="/document/99/902253149/ZAP21PO3GC/"></a>2 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="63"><p class="formattext" data-id="64"><a data-anchor="/document/99/902253149/bssPhr35/" data-role="phrase-anchor" data-phrase-id="35" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr35"></a><a data-anchor="/document/99/902253149/ZAP2CKI3K2/"></a>Средства гидрофобного действия (отталкивающие влагу, сушащие кожу)</p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="65"><p class="formattext" data-id="66"><a data-anchor="/document/99/902253149/bssPhr36/" data-role="phrase-anchor" data-phrase-id="36" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr36"></a><a data-anchor="/document/99/902253149/ZAP28VM3JP/"></a>Работы с водными растворами, водой (предусмотренные технологией), СОЖ на водной основе, дезинфицирующими средствами, растворами цемента, извести, кислот, щелочей, солей, щелочемасляными эмульсиями и другими водорастворимыми материалами и веществами; работы, выполняемые в резиновых перчатках или перчатках из полимерных материалов (без натуральной подкладки), закрытой спецобуви </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="67"><p class="align-center" data-id="68"><a data-anchor="/document/99/902253149/bssPhr37/" data-role="phrase-anchor" data-phrase-id="37" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr37"></a><a data-anchor="/document/99/902253149/ZAP1KB637J/"></a>100 мл </p></td></tr><tr data-id="69" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="70"><span data-role="phrase" data-phrase-id="38"><p class="formattext" data-id="71"><a data-anchor="/document/99/902253149/bssPhr38/" data-role="phrase-anchor" data-phrase-id="38" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr38"></a><a data-anchor="/document/99/902253149/ZAP1MTS38Q/"></a>3 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="72"><p class="formattext" data-id="73"><a data-anchor="/document/99/902253149/bssPhr39/" data-role="phrase-anchor" data-phrase-id="39" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr39"></a><a data-anchor="/document/99/902253149/ZAP1UFA3CG/"></a>Средства комбинированного действия </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="74"><p class="formattext" data-id="75"><a data-anchor="/document/99/902253149/bssPhr40/" data-role="phrase-anchor" data-phrase-id="40" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr40"></a><a data-anchor="/document/99/902253149/ZAP1UDK3C5/"></a>Работы при попеременном воздействии водорастворимых и водонерастворимых материалов и веществ, указанных в пунктах 1 и 2 настоящих Типовых норм </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="76"><p class="align-center" data-id="77"><a data-anchor="/document/99/902253149/bssPhr41/" data-role="phrase-anchor" data-phrase-id="41" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr41"></a><a data-anchor="/document/99/902253149/ZAP1JQ437E/"></a>100 мл </p></td></tr><tr data-id="78" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="79"><span data-role="phrase" data-phrase-id="42"><p class="formattext" data-id="80"><a data-anchor="/document/99/902253149/bssPhr42/" data-role="phrase-anchor" data-phrase-id="42" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr42"></a><a data-anchor="/document/99/902253149/ZAP1ML638O/"></a>4 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="81"><p class="formattext" data-id="82"><a data-anchor="/document/99/902253149/bssPhr43/" data-role="phrase-anchor" data-phrase-id="43" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr43"></a><a data-anchor="/document/99/902253149/ZAP1TNE3B4/"></a>Средства для защиты кожи при негативном влиянии окружающей среды (от раздражения и повреждения кожи)</p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="83"><p class="formattext" data-id="84"><a data-anchor="/document/99/902253149/bssPhr44/" data-role="phrase-anchor" data-phrase-id="44" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr44"></a><a data-anchor="/document/99/902253149/ZAP21463AR/"></a>Наружные, сварочные и другие работы, связанные с воздействием ультрафиолетового излучения диапазонов А, В, С или воздействием пониженных температур, ветра </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="85"><p class="align-center" data-id="86"><a data-anchor="/document/99/902253149/bssPhr45/" data-role="phrase-anchor" data-phrase-id="45" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr45"></a><a data-anchor="/document/99/902253149/ZAP1J2637R/"></a>100 мл </p></td></tr><tr data-id="87" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="88"><span data-role="phrase" data-phrase-id="46"><p class="formattext" data-id="89"><a data-anchor="/document/99/902253149/bssPhr46/" data-role="phrase-anchor" data-phrase-id="46" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr46"></a><a data-anchor="/document/99/902253149/ZAP1OTQ3E1/"></a>5 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="90"><p class="formattext" data-id="91"><a data-anchor="/document/99/902253149/bssPhr47/" data-role="phrase-anchor" data-phrase-id="47" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr47"></a><a data-anchor="/document/99/902253149/ZAP22943HI/"></a>Средства для защиты от бактериологических вредных факторов (дезинфицирующие)</p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="92"><p class="formattext" data-id="93"><a data-anchor="/document/99/902253149/bssPhr48/" data-role="phrase-anchor" data-phrase-id="48" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr48"></a><a data-anchor="/document/99/902253149/ZAP21LE3G9/"></a>Работы с бактериально опасными средами; при нахождении рабочего места удалённо от стационарных санитарно-бытовых узлов; работы, выполняемые в закрытой специальной обуви; при повышенных требованиях к стерильности рук на производстве </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="94"><p class="align-center" data-id="95"><a data-anchor="/document/99/902253149/bssPhr49/" data-role="phrase-anchor" data-phrase-id="49" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr49"></a><a data-anchor="/document/99/902253149/ZAP1IR236O/"></a>100 мл </p></td></tr><tr data-id="96" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="97"><span data-role="phrase" data-phrase-id="50"><p class="formattext" data-id="98"><a data-anchor="/document/99/902253149/bssPhr50/" data-role="phrase-anchor" data-phrase-id="50" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr50"></a><a data-anchor="/document/99/902253149/ZAP1NO23CU/"></a>6 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="99"><p class="formattext" data-id="100"><a data-anchor="/document/99/902253149/bssPhr51/" data-role="phrase-anchor" data-phrase-id="51" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr51"></a><a data-anchor="/document/99/902253149/ZAP1VN83D1/"></a>Средства для защиты от биологических вредных факторов (от укусов членистоногих)</p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="101"><p class="formattext" data-id="102"><a data-anchor="/document/99/902253149/bssPhr52/" data-role="phrase-anchor" data-phrase-id="52" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr52"></a><a data-anchor="/document/99/902253149/ZAP28F23JM/"></a>Наружные работы (сезонно, при температуре выше 0°Цельсия) в период активности кровососущих и жалящих насекомых и паукообразных </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="103"><p class="align-center" data-id="104"><a data-anchor="/document/99/902253149/bssPhr53/" data-role="phrase-anchor" data-phrase-id="53" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr53"></a><a data-anchor="/document/99/902253149/ZAP1RNM3A7/"></a>200 мл </p></td></tr><tr data-id="105" data-role="phrase-row"><td colspan="4" style="width: 46.97em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="106"><span data-role="phrase" data-phrase-id="54"><p class="align-center" data-id="107"><b><a data-anchor="/document/99/902253149/ZAP202K3DK/"></a><a data-anchor="/document/99/902253149/bssPhr54/" data-role="phrase-anchor" data-phrase-id="54" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr54"></a>II. Очищающие средства  </b></p></span></td></tr><tr data-id="108" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="109"><span data-role="phrase" data-phrase-id="55"><p class="formattext" data-id="110"><a data-anchor="/document/99/902253149/bssPhr55/" data-role="phrase-anchor" data-phrase-id="55" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr55"></a><a data-anchor="/document/99/902253149/ZA0223K3G6/"></a><a data-anchor="/document/99/902253149/ZAP223K3G6/"></a>7 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="111"><p class="formattext" data-id="112"><a data-anchor="/document/99/902253149/bssPhr56/" data-role="phrase-anchor" data-phrase-id="56" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr56"></a><a data-anchor="/document/99/902253149/ZAP2BNS3HU/"></a>Мыло или жидкие моющие средства<br><a data-anchor="/document/99/902253149/ZAP26OM3DU/"></a>в том числе: </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="113"><p class="formattext" data-id="114"><a data-anchor="/document/99/902253149/bssPhr57/" data-role="phrase-anchor" data-phrase-id="57" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr57"></a><a data-anchor="/document/99/902253149/ZAP1TQ439Q/"></a>Работы, связанные с легкосмываемыми загрязнениями </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="115"></td></tr><tr data-id="117" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="118"></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="120"><span data-role="phrase" data-phrase-id="58"><p class="formattext" data-id="121"><a data-anchor="/document/99/902253149/bssPhr58/" data-role="phrase-anchor" data-phrase-id="58" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr58"></a><a data-anchor="/document/99/902253149/ZAP1VPA3E1/"></a>для мытья рук </p></span></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="122"></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="124"><p class="align-center" data-id="125"><a data-anchor="/document/99/902253149/bssPhr59/" data-role="phrase-anchor" data-phrase-id="59" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr59"></a><a data-anchor="/document/99/902253149/ZAP2C0K3GV/"></a>200 г (мыло туалетное) или 250 мл (жидкие моющие средства в дозирующих устройствах)</p></td></tr><tr data-id="126" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="127"></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="129"><span data-role="phrase" data-phrase-id="60"><p class="formattext" data-id="130"><a data-anchor="/document/99/902253149/bssPhr60/" data-role="phrase-anchor" data-phrase-id="60" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr60"></a><a data-anchor="/document/99/902253149/ZAP24OG3FQ/"></a>для мытья тела </p></span></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="131"></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="133"><p class="align-center" data-id="134"><a data-anchor="/document/99/902253149/bssPhr61/" data-role="phrase-anchor" data-phrase-id="61" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr61"></a><a data-anchor="/document/99/902253149/ZAP29SU3G6/"></a>300 г (мыло туалетное) или 500 мл (жидкие моющие средства в дозирующих устройствах)</p></td></tr><tr data-id="135" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="136"><span data-role="phrase" data-phrase-id="62"><p class="formattext" data-id="137"><a data-anchor="/document/99/902253149/bssPhr62/" data-role="phrase-anchor" data-phrase-id="62" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr62"></a><a data-anchor="/document/99/902253149/ZAP23BS3GC/"></a>8 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="138"><p class="formattext" data-id="139"><a data-anchor="/document/99/902253149/bssPhr63/" data-role="phrase-anchor" data-phrase-id="63" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr63"></a><a data-anchor="/document/99/902253149/ZAP2DHA3JS/"></a>Твердое туалетное мыло или жидкие моющие средства </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="140"><p class="formattext" data-id="141"><a data-anchor="/document/99/902253149/bssPhr64/" data-role="phrase-anchor" data-phrase-id="64" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr64"></a><a data-anchor="/document/99/902253149/ZAP23EO3FL/"></a>Работы, связанные с трудносмываемыми, устойчивыми загрязнениями: масла, смазки, нефтепродукты, лаки, краски, смолы, клеи, битум, мазут, силикон, сажа, графит, различные виды производственной пыли (в том числе угольная, металлическая)</p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="142"><p class="formattext" data-id="143"><a data-anchor="/document/99/902253149/bssPhr65/" data-role="phrase-anchor" data-phrase-id="65" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr65"></a><a data-anchor="/document/99/902253149/ZAP2FBG3HN/"></a>300 г (мыло туалетное) или 500 мл (жидкие моющие средства в дозирующих устройствах)</p></td></tr><tr data-id="144" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="145"></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="147"></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="149"><span data-role="phrase" data-phrase-id="66"><p class="formattext" data-id="150"><a data-anchor="/document/99/902253149/bssPhr66/" data-role="phrase-anchor" data-phrase-id="66" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr66"></a><a data-anchor="/document/99/902253149/ZAP2AOC3IM/"></a>Работы на угольных (сланцевых) шахтах, в разрезах, на обогатительных и брикетных фабриках, в шахтостроительных и шахтомонтажных организациях угольной промышленности </p></span></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px none black; border-right: 1px solid black; " valign="top" data-id="151"><p class="formattext" data-id="152"><a data-anchor="/document/99/902253149/bssPhr67/" data-role="phrase-anchor" data-phrase-id="67" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr67"></a><a data-anchor="/document/99/902253149/ZAP2D8O3HR/"></a>800 г (мыло туалетное) или 750 мл (жидкие моющие средства в дозирующих устройствах)</p></td></tr><tr data-id="153" data-role="phrase-row"><td colspan="4" style="width: 46.97em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px none black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="154"><span data-role="phrase" data-phrase-id="68"><p class="formattext" data-id="155"><span class="bl-anchors"><a data-anchor="/document/99/902253149/bssPhr68/" data-role="phrase-anchor" data-phrase-id="68" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr68"></a><a data-anchor="/document/99/902253149/ZAP2L9Q3IG/"></a></span></p></span></td></tr><tr data-id="156" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="157"><span data-role="phrase" data-phrase-id="69"><p class="formattext" data-id="158"><a data-anchor="/document/99/902253149/bssPhr69/" data-role="phrase-anchor" data-phrase-id="69" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr69"></a><a data-anchor="/document/99/902253149/ZAP1TPS3C4/"></a>9 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="159"><p class="formattext" data-id="160"><a data-anchor="/document/99/902253149/bssPhr70/" data-role="phrase-anchor" data-phrase-id="70" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr70"></a><a data-anchor="/document/99/902253149/ZAP251S3BQ/"></a>Очищающие кремы, гели и пасты </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="161"><p class="formattext" data-id="162"><a data-anchor="/document/99/902253149/bssPhr71/" data-role="phrase-anchor" data-phrase-id="71" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr71"></a><a data-anchor="/document/99/902253149/ZAP28TA3H6/"></a>Работы, связанные с трудносмываемыми, устойчивыми загрязнениями: масла, смазки, нефтепродукты, лаки, краски, смолы, клеи, битум, мазут, силикон, сажа, графит, различные виды производственной пыли (в том числе угольная, металлическая)</p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="163"><p class="align-center" data-id="164"><a data-anchor="/document/99/902253149/bssPhr72/" data-role="phrase-anchor" data-phrase-id="72" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr72"></a><a data-anchor="/document/99/902253149/ZAP26A03IO/"></a>200 мл </p></td></tr><tr data-id="165" data-role="phrase-row"><td colspan="4" style="width: 46.97em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="166"><span data-role="phrase" data-phrase-id="73"><p class="align-center" data-id="167"><b><a data-anchor="/document/99/902253149/ZAP2H7Q3LO/"></a><a data-anchor="/document/99/902253149/bssPhr73/" data-role="phrase-anchor" data-phrase-id="73" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr73"></a>III. Регенерирующие, восстанавливающие средства  </b></p></span></td></tr><tr data-id="168" data-role="phrase-row"><td style="width: 2.31em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="169"><span data-role="phrase" data-phrase-id="74"><p class="formattext" data-id="170"><a data-anchor="/document/99/902253149/bssPhr74/" data-role="phrase-anchor" data-phrase-id="74" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr74"></a><a data-anchor="/document/99/902253149/ZAP2B4I3FJ/"></a>10 </p></span></td><td style="width: 13.09em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="171"><p class="formattext" data-id="172"><a data-anchor="/document/99/902253149/bssPhr75/" data-role="phrase-anchor" data-phrase-id="75" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr75"></a><a data-anchor="/document/99/902253149/ZAP2D1C3F6/"></a>Регенерирующие, восстанавливающие кремы, эмульсии </p></td><td style="width: 23.87em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="173"><p class="formattext" data-id="174"><a data-anchor="/document/99/902253149/bssPhr76/" data-role="phrase-anchor" data-phrase-id="76" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr76"></a><a data-anchor="/document/99/902253149/ZAP24C83GH/"></a>Работы с органическими растворителями, техническими маслами, смазками, сажей, лаками и красками, смолами, нефтью и нефтепродуктами, графитом, различными видами производственной пыли (в том числе угольной, стекольной и другими), мазутом, СОЖ на водной и масляной основе, с водой и водными растворами (предусмотренные технологией), дезинфицирующими средствами, растворами цемента, извести, кислот, щелочей, солей, щелочемасляными эмульсиями и другими рабочими материалами; работы, выполняемые в резиновых перчатках или перчатках из полимерных материалов (без натуральной подкладки); негативное влияние окружающей среды </p></td><td style="width: 7.70em;padding-left: 0.62em; padding-right: 0.62em; border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black; " valign="top" data-id="175"><p class="align-center" data-id="176"><a data-anchor="/document/99/902253149/bssPhr77/" data-role="phrase-anchor" data-phrase-id="77" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr77"></a><a data-anchor="/document/99/902253149/ZAP1K6C36U/"></a>100 мл </p></td></tr></table></div></div></div><p class="align-right" data-id="179"><span data-role="phrase" data-phrase-id="78"><a data-anchor="/document/99/902253149/bssPhr78/" data-role="phrase-anchor" data-phrase-id="78" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr78"></a><a data-anchor="/document/99/902253149/ZAP1SQM39H/"></a><a data-anchor="/document/99/902253149/XA00M9G2N4/"></a><a data-anchor="/document/99/902253149/XA00M8G2MQ/"></a><a data-anchor="/document/99/902253149/XA00M7U2MN/"></a><a data-anchor="/document/99/902253149/XA00M7C2MK/"></a><a data-anchor="/document/99/902253149/XA00M6Q2MH/"></a><a data-anchor="/document/99/902253149/XA00MB82NE/"></a><a data-anchor="/document/99/902253149/XA00MAM2NB/"></a><a data-anchor="/document/99/902253149/XA00MA42N8/"></a><a data-anchor="/document/99/902253149/XA00M9I2N5/"></a><a data-anchor="/document/99/902253149/XA00M902N2/"></a><a data-anchor="/document/99/902253149/XA00M802MO/"></a><a data-anchor="/document/99/902253149/XA00M7E2ML/"></a><a data-anchor="/document/99/902253149/XA00M6S2MI/"></a><a data-anchor="/document/99/902253149/XA00M6A2MF/"></a><a data-anchor="/document/99/902253149/XA00M5O2MC/"></a><a data-anchor="/document/99/902253149/XA00MA62N9/"></a><a data-anchor="/document/99/902253149/XA00M9K2N6/"></a><a data-anchor="/document/99/902253149/XA00M922N3/"></a><a data-anchor="/document/99/902253149/XA00M8G2N0/"></a><a data-anchor="/document/99/902253149/XA00M7G2MM/"></a><a data-anchor="/document/99/902253149/XA00M6U2MJ/"></a><a data-anchor="/document/99/902253149/XA00M6C2MG/"></a><a data-anchor="/document/99/902253149/XA00M5Q2MD/"></a><a data-anchor="/document/99/902253149/XA00M3G2M3/"></a><a data-anchor="/document/99/902253149/XA00M2U2M0/"></a><a data-anchor="/document/99/902253149/XA00M3A2MS/"></a><a data-anchor="/document/99/902253149/XA00M2O2MP/"></a><a data-anchor="/document/99/902253149/XA00M262MM/"></a><a data-anchor="/document/99/902253149/XA00LVS2MC/"></a><a data-anchor="/document/99/902253149/XA00LVA2M9/"></a><a data-role="toc" data-anchor="/document/99/902253149/ZA00MH82O5/"></a><a data-anchor="/document/99/902253149/ZAP1SN439G/"></a><a data-anchor="/document/99/902253149/ZAP1N8I37V/"></a>Приложение № 2<br><a data-anchor="/document/99/902253149/ZAP1U0U3BI/"></a>к приказу<br><a data-anchor="/document/99/902253149/ZAP2AFU3DA/"></a>Минздравсоцразвития России<br><a data-anchor="/document/99/902253149/ZAP1LOS38H/"></a>от 17 декабря 2010 года № 1122н</span></p><div data-structid="3" data-level="2" data-type="supplement" data-id="184" class="doc__expired doc__supplement"><span data-role="phrase" data-phrase-id="79"><a data-anchor="/document/99/902253149/bssPhr79/" data-role="phrase-anchor" data-phrase-id="79" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr79"></a><a data-anchor="/document/99/902253149/ZAP2FVS3FM/"></a><a data-anchor="/document/99/902253149/ZAP2AHA3E5/"></a><span class="doc__supplement-number">Приложение&nbsp;2. </span><span class="doc__supplement-name">Стандарт безопасности труда "Обеспечение работников смывающими и (или) обезвреживающими средствами"</span></span></div><brake parent-data-id="181" class="doc__expired"></brake><p class="centertext doc__expired" parent-data-id="181" data-splited-par="true" data-id="187"><span data-role="phrase" data-phrase-id="80"><a data-anchor="/document/99/902253149/bssPhr80/" data-role="phrase-anchor" data-phrase-id="80" data-dwh-source-type-favorites="button_anchor" data-phrase-anchor="bssPhr80"></a><a data-anchor="/document/99/902253149/ZAP1R7A3CG/"></a>Утратил силу с 1 сентября 2023 года -  <a data-anchor="/document/99/902253149/backlinkanchor14/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/727092798/XA00LUO2M6/">приказ Минтруда России от 29 октября 2021 года № 766н</a>. - <a data-anchor="/document/99/902253149/ZAP2C5I3DP/"></a>См. <a data-anchor="/document/99/902253149/backlinkanchor15/" data-role="backlink-anchor"></a><a class="npd" href="https://ot.action360.ru/#/document/99/578342213/XA00LVA2M9/">предыдущую редакцию</a><a data-anchor="/document/99/902253149/ZAP1NQ636P/"></a></span></p><brake parent-data-id="181" class="doc__expired"><a data-src="ep" data-anchor="/document/99/902253149/ZAP1LOO3AV/"></a></brake></div></div><div xmlns="" class="footer">© Материал из Справочной системы «Актион Охрана труда»<br />https://ot.action360.ru<br />Дата копирования: 15.08.2024</div></body></html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load main_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Список документов</h2>
+    <div class="row d-flex justify-content-between">
+        {% for p in posts %}
+        <div class="col-md-4 mb-4 d-flex">
+            <div class="card shadow-sm flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">{{ p.title|cuter }}</h5>
+                    <p class="card-text">Дата загрузки: {{ p.uploaded_at|date:"d-m-Y H:i" }}</p>
+                    <a href="{{ p.file.url }}" class="btn btn-dark">Скачать файл</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block navigation %}
+{% include 'includes/nav.html' %}
+{% endblock %}

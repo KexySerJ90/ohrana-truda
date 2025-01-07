@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br>
+<div class="container-fluid well span6">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5>Настройки пользователя</h5>
+        </div>
+        <div class="card-body">
+            <h6>Двухфакторная авторизация</h6>
+            <p>
+                Двухфакторная авторизация (2FA) — это дополнительный уровень безопасности для вашей учетной записи.
+                При включенной 2FA вам будет необходимо предоставить второй фактор (электронная почта)
+                при входе в систему, что значительно усложняет доступ к вашей учетной записи для злоумышленников.
+            </p>
+            <button id="toggle-2fa" class="btn btn-primary">
+                {% if user.two_factor_enabled %}Выключить двухфакторную авторизацию{% else %}Включить двухфакторную авторизацию{% endif %}
+            </button>
+            <br><br>
+            <div id="message" class="alert alert-success" style="display:none;"></div>
+        </div>
+        <div class="card-footer">
+            <p>Секретный вопрос — это дополнительный уровень безопасности для аккаунта, который помогает защитить личные данные пользователя.
+                Если пользователь забывает пароль, секретный вопрос может служить способом подтверждения его личности и восстановления доступа к аккаунту.</p>
+        <div class="btn-group" role="group">
+                <a class="btn btn-dark" href="{% url 'users:secretquestion' %}">{% if user.secret_answer %}Изменить{% else %}Добавить{% endif %} секретный вопрос</a>
+            </div>
+            {% if user.secret_answer %}
+            <div class="btn-group" role="group">
+                <a class="btn btn-danger" href="{% url 'users:delete_secret_answer' %}">Удалить Секретный вопрос</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <p>Резервный email позволяет вам восстановить доступ к вашему аккаунту в случае потери основного адреса электронной почты. Пожалуйста, укажите резервный адрес, на который будет отправлен код подтверждения.</p>
+            {% if user.reserve_email %}
+            <h5 class="text-muted">Ваша резервная почта:</h5>
+            <p>{{ user.reserve_email }}</p>
+            <div class="btn-group" role="group">
+                <a class="btn btn-dark" href="{% url 'users:reserve_email' %}">Изменить Резервную почту</a>
+            </div>
+                <div class="btn-group" role="group">
+                <a class="btn btn-danger" href="{% url 'users:delete_reserve_email' %}">Удалить Резервную почту</a>
+                </div>
+                {% else %}
+            <div class="btn-group" role="group">
+                <a class="btn btn-dark" href="{% url 'users:reserve_email' %}">Добавить Резервную почту</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <p>История посещения сайта</p>
+            <div class="btn-group" role="group">
+                <a class="btn btn-dark" href="{% url 'users:login_history' %}">Посмотреть</a>
+            </div>
+        </div>
+        <div class="card-footer">
+                            <p>Смена пароля — это важный шаг для обеспечения безопасности вашей учетной записи. Регулярное обновление пароля помогает защитить ваши личные данные от несанкционированного доступа. </p>
+
+            <div class="btn-group" role="group">
+                <a class="btn btn-dark" href="{% url 'users:password_change' %}">Сменить пароль</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $('#toggle-2fa').click(function(){
+            $.ajax({
+                method: 'POST',
+                url: '{% url "users:settings_user" %}',  // URL на ваше представление
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'  // передаем csrf токен
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Обновляем текст кнопки и сообщение
+                        const isEnabled = response.new_status; // теперь мы получаем новый статус из ответа сервера
+                        $('#toggle-2fa').text(isEnabled ? 'Выключить двухфакторную авторизацию' : 'Включить двухфакторную авторизацию');
+
+                        const message = isEnabled ? "Двухфакторная авторизация включена успешно!" : "Двухфакторная авторизация выключена успешно!";
+                        $('#message').text(message).removeClass('text-danger').addClass('text-success').fadeIn();
+
+                        // Скрываем сообщение через 5 секунд
+                        setTimeout(function() {
+                            $('#message').fadeOut();
+                        }, 5000);
+                    }
+                },
+                error: function(xhr) {
+                    $('#message').text("Произошла ошибка. Пожалуйста, попробуйте еще раз.")
+                        .removeClass('text-success').addClass('text-danger').fadeIn();
+
+                    // Скрываем сообщение через 5 секунд
+                    setTimeout(function() {
+                        $('#message').fadeOut();
+                    }, 5000);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

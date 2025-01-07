@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load main_filters %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0"><a class="text-black" href="{% url 'main:addpost' %}">Добавить статью</a></h4>
+            </div>
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-md-5 mb-4">
+                    <div class="card h-100">
+                        <a href="{{ post.get_absolute_url }}">
+                <img class="card-img-top" src="{{ post.photo.url }}" alt="{{ post.title }}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">
+                                {% autoescape off %}
+                                {{ post.content|markdown|safe|truncatewords:30 }}
+                                {% endautoescape %}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Категория: {{ post.category.name }} | Дата: {{ post.time_update|date:"d-m-Y H:i:s"}}
+                                </small>
+                            </p>
+                            <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Читать пост</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="rating-buttons">
+                                <button class="btn btn-sm btn-primary" data-post="{{ post.id }}" data-value="1">Лайк
+                                </button>
+                                <button class="btn btn-sm btn-secondary" data-post="{{ post.id }}" data-value="-1">
+                                    Дизлайк
+                                </button>
+                                <button class="btn btn-sm btn-secondary rating-sum">{{ post.get_sum_rating }}</button>
+                                <small class="text-muted float-end">
+                                    Просмотры: {{ post.views|format_views }}
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item active" aria-current="true"
+                       style="background-color:#212529; border-color:#212529">Категории</a>
+                    {% if cat_selected == 0 %}
+                    <a class="list-group-item list-group-item-action list-group-item active "
+                       style="background-color:#212529; border-color:#212529" href="{% url 'main:home' %}">Все
+                        категории</a>
+                    {% else %}
+                    <a class="list-group-item list-group-item-action " href="{% url 'main:home' %}">Все категории</a>
+                    {% endif %}
+                    {% show_categories cat_selected %}
+                    <br>
+                    {% show_all_tags %}
+                </div>
+            </div>
+
+            {% include "includes/show_popular_posts.html" %}
+            <div class="card mb-4">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action list-group-item active" aria-current="true"
+                       style="background-color:#212529; border-color:#212529">
+                        Обсуждаемые статьи
+                    </a>
+                    {% articles_by_comment_count 3 %}
+                </div>
+            </div>
+            <a href="{% url 'latest_post_feed' %}">Подписаться на RSS ленту</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block navigation %}
+{% include 'includes/nav.html' %}
+<script src="{% static 'deps/js/ratings.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for user in users %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center"
+     {% if user.status == 'medic' %} style="background-color: #9eeaf9;"
+     {% elif user.status == 'worker' %} style="background-color: #a3cfbb;"
+     {% endif %}>
+    <h5>Информация о работнике: {{ user.first_name }} {{ user.last_name }}
+        {% if user.patronymic %}{{ user.patronymic }}{% endif %} ({{user}}), {% if user.profession %}{{ user.profession }}
+        {% else %}{{ user.get_status_display }}{% endif %}</h5>
+    {% if user.photo %}
+        <img id="profile-photo" src="{{ user.photo.url }}" class="rounded-circle" style="width: 130px; height: 130px; border-radius: 50%;">
+    {% endif %}
+</div>
+        <div class="card-body">
+            <p class="card-text">Дата приема на работу: <strong>{{ user.date_of_work }}</strong></p>
+            <ul class="list-group">
+                {% for subject in user.subject_completions.all %}
+                     {% include 'includes/study.html' %}
+                {% endfor %}
+                {% if not user.status == 'leader' %}
+                <br>
+                <p class="card-text">Был в сети:
+    <strong>
+        {% if user.is_online %}
+            Онлайн
+        {% else %}
+            {{ user.last_activity|date:"d.m.Y H:i" }}
+        {% endif %}
+    </strong>
+</p>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<br>
+{% endblock %}
+{% block navigation %}
+{% include 'includes/nav.html' %}
+{% endblock %}

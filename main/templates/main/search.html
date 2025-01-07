@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load main_filters %}
+
+
+{% block title %}Search{% endblock %}
+
+{% block content %} {% if query %}
+    <h1>
+        Посты содержащие "{{ query }}"
+    </h1>
+{% if user.status %}
+    <h3>
+        {% with results_files.count as total_results_files %}
+            Найдено {{ total_results_files }} {{ total_results_files|pluralize_ru:"файл,файла,файлов" }}
+        {% endwith %}
+    </h3>
+    <hr class="mt-1 mb-1"/>
+
+    {% for post in results_files %}
+        <h4>
+            <a href="{{ post.file.url }}"> {{ post.title|cuter }}
+            </a>
+        </h4>
+        {{ post.body|truncatewords_html:12 }} {% empty %}
+        <p>Поиск не нашёл результатов</p>
+    {% endfor %}
+    {% endif %}
+
+    <h3>
+        {% with results_articles.count as total_results_article %}
+            Найдено {{ total_results_article }} {{ total_results_article|pluralize_ru:"статья,статьи,статей" }}
+        {% endwith %}
+    </h3>
+    <hr class="mt-1 mb-1"/>
+    {% for post in results_articles %}
+        <h4>
+            <a href="{{ post.get_absolute_url }}"> {{ post.title }}
+            </a>
+        </h4>
+        {{ post.body|truncatewords_html:12 }} {% empty %}
+        <p>Не найдено ни одного результата</p>
+    {% endfor %}
+    <p><a class="btn btn-dark" href="{% url 'main:post_search' %}">Найти снова</a></p> {% else %}
+    <h1>
+        Поиск документов (статей)
+    </h1>
+    <form method="get" >
+        {{ form.query }}
+        <input type="submit" value="Поиск" class="btn btn-dark text-white">
+    </form>
+{% endif %} {% endblock %}

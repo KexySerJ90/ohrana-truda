@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card shadow-lg p-3">
+        <h1 class="text-center">Для корректной работы, пожалуйста, завершите регистрацию</h1>
+    </div>
+</div>
+<br>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+    <p><button class="btn btn-dark" type="submit">Завершить регистрацию</button></p>
+</form>
+
+{% endblock %}
