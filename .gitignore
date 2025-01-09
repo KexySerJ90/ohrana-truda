@@ -1,3 +1,48 @@
-/venv/
-/.idea/
-/djvenv/
+# Python
+*.py[cod]
+__pycache__/
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+db.sqlite3
+media/
+staticfiles/
+.env
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+
+# PyCharm
+.idea/
+
+
+# Migrations
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Local environment variables
+.env.local
+.env.*.local
+
+# MacOS
+.DS_Store
+
+cert.crt
+cert.key
+cert 2.key
