@@ -55,5 +55,6 @@ urlpatterns = [
     path('secretquestion-verify/', views.UserSecretQuestionVerify.as_view(), name='secretquestion_verify'),
     path('delete-secret-answer/', views.delete_secret_answer, name='delete_secret_answer'),
     path('login-history/', views.LoginHistoryView.as_view(), name='login_history'),
+    path('sout-user/', views.SOUTUserView.as_view(), name='sout_user'),
 
 ]

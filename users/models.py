@@ -10,6 +10,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class User(AbstractUser):
     class Status(models.TextChoices):
         LEADER=('leader', 'Руководитель')
@@ -214,3 +215,43 @@ class UserLoginHistory(models.Model):
 
     def __str__(self):
         return f"{self.user.username} logged in at {self.login_time.strftime('%d.%m.%Y %H:%M')}"
+
+
+class WorkingConditions(models.Model):
+    name = models.CharField(max_length=250, verbose_name='Класс условий труда')
+    description=models.CharField(max_length=250, verbose_name='Описание', blank=True, null=True)
+    money=models.PositiveIntegerField(verbose_name='Повышенная оплата труда,%',blank=True, null=True)
+    weekend=models.PositiveIntegerField(verbose_name='Дополнительный отпуск,количество дней',blank=True, null=True)
+    duration = models.BooleanField(verbose_name='Сокращенная продолжительность рабочего времени, да/нет')
+    milk = models.BooleanField(verbose_name='Молоко, да/нет')
+    food=models.BooleanField(verbose_name='Лечебно-профилактическое питание, да/нет')
+    pension=models.BooleanField(verbose_name='Льготное пенсионное обеспечение, да/нет')
+    medical = models.BooleanField(verbose_name='Проведение медицинских осмотров, да/нет')
+
+    class Meta:
+        verbose_name = 'Условия труда'
+        verbose_name_plural = 'Условия труда'
+
+    def __str__(self):
+        return self.name
+
+class JobDetails(models.Model):
+    class OPR(models.TextChoices):
+        LOW=('low', 'Низкий')
+        MODERATE=('moderate', 'Умеренный')
+        MEDIUM=('medium', 'Средний')
+        SIGNIFICANT = ('significant', 'Значительный')
+        HIGH = ('high', 'Высокий')
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, verbose_name='Должность')
+    department = models.ForeignKey('main.Departments', on_delete=models.CASCADE, verbose_name='Отделение')
+    working_conditions = models.ForeignKey(WorkingConditions, on_delete=models.CASCADE, verbose_name='Условия труда', null=True, blank=True)
+    date_of_sout=models.DateField(verbose_name='Дата СОУТ',blank=True,null=True)
+    opr = models.CharField(choices=OPR.choices, max_length=100, verbose_name='Уровень риска', blank=True, null=True)
+
+    class Meta:
+        unique_together = ('profession', 'department')
+        verbose_name = 'Рабочее место'
+        verbose_name_plural = 'Рабочие места'
+
+    def __str__(self):
+        return f'{self.department}-{self.profession}'

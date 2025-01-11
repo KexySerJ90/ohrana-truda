@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from .models import SubjectCompletion, UserAnswer, SentMessage, Notification, Notice, MailDevice, OTP, Profession, \
-    Equipment, SecurityQuestion, UserLoginHistory
+    Equipment, SecurityQuestion, UserLoginHistory, WorkingConditions, JobDetails
 
 admin.site.register(get_user_model(), UserAdmin)
 admin.site.register(OTP)
@@ -122,3 +122,15 @@ class UserLoginHistoryAdmin(admin.ModelAdmin):
     readonly_fields = ['user', 'login_time','ip_address','location','device_type','browser','os']
     list_filter = ['user']
     list_select_related = ['user']
+
+
+@admin.register(WorkingConditions)
+class WorkingConditionsAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(JobDetails)
+class JobDetailsAdmin(admin.ModelAdmin):
+    search_fields = ['profession']
+    list_filter = ['department','working_conditions']
+    list_select_related = ['profession','department']

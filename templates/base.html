@@ -104,6 +104,8 @@
                                     <li><a class="dropdown-item text-white" href="{% url 'user:leader_results' %}">Моё подразделение</a></li>
                                     {% endif %}
                                     </li>
+                                        <li><a class="dropdown-item  text-white" href="{% url 'user:sout_user' %}">Класс условий труда</a>
+                                    </li>
                                     {% if user.is_admin or user.is_staff %}
                                      <li><a class="dropdown-item  text-white" href="{% url 'main:add_file' %}">Добавить документ</a>
                                     </li>

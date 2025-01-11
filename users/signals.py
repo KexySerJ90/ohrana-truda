@@ -40,7 +40,7 @@ def log_user_login(sender, request, user, **kwargs):
         location = get_location(ip)
     except Exception as e:
         print(f"Error getting geolocation for IP {ip}: {e}")
-        location = "Unknown"
+        location = "Неизвестно"
 
     UserLoginHistory.objects.create(
         user=user,
@@ -58,7 +58,7 @@ def get_location(ip):
     # Пример использования библиотеки geoip2
     from geoip2.database import Reader
 
-    reader = Reader('/geoip/GeoLite2-City.mmdb')  # Замените путь к базе данных
+    reader = Reader('geoip/GeoLite2-City.mmdb')  # Замените путь к базе данных
     response = reader.city(ip)
     city = response.city.name
     country = response.country.iso_code

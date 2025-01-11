@@ -12,7 +12,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import transaction
 from django.db.models import Q
-from django.http import JsonResponse, HttpRequest, HttpResponse
+from django.http import JsonResponse, HttpRequest, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -27,7 +27,7 @@ from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswor
     ContactForm, OTPForm, ProfessionForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, \
     UserForgotPasswordForm
 from .models import SubjectCompletion, SentMessage, MailDevice, OTP, Profession, Notice, SecurityQuestion, \
-    UserLoginHistory
+    UserLoginHistory, JobDetails
 from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialRequiredMixin
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
@@ -648,7 +648,29 @@ class LoginHistoryView(LoginRequiredMixin, ListView):
     template_name = 'users/login_history.html'
     context_object_name = 'history'
     ordering = ['-login_time']
+    paginate_by = 20
 
     def get_queryset(self):
         # Фильтруем историю входов для текущего пользователя
         return super().get_queryset().filter(user=self.request.user)
+
+
+class SOUTUserView(LoginRequiredMixin, DetailView):
+    template_name = 'users/sout.html'
+    model = JobDetails
+    extra_context = {'title': "СОУТ"}
+    context_object_name = 'workplace'
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        try:
+            # Получаем рабочее место по профессии и отделению текущего пользователя
+            obj = JobDetails.objects.get(
+                profession=user.profession,
+                department=user.cat2
+            )
+        except JobDetails.DoesNotExist:
+            obj=None
+        return obj
+
+
