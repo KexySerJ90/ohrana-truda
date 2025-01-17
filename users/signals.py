@@ -3,6 +3,8 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from rest_framework_simplejwt.tokens import RefreshToken
 from user_agents import parse
+
+from main.utils import get_client_ip
 from users.models import User, SecurityQuestion, UserLoginHistory
 
 
@@ -23,12 +25,7 @@ def clear_user_secret_answer(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-
+    ip=get_client_ip(request)
     # Извлечение информации об устройстве
     user_agent = parse(request.META.get('HTTP_USER_AGENT', ''))
     device_type = user_agent.device.family

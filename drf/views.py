@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics, viewsets, mixins
 from rest_framework.decorators import action
-from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 

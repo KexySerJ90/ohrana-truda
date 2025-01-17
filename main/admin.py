@@ -4,7 +4,7 @@ from django_mptt_admin.admin import DjangoMpttAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
 from main.models import Categorys, UploadFiles, Subject, Article, Departments, Rating, Question, Slide, TagPost, Video, \
-    Answer, Comment
+    Answer, Comment, UniqueView
 
 
 @admin.register(Categorys)
@@ -79,8 +79,8 @@ class SlideAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(SimpleHistoryAdmin):
-    fields = ['title', 'slug', 'content', 'photo', 'post_photo', 'category', 'tags','is_published']
-    readonly_fields = ['post_photo']
+    fields = ['title', 'slug', 'content', 'photo', 'post_photo', 'category', 'tags','views','is_published']
+    readonly_fields = ['post_photo','views']
     prepopulated_fields = {"slug": ("title",)}
     filter_vertical = ['tags']
     list_display = ('title', 'post_photo', 'time_create', 'is_published', 'category')
@@ -107,9 +107,17 @@ class ArticleAdmin(SimpleHistoryAdmin):
         count = queryset.update(is_published=Article.Status.DRAFT)
         self.message_user(request, f"{count} записей сняты с публикации!", messages.WARNING)
 
+@admin.register(UniqueView)
+class UniqueViewAdmin(admin.ModelAdmin):
+    search_fields = ['article']
+    readonly_fields = ['article', 'ip_address','timestamp']
+    list_filter=['ip_address']
+
 
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     search_fields = ['title']
     prepopulated_fields = {"slug": ("title",)}
+
+
 

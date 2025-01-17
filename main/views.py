@@ -19,7 +19,7 @@ from django.views.generic import FormView, CreateView, ListView, DetailView, Upd
 
 from main.forms import UploadFileForm, SearchForm, AddPostForm, CommentCreateForm
 from main.models import UploadFiles, Article, Departments, TagPost, Rating, Subject, Question, Video, Answer, \
-    Comment
+    Comment, UniqueView
 from main.permissions import AuthorPermissionsMixin
 from main.utils import DataMixin, get_client_ip
 
@@ -142,9 +142,15 @@ class ShowPost(DataMixin, DetailView):
         # Получаем объект статьи
         article = get_object_or_404(Article.published.prefetch_related('comments__user'),
                                     slug=self.kwargs[self.slug_url_kwarg])
-        # Увеличиваем количество просмотров
-        article.views += 1
+        ip_address = get_client_ip(self.request)
+        if not UniqueView.objects.filter(article=article, ip_address=ip_address).exists():
+            # Если нет, создаем новый объект UniqueView
+            UniqueView.objects.create(article=article, ip_address=ip_address)
+
+            # Увеличиваем количество уникальных просмотров
+        article.views = article.unique_views.count()  # Обновляем общее количество просмотров
         article.save(update_fields=['views'])  # Сохраняем только поле views
+        # Увеличиваем количество просмотров
         return article
 
 

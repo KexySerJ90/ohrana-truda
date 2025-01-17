@@ -114,7 +114,7 @@ class Article(models.Model):
     category = models.ForeignKey('Categorys', on_delete=models.PROTECT, related_name='posts', verbose_name="Категории",
                                  blank=True, null=True)
     tags = models.ManyToManyField('TagPost', blank=True, related_name='tags', verbose_name="Теги")
-    views = models.PositiveIntegerField(default=0)
+    views=models.PositiveIntegerField(default=0,verbose_name='Просмотры')
     history = HistoricalRecords()
 
     objects = models.Manager()
@@ -136,6 +136,18 @@ class Article(models.Model):
 
     def get_sum_rating(self):
         return max(sum([rating.value for rating in self.ratings.all()]), 0)
+
+class UniqueView(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='unique_views', verbose_name='Статья')
+    ip_address = models.GenericIPAddressField()
+    timestamp = models.DateTimeField(auto_now_add=True,verbose_name='Дата просмотра')
+    class Meta:
+        verbose_name = "Уникальный просмотр"
+        verbose_name_plural = "Уникальные просмотры"
+        unique_together = ('article', 'ip_address')
+
+    def __str__(self):
+        return f'{self.article}-{self.ip_address}'
 
 
 class TagPost(models.Model):
