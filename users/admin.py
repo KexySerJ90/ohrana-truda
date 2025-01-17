@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from simple_history.admin import SimpleHistoryAdmin
 from .models import SubjectCompletion, UserAnswer, SentMessage, Notification, Notice, MailDevice, OTP, Profession, \
     Equipment, SecurityQuestion, UserLoginHistory, WorkingConditions, JobDetails
 
@@ -9,7 +10,7 @@ admin.site.register(OTP)
 
 
 @admin.register(SubjectCompletion)
-class SubjectCompletionAdmin(admin.ModelAdmin):
+class SubjectCompletionAdmin(SimpleHistoryAdmin):
     fields = ['user_fio', 'user_department', 'subjects', 'study_completed', 'completed', 'score', 'user_calculate_date']
     list_display = ['user_fio', 'user_department', 'subjects', 'slide_order', 'study_completed', 'completed',
                     'user_calculate_date']
@@ -77,6 +78,8 @@ class UserAnswerAdmin(admin.ModelAdmin):
 @admin.register(SentMessage)
 class SentMessageAdmin(admin.ModelAdmin):
     list_select_related = ['user']
+    readonly_fields = ['user', 'purpose']
+    list_filter = ['purpose']
 
 
 @admin.register(Notification)
@@ -97,7 +100,7 @@ class NoticeAdmin(admin.ModelAdmin):
 
 @admin.register(MailDevice)
 class EmailDeviceAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ['user']
 
 
 @admin.register(Profession)
@@ -130,7 +133,7 @@ class WorkingConditionsAdmin(admin.ModelAdmin):
 
 
 @admin.register(JobDetails)
-class JobDetailsAdmin(admin.ModelAdmin):
+class JobDetailsAdmin(SimpleHistoryAdmin):
     search_fields = ['profession']
     list_filter = ['department','working_conditions']
     list_select_related = ['profession','department']

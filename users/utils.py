@@ -1,9 +1,6 @@
-import os
-
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from django.core.exceptions import PermissionDenied
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.core.mail import send_mail
 from functools import wraps
 from django import forms
@@ -11,11 +8,41 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django_select2.forms import ModelSelect2Widget
 from typing import Any
-from users.models import User, Profession
+from datetime import timedelta
+from main.models import Subject
+from users.models import User, Profession, SubjectCompletion, Notice, SentMessage
 import pyotp
 COMMON_TEXT_INPUT_ATTRS = {'class': 'form-control'}
 
 
+class BaseUserView:
+    def handle_subjects(self, user):
+        sub_titles = None
+        if user.status == 'leader':
+            sub_titles = ['first_aid', 'safe_method1', 'suot']
+        elif user.status == 'medic':
+            sub_titles = ['safe_method1']
+        elif user.status == 'worker':
+            sub_titles = ['first_aid', 'safe_method2']
+
+        if sub_titles:
+            subjects = Subject.objects.filter(title__in=sub_titles)
+            for sub in subjects:
+                subject_completion, created = SubjectCompletion.objects.get_or_create(users=user, subjects=sub)
+                user.subject.add(sub)
+                subject_completion.save()
+        try:
+            leader = get_user_model().objects.get(status=get_user_model().Status.LEADER, cat2=user.cat2)
+            if leader != user:
+                Notice.objects.create(
+                    user=leader,
+                    message=f"{user.profession} {user.last_name} {user.first_name} завершил регистрацию")
+        except ObjectDoesNotExist:
+            pass
+        Notice.objects.create(
+            user=user,
+            message=f"Поздравляем, вы завершили регистрацию!"
+        )
 class UserQuerysetMixin:
     """
     Миксин для получения queryset пользователей в зависимости от их статуса.
@@ -94,3 +121,7 @@ class ProfessionChoiceField(forms.ModelChoiceField):
         super().__init__(*args, **kwargs)
 
 
+def sent_count(user,purpose):
+    thirty_minutes_ago = timezone.now() - timedelta(minutes=30)
+    sent_count = SentMessage.objects.filter(user=user, timestamp__gte=thirty_minutes_ago,purpose=purpose).count()
+    return sent_count

@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from main.models import Article, UploadFiles
-from users.models import User, SubjectCompletion, UserLoginHistory
+from users.models import User, SubjectCompletion, UserLoginHistory, WorkingConditions, JobDetails
 
 
 class ArticleSerializer(serializers.ModelSerializer):
@@ -39,3 +39,9 @@ class UserLoginHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model=UserLoginHistory
         fields=('id','login_time', 'ip_address', 'location','device_type', 'browser', 'os')
+
+
+class JobDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobDetails
+        fields = '__all__'

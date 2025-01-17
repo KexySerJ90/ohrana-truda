@@ -7,9 +7,9 @@ from rest_framework.response import Response
 
 from drf.permissions import IsAdminOrReadOnly
 from drf.serializers import ArticleSerializer, UploadFilesSerializer, LeaderSerializer, ProfileUserSerializer, \
-    UserLoginHistorySerializer
+    UserLoginHistorySerializer, JobDetailsSerializer
 from main.models import Article, Categorys, UploadFiles, Departments
-from users.models import UserLoginHistory
+from users.models import UserLoginHistory, JobDetails, WorkingConditions
 
 from users.utils import UserQuerysetMixin
 
@@ -84,3 +84,19 @@ class UserLoginHistoryViewSet(mixins.RetrieveModelMixin,mixins.ListModelMixin,vi
     def get_queryset(self):
         user = self.request.user
         return UserLoginHistory.objects.filter(user=user)
+
+
+class JobDetailsListViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin,viewsets.GenericViewSet):
+    serializer_class = JobDetailsSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = JobDetails.objects.all()
+
+    @action(methods=['get'], detail=False)
+    def working_conditions(self, request, pk=None):
+        working_conditions = WorkingConditions.objects.all()
+        return Response({'working_conditions': [c.name for c in working_conditions]})
+
+    @action(methods=['get'], detail=True)
+    def working_condition(self, request, pk=None):
+        working_conditions = WorkingConditions.objects.get(pk=pk)
+        return Response({'working_conditions': working_conditions.name})

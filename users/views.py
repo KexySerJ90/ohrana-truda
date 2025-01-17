@@ -4,15 +4,14 @@ import pyotp
 from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetConfirmView, PasswordResetView
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.db.models import Q
-from django.http import JsonResponse, HttpRequest, HttpResponse, Http404
+from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -20,50 +19,18 @@ from django.utils import timezone
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import View
-from django.views.generic import CreateView, UpdateView, ListView, DetailView, FormView, DeleteView
-from main.models import Subject
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, FormView
 from ohr import settings
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     ContactForm, OTPForm, ProfessionForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, \
     UserForgotPasswordForm
-from .models import SubjectCompletion, SentMessage, MailDevice, OTP, Profession, Notice, SecurityQuestion, \
-    UserLoginHistory, JobDetails
+from .models import SentMessage, MailDevice, OTP, Profession, SecurityQuestion, UserLoginHistory, JobDetails
 from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialRequiredMixin
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
 from ohr.settings import EMAIL_HOST_USER, EMAIL_RECIPIENT_LIST, PHONE, AUTO_LOGOUT
-from .utils import UserQuerysetMixin, send_message, login_required_redirect, generate_otp
+from .utils import UserQuerysetMixin, send_message, login_required_redirect, generate_otp, BaseUserView, sent_count
 from typing import Optional, Any, Dict
-
-
-class BaseUserView:
-    def handle_subjects(self, user):
-        sub_titles = None
-        if user.status == 'leader':
-            sub_titles = ['first_aid', 'safe_method1', 'suot']
-        elif user.status == 'medic':
-            sub_titles = ['safe_method1']
-        elif user.status == 'worker':
-            sub_titles = ['first_aid', 'safe_method2']
-
-        if sub_titles:
-            subjects = Subject.objects.filter(title__in=sub_titles)
-            for sub in subjects:
-                subject_completion, created = SubjectCompletion.objects.get_or_create(users=user, subjects=sub)
-                user.subject.add(sub)
-                subject_completion.save()
-        try:
-            leader = get_user_model().objects.get(status=get_user_model().Status.LEADER, cat2=user.cat2)
-            if leader != user:
-                Notice.objects.create(
-                    user=leader,
-                    message=f"{user.profession} {user.last_name} {user.first_name} завершил регистрацию")
-        except ObjectDoesNotExist:
-            pass
-        Notice.objects.create(
-            user=user,
-            message=f"Поздравляем, вы завершили регистрацию!"
-        )
 
 
 class LoginUser(ProfileRequiredMixin, LoginView):
@@ -149,10 +116,8 @@ class ResendOtpView(View):
             if otp_obj:
                 user = get_user_model().objects.get(email=user_email)
                 if user:
-                    thirty_minutes_ago = timezone.now() - timedelta(minutes=30)
-                    sent_count = SentMessage.objects.filter(user=user, timestamp__gte=thirty_minutes_ago).count()
-
-                    if sent_count >= 3:
+                    count=sent_count(user, SentMessage.PURPOSE.RESET)
+                    if count >= 3:
                         return JsonResponse(
                             {'success': False,
                              'message': 'Вы достигли лимита отправки сообщений за последние 30 минут.'})
@@ -166,7 +131,7 @@ class ResendOtpView(View):
 
                     # Отправляем новый код
                     send_message('Ваш новый код подтверждения', EMAIL_HOST_USER, otp_code, user)
-                    SentMessage.objects.create(user=user)
+                    SentMessage.objects.create(user=user, purpose=SentMessage.PURPOSE.RESET)
                     return JsonResponse({'success': True, 'message': 'Код подтверждения отправлен.'})
         return JsonResponse({'success': False, 'message': 'Не удалось отправить код.'})
 
@@ -375,7 +340,7 @@ def contact_view(request: HttpRequest) -> HttpResponse:
             message = form.cleaned_data['message']
             # Проверка на количество отправленных сообщений за день
             today = timezone.now().date()
-            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today).count()
+            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today, purpose=SentMessage.PURPOSE.CONTACT).count()
 
             if sent_count >= 3:
                 return render(request, 'users/contact_form.html', {
@@ -392,7 +357,7 @@ def contact_view(request: HttpRequest) -> HttpResponse:
                 recipient_list=[EMAIL_RECIPIENT_LIST],
             )
             # Сохранение информации о отправленном сообщении
-            SentMessage.objects.create(user=request.user)
+            SentMessage.objects.create(user=request.user, purpose=SentMessage.PURPOSE.CONTACT)
             return render(request, 'users/contact_success.html')  # Страница успешной отправки
     else:
         form = ContactForm(initial=initial_data)
@@ -537,7 +502,7 @@ class UserPasswordChange(PasswordChangeView):
     success_url = reverse_lazy("users:password_change_done")
     template_name = "users/password_change_form.html"
 
-    def form_valid(self, form):
+    def form_valid(self, form: UserPasswordChangeForm):
         # Вызываем метод родительского класса для обработки формы
         response = super().form_valid(form)
         send_mail(
@@ -553,9 +518,15 @@ class UserPasswordResetView(PasswordResetView):
     def form_valid(self, form):
         email = form.cleaned_data["email"]
         user = get_user_model().objects.get(Q(reserve_email=email) | Q(email=email))
+        count = sent_count(user, purpose=SentMessage.PURPOSE.RESCUE)
+        if count >= 3:
+            messages.error(self.request, 'Вы достигли лимита отправки сообщений на данную элеутронную почту за последние 30 минут.')
+            return self.form_invalid(form)
         if not user.secret_answer:
+            SentMessage.objects.create(user=user,is_rescue=True)
             return super().form_valid(form)
         self.request.session['sec_user_email'] = email
+        SentMessage.objects.create(user=user, purpose=SentMessage.PURPOSE.RESCUE)
         return redirect(reverse_lazy('users:secretquestion_verify'))
 
 
@@ -658,7 +629,7 @@ class LoginHistoryView(LoginRequiredMixin, ListView):
 class SOUTUserView(LoginRequiredMixin, DetailView):
     template_name = 'users/sout.html'
     model = JobDetails
-    extra_context = {'title': "СОУТ"}
+    extra_context = {'title': "Результаты специальной оценки условий труда"}
     context_object_name = 'workplace'
 
     def get_object(self, queryset=None):
@@ -670,7 +641,5 @@ class SOUTUserView(LoginRequiredMixin, DetailView):
                 department=user.cat2
             )
         except JobDetails.DoesNotExist:
-            obj=None
+            obj = None
         return obj
-
-

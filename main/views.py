@@ -21,7 +21,7 @@ from main.forms import UploadFileForm, SearchForm, AddPostForm, CommentCreateFor
 from main.models import UploadFiles, Article, Departments, TagPost, Rating, Subject, Question, Video, Answer, \
     Comment
 from main.permissions import AuthorPermissionsMixin
-from main.utils import DataMixin
+from main.utils import DataMixin, get_client_ip
 
 from users.models import SubjectCompletion, UserAnswer, User, Notice, Notification
 from users.permissions import StatusRequiredMixin
@@ -234,10 +234,8 @@ class RatingCreateView(View):
     def post(self, request, *args, **kwargs):
         post_id = request.POST.get('post_id')
         value = int(request.POST.get('value'))
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        ip_address = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
+        ip_address=get_client_ip(request)
         user = request.user if request.user.is_authenticated else None
-
         # Для неавторизованных пользователей
         if user is None:
             rating_queryset = self.model.objects.filter(post_id=post_id, ip_address=ip_address, user=None)
@@ -338,8 +336,7 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
     subject = get_object_or_404(Subject, slug=test_slug)
     user_completion = get_object_or_404(SubjectCompletion, users=request.user, subjects=subject)
     incorrect_answers = user_completion.user_answers.exclude(selected_answer=F('question__correct_option'))
-    if 'questions' in request.session and request.session['questions'] and 'subject' in request.session and \
-            request.session['subject'] == subject.id:
+    if 'questions' in request.session and request.session['questions'] and request.session['subject'] == subject.id:
         question_ids = request.session['questions']
         questions = Question.objects.filter(id__in=question_ids)
     else:
@@ -357,6 +354,8 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         request.session['test_time_remaining'] = 600
         return redirect('main:test', test_slug=subject.slug)
     if user_completion.completed:
+        del request.session['questions']
+        del request.session['subject']
         request.session.pop('test_time_remaining', None)
         return render(request, 'main/test_result.html', {
             'subject': subject,
@@ -385,7 +384,7 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
             leaders = get_user_model().objects.filter(status=User.Status.LEADER, cat2=request.user.cat2)
             # Получаем админа (предположим, у вас есть пользователь с ролью 'admin')
             admins = get_user_model().objects.filter(
-                is_superuser=True)  # Или используйте другой фильтр для определения админов
+                is_superuser=True)
             for leader in leaders:
                 if leader != request.user:
                     if not Notice.objects.filter(user=leader, message__icontains=subject).exists():
@@ -404,6 +403,9 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
                 message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!"
             )
         user_completion.save()
+        del request.session['questions']
+        del request.session['subject']
+        del request.session['test_time_remaining']
         return render(request, 'main/test_result.html',
                       {'score': user_completion.score, 'total': len(questions), 'passed': user_completion.completed,
                        'subject': subject, 'incorrect_answers': incorrect_answers,

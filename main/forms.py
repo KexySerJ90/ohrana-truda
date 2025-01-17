@@ -44,12 +44,13 @@ class UploadFileForm(forms.ModelForm):
     cat = forms.ModelChoiceField(queryset=Departments.objects.all().order_by('name'), empty_label="Отделение не выбрано",
                                  label="Отделения")
     files = MultipleFileField(label="Файл")
+    MAX_UPLOAD_SIZE = 10 * 1024 * 1024
 
     class Meta:
         model = UploadFiles
         fields = ['cat', 'files']
 
-    MAX_UPLOAD_SIZE = 10 * 1024 * 1024
+
 
     def clean_files(self):
         files = self.cleaned_data.get('files')

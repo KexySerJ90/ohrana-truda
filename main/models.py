@@ -5,9 +5,9 @@ from django.db import models
 from django.urls import reverse
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
+from simple_history.models import HistoricalRecords
 
 from main.utils import get_upload_path
-from users.models import User
 
 
 class Categorys(models.Model):
@@ -115,6 +115,7 @@ class Article(models.Model):
                                  blank=True, null=True)
     tags = models.ManyToManyField('TagPost', blank=True, related_name='tags', verbose_name="Теги")
     views = models.PositiveIntegerField(default=0)
+    history = HistoricalRecords()
 
     objects = models.Manager()
     published = PublishedManager()
@@ -296,3 +297,5 @@ class Comment(MPTTModel):
 
     def __str__(self):
         return f'{self.post} - {self.user}:{self.content[:20]}'
+
+

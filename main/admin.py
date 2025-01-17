@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from django.utils.safestring import mark_safe
 from django_mptt_admin.admin import DjangoMpttAdmin
+from simple_history.admin import SimpleHistoryAdmin
 
 from main.models import Categorys, UploadFiles, Subject, Article, Departments, Rating, Question, Slide, TagPost, Video, \
     Answer, Comment
@@ -77,7 +78,7 @@ class SlideAdmin(admin.ModelAdmin):
 
 
 @admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(SimpleHistoryAdmin):
     fields = ['title', 'slug', 'content', 'photo', 'post_photo', 'category', 'tags','is_published']
     readonly_fields = ['post_photo']
     prepopulated_fields = {"slug": ("title",)}
@@ -111,3 +112,4 @@ class ArticleAdmin(admin.ModelAdmin):
 class VideoAdmin(admin.ModelAdmin):
     search_fields = ['title']
     prepopulated_fields = {"slug": ("title",)}
+

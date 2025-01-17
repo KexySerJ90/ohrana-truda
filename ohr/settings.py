@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'social_django',
     "axes",
     'django_otp',
+    'simple_history',
 ]
 
 SITE_ID = 1
@@ -80,6 +81,7 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "axes.middleware.AxesMiddleware",
     "django_auto_logout.middleware.auto_logout",
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'ohr.urls'

@@ -3,7 +3,7 @@ from django.urls import reverse
 from .models import Article
 
 class LatestPostFeed(Feed):
-    title = "Мой блог на Django - последние записи"
+    title = "Статьи - последние записи"
     link = "/feeds/"
     description = "Новые записи на моем сайте."
 

@@ -2,6 +2,7 @@ import hashlib
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.utils import timezone
 from django_otp.models import Device
@@ -9,6 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from simple_history.models import HistoricalRecords
 
 
 class User(AbstractUser):
@@ -121,6 +123,15 @@ class OTP(models.Model):
         return self.email
 class MailDevice(Device):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+
+    def __str__(self):
+        try:
+            user = self.user
+        except ObjectDoesNotExist:
+            user = None
+
+        return f'2fa-{user}-{self.timestamp}'
 
 class SubjectCompletion(models.Model):
     users = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='subject_completions', verbose_name="Пользователь")
@@ -129,7 +140,7 @@ class SubjectCompletion(models.Model):
     score= models.PositiveIntegerField(default=0, verbose_name='Количество баллов')
     study_completed=models.BooleanField(default=False, verbose_name="Обучение")
     current_slide = models.ForeignKey('main.Slide', on_delete=models.SET_NULL, null=True)
-
+    history = HistoricalRecords()
 
     class Meta:
         unique_together = ('users', 'subjects')
@@ -154,15 +165,20 @@ class UserAnswer(models.Model):
         return f'{self.user_completion} - {self.question.text}'
 
 class SentMessage(models.Model):
+    class PURPOSE(models.TextChoices):
+        RESCUE=('rescue', 'Восстановление пароля')
+        RESET=('reset', 'Сброс OTP')
+        CONTACT=('contact', 'Контакты')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    purpose = models.CharField(choices=PURPOSE.choices, max_length=100, verbose_name='Цель')
 
     class Meta:
         verbose_name = "Количество попыток для отправки сообщений"
         verbose_name_plural = "Количество попыток для отправки сообщений"
 
     def __str__(self):
-        return f'{self.user} - {self.timestamp}'
+        return f'{self.user} - {self.timestamp} -  {dict(SentMessage.PURPOSE.choices)[self.purpose]}'
 
 
 class Notification(models.Model):
@@ -247,6 +263,7 @@ class JobDetails(models.Model):
     working_conditions = models.ForeignKey(WorkingConditions, on_delete=models.CASCADE, verbose_name='Условия труда', null=True, blank=True)
     date_of_sout=models.DateField(verbose_name='Дата СОУТ',blank=True,null=True)
     opr = models.CharField(choices=OPR.choices, max_length=100, verbose_name='Уровень риска', blank=True, null=True)
+    history = HistoricalRecords()
 
     class Meta:
         unique_together = ('profession', 'department')

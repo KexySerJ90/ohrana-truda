@@ -15,16 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 
-from drf.views import ArticleViewSet, UploadFilesViewSet, LeaderViewSet, ProfileAPIUpdate, UserLoginHistoryViewSet
+from drf.views import ArticleViewSet, UploadFilesViewSet, LeaderViewSet, ProfileAPIUpdate, UserLoginHistoryViewSet, \
+    JobDetailsListViewSet
 from main.feeds import LatestPostFeed
 from main.sitemaps import CategorySitemap
 from main.views import tr_handler403, tr_handler404, tr_handler500
 from ohr import settings
 from django.contrib.sitemaps.views import sitemap
-
 from rest_framework import routers
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView,TokenVerifyView)
 
@@ -35,6 +35,7 @@ router.register(r'upload', UploadFilesViewSet, basename='upload')
 router.register(r'leader-users', LeaderViewSet, basename='leader')
 router.register(r'profile-users', ProfileAPIUpdate, basename='profile')
 router.register(r'login-history', UserLoginHistoryViewSet, basename='login_history')
+router.register(r'job-details-list', JobDetailsListViewSet, basename='job_details_listView')
 
 
 
