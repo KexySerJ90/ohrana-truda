@@ -19,14 +19,8 @@ class User(AbstractUser):
         MEDIC=('medic', 'Медик')
         WORKER=('worker', 'Рабочий')
         ADMINISTRATION = ('administration', 'Административный персонал')
-
     email = models.EmailField(_("email address"), unique=True)
     phone=PhoneNumberField(max_length=15, unique=True,null=True, verbose_name='Телефон')
-    patronymic = models.CharField(max_length=100, blank=True, null=True, verbose_name="Отчество (необязательное поле)")
-    profession = models.ForeignKey('users.Profession', on_delete=models.CASCADE, verbose_name='Профессия')
-    photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
-    date_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
-    date_of_work = models.DateField(verbose_name="Дата трудоустройства")
     cat2 = models.ForeignKey('main.Departments', on_delete=models.CASCADE, related_name='cat2', verbose_name="Отделение", null=True)
     subject = models.ManyToManyField('main.Subject', blank=True, related_name='subjs', verbose_name="Предмет")
     status = models.CharField(choices=Status.choices, max_length=100, verbose_name='Статус')
@@ -36,7 +30,7 @@ class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now)
     two_factor_enabled = models.BooleanField(default=False, verbose_name='Двухфакторная авторизация')
     reserve_email=models.EmailField(default='',blank=True, null=True, verbose_name='Резервный Email')
-    secret_answer = models.CharField(max_length=255, blank=True, null=True)
+    secret_answer = models.CharField(max_length=255, blank=True, null=True, verbose_name='Секретный ответ')
 
     class Meta:
         verbose_name = "Пользователь"
@@ -45,9 +39,6 @@ class User(AbstractUser):
             models.UniqueConstraint(fields=['phone'], name='unique_phone', condition=models.Q(phone__isnull=False))
         ]
 
-
-    def calculate_date(self):
-        return 60 - (timezone.now().date() - self.date_of_work).days
 
     def update_last_activity(self):
         self.last_activity = timezone.now()
@@ -68,7 +59,16 @@ class User(AbstractUser):
             return phone_str[:5] + '*'*6 + phone_str[-2:]
         return None
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    patronymic = models.CharField(max_length=100, blank=True, null=True, verbose_name="Отчество (необязательное поле)")
+    profession = models.ForeignKey('users.Profession', on_delete=models.CASCADE, verbose_name='Профессия')
+    photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
+    date_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
+    date_of_work = models.DateField(verbose_name="Дата трудоустройства")
 
+    def calculate_date(self):
+        return 60 - (timezone.now().date() - self.date_of_work).days
 
 class SecurityQuestion(models.Model):
     class SecretQuestions(models.TextChoices):

@@ -24,7 +24,7 @@ from ohr import settings
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     ContactForm, OTPForm, ProfessionForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, \
     UserForgotPasswordForm
-from .models import SentMessage, MailDevice, OTP, Profession, SecurityQuestion, UserLoginHistory, JobDetails
+from .models import SentMessage, MailDevice, OTP, Profession, SecurityQuestion, UserLoginHistory, JobDetails, Profile
 from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialRequiredMixin
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
@@ -149,6 +149,11 @@ class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
         if not user.phone:
             user.phone = None
         user.save()
+        profile_data = {field: form.cleaned_data[field] for field in form.Meta.fields if
+                     field in ['patronymic', 'profession', 'photo', 'date_birth', 'date_of_work']}
+        Profile.objects.create(
+            user=user,
+            **profile_data)
         current_site = get_current_site(self.request)
         subject = 'Верификация email'
 
@@ -182,6 +187,14 @@ class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
         'title': "Профиль пользователя",
         'default_image': settings.DEFAULT_USER_IMAGE,
     }
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['photo'] = self.request.user.profile.photo
+        initial['patronymic'] = self.request.user.profile.patronymic
+        initial['date_birth'] = self.request.user.profile.date_birth
+        initial['profession'] = self.request.user.profile.profession
+        return initial
 
     def get_success_url(self) -> str:
         return reverse_lazy('users:profile')
@@ -637,7 +650,7 @@ class SOUTUserView(LoginRequiredMixin, DetailView):
         try:
             # Получаем рабочее место по профессии и отделению текущего пользователя
             obj = JobDetails.objects.get(
-                profession=user.profession,
+                profession=user.profile.profession,
                 department=user.cat2
             )
         except JobDetails.DoesNotExist:

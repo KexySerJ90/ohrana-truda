@@ -36,7 +36,7 @@ class BaseUserView:
             if leader != user:
                 Notice.objects.create(
                     user=leader,
-                    message=f"{user.profession} {user.last_name} {user.first_name} завершил регистрацию")
+                    message=f"{user.profile.profession} {user.last_name} {user.first_name} завершил регистрацию")
         except ObjectDoesNotExist:
             pass
         Notice.objects.create(

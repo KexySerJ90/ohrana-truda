@@ -19,7 +19,7 @@ from django_recaptcha.fields import ReCaptchaField
 
 from main.models import Departments
 from main.utils import Leap_years
-from users.models import User, Profession, SecurityQuestion
+from users.models import User, Profession, SecurityQuestion, Profile
 from django_select2.forms import ModelSelect2Widget
 from phonenumber_field.formfields import PhoneNumberField
 
@@ -80,6 +80,7 @@ class RegisterUserForm(UserCreationForm):
         ))
     profession = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию', widget=forms.Select(
         attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите профессию'}))
+    patronymic=forms.CharField(label='Отчество', required=False, widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
 
     class Meta:
         model = get_user_model()
@@ -89,14 +90,24 @@ class RegisterUserForm(UserCreationForm):
             'email': 'E-mail',
             'first_name': "Имя",
             'last_name': "Фамилия",
-            'patronymic': "Отчество",
         }
         widgets = {
             'email': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите ваш E-mail'}),
             'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите имя'}),
             'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите фамилию'}),
-            'patronymic': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}),
         }
+
+    def save(self, commit=True):
+        user_data = {field: self.cleaned_data[field] for field in self.Meta.fields if
+                     field not in ['patronymic', 'profession', 'date_of_work', 'password1','password2']}
+        # Сохраняем пользователя
+        user = get_user_model()(**user_data)
+        user.set_password(self.cleaned_data['password1'])# Устанавливаем пароль
+        if commit and hasattr(self, "save_m2m"):
+            # user.save()
+            self.save_m2m()
+
+        return user
 
     def clean(self):
         cleaned_data = super().clean()
@@ -150,6 +161,7 @@ class ProfileUserForm(forms.ModelForm):
         "locale": "ru",
     }))
     profession = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию')
+    patronymic=forms.CharField(label='Отчество', required=False, widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
 
     class Meta:
         model = get_user_model()
@@ -158,12 +170,10 @@ class ProfileUserForm(forms.ModelForm):
         labels = {
             'first_name': 'Имя',
             'last_name': 'Фамилия',
-            'patronymic': 'Отчество',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
             'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
-            'patronymic': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'profession': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'status': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
             'cat2': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
@@ -177,6 +187,31 @@ class ProfileUserForm(forms.ModelForm):
             self.fields['masked_phone'].initial = self.instance.masked_phone()
         else:
             del self.fields['masked_phone']  # предотвращает изменение на клиентской стороне
+
+    def save(self, commit=True):
+        if self.errors:
+            raise ValueError(
+                "The %s could not be %s because the data didn't validate."
+                % (
+                    self.instance._meta.object_name,
+                    "created" if self.instance._state.adding else "changed",
+                )
+            )
+        user=get_user_model().objects.get(username=self.cleaned_data['username'])
+        profile = Profile.objects.get(user=user)
+        for field in self.Meta.fields:
+            if field not in ['username', 'patronymic', 'profession', 'photo', 'date_birth',
+                             'masked_phone']:
+                setattr(user, field, self.cleaned_data[field])
+            elif field in ['patronymic', 'profession', 'photo', 'date_birth',]:
+                setattr(profile, field, self.cleaned_data[field])
+        if commit:
+            user.save()
+            profile.save()
+            self._save_m2m()
+        else:
+            self.save_m2m = self._save_m2m
+        return self.instance
 
     def clean_name_field(self, field_name, error_message):
         value = self.cleaned_data.get(field_name)
@@ -230,7 +265,7 @@ class ProfileUserForm(forms.ModelForm):
         return phone
 
 
-class WelcomeSocialForm(ProfileUserForm, ):
+class WelcomeSocialForm(ProfileUserForm):
     email = None
     photo = None
     date_birth = None
@@ -253,6 +288,7 @@ class WelcomeSocialForm(ProfileUserForm, ):
         "maxDate": (datetime.datetime.now()),
         "locale": "ru",
     }))
+    patronymic=forms.CharField(label='Отчество', widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
 
     class Meta:
         model = get_user_model()
@@ -261,12 +297,10 @@ class WelcomeSocialForm(ProfileUserForm, ):
         labels = {
             'first_name': 'Имя',
             'last_name': 'Фамилия',
-            'patronymic': 'Отчество',
         }
         widgets = {
             'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
             'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
-            'patronymic': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'profession': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'status': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
             'cat2': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
@@ -288,11 +322,6 @@ class WelcomeSocialForm(ProfileUserForm, ):
                 raise ValidationError("В Вашем подразделении уже есть руководитель.")
         return cleaned_data
 
-    def clean_cat2(self):
-        return self.cleaned_data.get('cat2')
-
-    def clean_status(self):
-        return self.cleaned_data.get('status')
 
     def clean_date_of_work(self):
         date_of_work = self.cleaned_data.get('date_of_work')
@@ -368,8 +397,6 @@ class UserForgotPasswordForm(PasswordResetForm):
         if not get_user_model().objects.filter(Q(reserve_email=email) | Q(email=email)).exists():
             raise forms.ValidationError("Пользователь с данным Email отсутствует в базе данных")
         return email
-
-
 
 
 class UserPasswordChangeForm(PasswordChangeForm):

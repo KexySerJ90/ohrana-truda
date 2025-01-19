@@ -1,14 +1,15 @@
-from django.contrib.auth import user_logged_in
+from django.contrib.auth import user_logged_in, get_user_model
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from rest_framework_simplejwt.tokens import RefreshToken
 from user_agents import parse
 
 from main.utils import get_client_ip
-from users.models import User, SecurityQuestion, UserLoginHistory
+from users.models import SecurityQuestion, UserLoginHistory, Profile
 
 
-@receiver(post_save, sender=User)
+
+@receiver(post_save, sender=get_user_model())
 def create_token(sender, instance, created, **kwargs):
     if created:
         refresh_token = RefreshToken.for_user(instance)

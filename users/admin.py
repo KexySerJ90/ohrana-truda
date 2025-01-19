@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from simple_history.admin import SimpleHistoryAdmin
 from .models import SubjectCompletion, UserAnswer, SentMessage, Notification, Notice, MailDevice, OTP, Profession, \
-    Equipment, SecurityQuestion, UserLoginHistory, WorkingConditions, JobDetails
+    Equipment, SecurityQuestion, UserLoginHistory, WorkingConditions, JobDetails, Profile
 
 admin.site.register(get_user_model(), UserAdmin)
 admin.site.register(OTP)
@@ -137,3 +137,8 @@ class JobDetailsAdmin(SimpleHistoryAdmin):
     search_fields = ['profession']
     list_filter = ['department','working_conditions']
     list_select_related = ['profession','department']
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass

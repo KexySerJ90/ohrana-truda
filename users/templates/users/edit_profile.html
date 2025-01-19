@@ -5,8 +5,8 @@
 <h1>Профиль</h1>
 <form id="profile-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if user.photo %}
-    <p><img id="profile-photo" src="{{ user.photo.url }}" class="rounded-circle" style="width: 250px; height: 250px; border-radius: 50%;">
+    {% if user.profile.photo %}
+    <p><img id="profile-photo" src="{{ user.profile.photo.url }}" class="rounded-circle" style="width: 250px; height: 250px; border-radius: 50%;">
     {% else %}
     <p><img id="profile-photo" src="{{ default_image }}">
     {% endif %}
