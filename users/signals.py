@@ -3,9 +3,8 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from rest_framework_simplejwt.tokens import RefreshToken
 from user_agents import parse
-
 from main.utils import get_client_ip
-from users.models import SecurityQuestion, UserLoginHistory, Profile
+from users.models import SecurityQuestion, UserLoginHistory
 
 
 

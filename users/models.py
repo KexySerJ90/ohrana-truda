@@ -67,6 +67,13 @@ class Profile(models.Model):
     date_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
     date_of_work = models.DateField(verbose_name="Дата трудоустройства")
 
+    class Meta:
+        verbose_name = "Профиль"
+        verbose_name_plural = "Профили"
+
+    def __str__(self):
+        return self.user.username
+
     def calculate_date(self):
         return 60 - (timezone.now().date() - self.date_of_work).days
 

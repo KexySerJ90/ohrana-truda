@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.utils.safestring import mark_safe
 from simple_history.admin import SimpleHistoryAdmin
 from .models import SubjectCompletion, UserAnswer, SentMessage, Notification, Notice, MailDevice, OTP, Profession, \
     Equipment, SecurityQuestion, UserLoginHistory, WorkingConditions, JobDetails, Profile
@@ -141,4 +142,11 @@ class JobDetailsAdmin(SimpleHistoryAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ['user','patronymic','profession','photo','post_photo','date_birth','date_of_work']
+    list_filter=['user']
+
+    @admin.display(description="Изображение", ordering='content')
+    def post_photo(self, profile: Profile):
+        if profile.photo:
+            return mark_safe(f"<img src='{profile.photo.url}' width=50>")
+        return "Без фото"
