@@ -36,7 +36,7 @@
 $(document).ready(function() {
   // Обработчик изменения файла
   $('#id_photo').change(function(event) {
-    var reader = new FileReader();
+    let reader = new FileReader();
 
     reader.onload = function(e) {
       $('#profile-photo').attr({

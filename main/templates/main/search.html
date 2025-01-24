@@ -18,7 +18,7 @@
 
     {% for post in results_files %}
         <h4>
-            <a href="{{ post.file.url }}"> {{ post.title|cuter }}
+            <a href="{{ post.file.url }}" download> {{ post.title|cuter }}
             </a>
         </h4>
         {{ post.body|truncatewords_html:12 }} {% empty %}

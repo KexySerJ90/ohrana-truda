@@ -1,8 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ error_message }} | <a href="{% url 'main:index' %}"><strong>Вернуться на главную</strong></a>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-1 text-danger">404</h1>
+            <h2 class="mt-4">Упс! Страница не найдена.</h2>
+            <p class="lead">К сожалению, запрашиваемая вами страница не существует.</p>
+            <a href="{% url 'main:index' %}" class="btn btn-dark btn-lg">Вернуться на главную</a>
     </div>
+</div>
+
+<!-- Дополнительные скрипты для анимации -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const title = document.querySelector('.display-1');
+        title.classList.add('animate__animated', 'animate__fadeIn');
+
+        const subtitle = document.querySelector('h2');
+        subtitle.classList.add('animate__animated', 'animate__fadeInUp');
+
+        const leadText = document.querySelector('p.lead');
+        leadText.classList.add('animate__animated', 'animate__fadeInUp');
+    });
+</script>
+
+<!-- Подключение анимаций Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 {% endblock %}

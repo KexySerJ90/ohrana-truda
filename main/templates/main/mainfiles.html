@@ -3,15 +3,36 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Список документов</h2>
-    <div class="row d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-start">
+        <h2 class="flex-grow-1">Список документов</h2>
+        <!-- Форма для выбора сортировки -->
+        {% if posts %}
+        <form method="GET" action="" class="ms-auto mb-4">
+            <label for="order_by" class="me-2">Сортировка:</label>
+            <select name="order_by" id="order_by" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">-- Выберите --</option>
+                <option value="title" {% if request.GET.order_by == 'title' %}selected{% endif %}>По имени (А-Я)</option>
+                <option value="-title" {% if request.GET.order_by == '-title' %}selected{% endif %}>По имени (Я-А)</option>
+                <option value="uploaded_at" {% if request.GET.order_by == 'uploaded_at' %}selected{% endif %}>По дате (сначала новые)</option>
+                <option value="-uploaded_at" {% if request.GET.order_by == '-uploaded_at' %}selected{% endif %}>По дате (сначала старые)</option>
+            </select>
+        </form>
+        {% else %}
+        <div class="d-flex justify-content-center align-items-center">
+            <p class="fs-5 fw-bold">Документов нет</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for p in posts %}
-        <div class="col-md-4 mb-4 d-flex">
-            <div class="card shadow-sm flex-fill">
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
                     <h5 class="card-title">{{ p.title|cuter }}</h5>
                     <p class="card-text">Дата загрузки: {{ p.uploaded_at|date:"d-m-Y H:i" }}</p>
-                    <a href="{{ p.file.url }}" class="btn btn-dark">Скачать файл</a>
+                    {{ p.file.url|file_icon|safe }}
+                    <a href="{{ p.file.url }}" class="btn btn-dark" download>Скачать файл</a>
                 </div>
             </div>
         </div>
@@ -22,4 +43,12 @@
 
 {% block navigation %}
 {% include 'includes/nav.html' %}
+
 {% endblock %}
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+</script>

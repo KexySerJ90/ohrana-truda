@@ -1,18 +1,14 @@
 import datetime
 import re
-from django.contrib.auth.forms import logger, _unicode_ci_compare, SetPasswordForm
+from django.contrib.auth.forms import  _unicode_ci_compare
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail, EmailMultiAlternatives
 from django.db.models import Q
-from django.template import loader
-from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from bootstrap_datepicker_plus.widgets import DatePickerInput
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm, PasswordResetForm
-from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django_recaptcha.fields import ReCaptchaField
@@ -172,8 +168,10 @@ class ProfileUserForm(forms.ModelForm):
             'last_name': 'Фамилия',
         }
         widgets = {
-            'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
-            'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
+            'first_name': forms.TextInput(
+                attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true', 'placeholder': 'Введите имя'}),
+            'last_name': forms.TextInput(
+                attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true', 'placeholder': 'Введите фамилию'}),
             'profession': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'status': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
             'cat2': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
@@ -189,21 +187,21 @@ class ProfileUserForm(forms.ModelForm):
             del self.fields['masked_phone']  # предотвращает изменение на клиентской стороне
 
     def save(self, commit=True):
-        if self.errors:
-            raise ValueError(
-                "The %s could not be %s because the data didn't validate."
-                % (
-                    self.instance._meta.object_name,
-                    "created" if self.instance._state.adding else "changed",
-                )
-            )
         user=get_user_model().objects.get(username=self.cleaned_data['username'])
-        profile = Profile.objects.get(user=user)
+        profile, created = Profile.objects.get_or_create(
+            user=user,
+            defaults={'date_of_work': datetime.date.today(), 'profession':Profession.objects.get(id=1)})
         for field in self.Meta.fields:
-            if field not in ['username', 'patronymic', 'profession', 'photo', 'date_birth',
-                             'masked_phone']:
+            if field == 'photo':
+                # Если поле photo не пустое, устанавливаем новое значение
+                if self.cleaned_data['photo']:
+                    setattr(profile, field, self.cleaned_data[field])
+                # Иначе удаляем текущую фотографию
+                else:
+                    profile.photo.delete(save=False)
+            elif field not in ['username', 'patronymic', 'profession', 'date_birth', 'date_of_work','masked_phone']:
                 setattr(user, field, self.cleaned_data[field])
-            elif field in ['patronymic', 'profession', 'photo', 'date_birth',]:
+            elif field in ['patronymic', 'profession', 'date_birth','date_of_work']:
                 setattr(profile, field, self.cleaned_data[field])
         if commit:
             user.save()
@@ -281,26 +279,21 @@ class WelcomeSocialForm(ProfileUserForm):
             search_fields=['name__icontains'],
             attrs=COMMON_TEXT_INPUT_ATTRS,
         ))
-    profession = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию')
     date_of_work = forms.DateField(label='Дата Трудоустройства', widget=DatePickerInput(options={
         "format": "DD/MM/YYYY",
         "minDate": (datetime.datetime.now() - datetime.timedelta(days=60 * 365 + Leap_years())),
         "maxDate": (datetime.datetime.now()),
         "locale": "ru",
     }))
-    patronymic=forms.CharField(label='Отчество', widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
 
     class Meta:
         model = get_user_model()
         fields = ['username', 'first_name', 'last_name', 'patronymic', 'cat2', 'status',
                   'profession', 'date_of_work']
-        labels = {
-            'first_name': 'Имя',
-            'last_name': 'Фамилия',
-        }
+
         widgets = {
-            'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
-            'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true'}),
+            'first_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true','placeholder': 'Введите имя'}),
+            'last_name': forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'required': 'true','placeholder': 'Введите фамилию'}),
             'profession': forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS),
             'status': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
             'cat2': forms.Select(attrs=COMMON_TEXT_INPUT_ATTRS),
@@ -328,6 +321,14 @@ class WelcomeSocialForm(ProfileUserForm):
         if date_of_work and date_of_work > datetime.date.today():
             raise forms.ValidationError("Выбранная дата не может быть позже сегодняшней даты.")
         return date_of_work
+
+    '''Переопределяю методы clean_cat2 и clean_status, чтобы не было ошибки'''
+
+    def clean_cat2(self):
+        return self.cleaned_data.get('cat2')
+
+    def clean_status(self):
+        return self.cleaned_data.get('status')
 
 
 class UserForgotPasswordForm(PasswordResetForm):
@@ -399,23 +400,12 @@ class UserForgotPasswordForm(PasswordResetForm):
         return email
 
 
+
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label="Старый пароль", widget=forms.PasswordInput(attrs=COMMON_TEXT_INPUT_ATTRS))
     new_password1 = forms.CharField(label="Новый пароль", widget=forms.PasswordInput(attrs=COMMON_TEXT_INPUT_ATTRS))
     new_password2 = forms.CharField(label="Подтверждение пароля",
                                     widget=forms.PasswordInput(attrs=COMMON_TEXT_INPUT_ATTRS))
-
-
-
-
-
-class ContactForm(forms.Form):
-    username = forms.CharField(max_length=100, label="Логин", widget=forms.TextInput(attrs={
-        **COMMON_TEXT_INPUT_ATTRS,
-        'readonly': 'readonly',
-        'style': 'background-color: #dee2e6;'}))
-    email = forms.EmailField(label="E-mail", widget=forms.EmailInput(attrs=COMMON_TEXT_INPUT_ATTRS))
-    message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs=COMMON_TEXT_INPUT_ATTRS))
 
 
 class ProfessionForm(forms.ModelForm):

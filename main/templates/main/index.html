@@ -1,32 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-interval="3000" data-pause="hover">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-        <div class="carousel-inner">
-            {% for article in arts %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <a href="{{ article.get_absolute_url }}">
-                        <img src="{{ article.photo.url }}" class="d-block w-100 mx-auto" alt="{{ article.title }}">
-                    </a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ article.title }}</h5>
-                    </div>
-                </div>
-            {% endfor %}
+<figure class="icon-cards mt-3">
+    <div class="icon-cards__content">
+        {% for article in arts %}
+        <div class="icon-cards__item d-flex align-items-center justify-content-center {% if forloop.first %}active{% endif %}">
+            <a href="{{ article.get_absolute_url }}">
+                <img src="{{ article.photo.url }}" class="d-block w-100 mx-auto" alt="{{ article.title }}">
+            </a>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ article.title }}</h5>
+            </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+        {% endfor %}
     </div>
+</figure>
+
+<div class="checkbox">
+    <input class="d-none" id="toggle-animation" type="checkbox" checked />
+    <label class="checkbox__checkbox" for="toggle-animation"></label>
+    <label class="checkbox__label" for="toggle-animation">Включить анимацию</label>
+</div>
+
+<script>
+  function classToggle() {
+  var el = document.querySelector('.icon-cards__content');
+  el.classList.toggle('step-animation');
+}
+
+document.querySelector('#toggle-animation').addEventListener('click', classToggle);
+</script>
 
 {% endblock %}

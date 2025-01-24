@@ -3,30 +3,40 @@
 {% block content %}
 <div class="container mt-4">
     <h2 class="mb-4">Уведомления</h2>
-    <ul class="list-group">
+    <div class="accordion" id="notificationsAccordion">
         {% for notification in notifications_and_notices %}
-    {% if notification.comment %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div>
-                <strong>{{ notification.comment.user.username }}</strong> ответил на ваш комментарий:
-                <p class="mb-1">"{{ notification.comment.content }}"</p>
+            <div class="card mb-3">
+                <div class="card-header p-2 d-flex justify-content-between align-items-center" id="heading_{{ forloop.counter }}">
+                    <span>
+                        {% if notification.comment %}
+                            <i class="bi bi-chat-dots me-2 text-primary"></i><strong>{{ notification.comment.user.username }}</strong> ответил на ваш комментарий:
+                        {% else %}
+                            <i class="bi bi-bell me-2 text-success"></i>{{ notification.message|truncatewords:10 }}
+                        {% endif %}
+                    </span>
+                    <small class="text-muted">{{ notification.created_at }}</small>
+                </div>
+                <div id="collapse_{{ forloop.counter }}" class="collapse" aria-labelledby="heading_{{ forloop.counter }}" data-parent="#notificationsAccordion">
+                    <div class="card-body">
+                        {% if notification.comment %}
+                            <p>"{{ notification.comment.content }}"</p>
+                            <a href="{{ notification.get_absolute_url }}" class="btn btn-outline-dark btn-sm">Читать комментарий</a>
+                        {% else %}
+                            <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-outline-dark btn-sm">Успеваемость</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            <small class="text-muted">{{ notification.created_at }}</small>
-            <a href="{{ notification.get_absolute_url }}" class="btn btn-dark btn-sm">Читать комментарий</a>
-        </li>
-    {% else %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div>
-                <p class="mb-1">{{ notification.message|markdown }}</p>
+        {% empty %}
+            <div class="alert alert-info" role="alert">
+                Уведомлений больше нет
             </div>
-            <small class="text-muted">{{ notification.created_at }}</small>
-            <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-dark btn-sm">Успеваемость</a>
-        </li>
-    {% endif %}
-    {% empty %}
-        <li class="list-group-item">Уведомлений больше нет</li>
-    {% endfor %}
-    </ul>
+        {% endfor %}
+    </div>
 </div>
+
+
+<script> document.addEventListener('DOMContentLoaded', () => { const accordionItems = document.querySelectorAll('#notificationsAccordion .card-header'); accordionItems.forEach(item => { item.addEventListener('click', () => { const targetCollapse = item.nextElementSibling; targetCollapse.classList.toggle('show'); }); }); });
+</script>
 
 {% endblock %}

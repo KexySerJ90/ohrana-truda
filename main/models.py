@@ -1,13 +1,13 @@
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
-from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 from django.urls import reverse
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from simple_history.models import HistoricalRecords
-
 from main.utils import get_upload_path
+from users.models import Profession
 
 
 class Categorys(models.Model):
@@ -40,36 +40,13 @@ class Departments(models.Model):
     def get_absolute_url(self):
         return reverse('main:maindoc', kwargs={'dep_slug': self.slug})
 
-
-class Subject(models.Model):
-    class TypeOfStudy(models.TextChoices):
-        FIRST_AID = ('first_aid', 'Первая помощь пострадавшим')
-        SAFE_METHOD1 = ('safe_method1', 'Безопасные методы и приемы выполнения работ для медицинских работников')
-        SAFE_METHOD2 = ('safe_method2', 'Безопасные методы и приемы выполнения работ для рабочих профессий')
-        SUOT = ('suot', 'Обучение по общим вопросам охраны труда и функционирования системы управления охраной труда')
-        SIZ = ('siz', 'СИЗ')
-        FIRE_SAFETY = ('fire_safety', 'Пожарная безопаность')
-        CIVIL_DEFENSE = ('civil_defense', 'Гражданская оборона')
-
-    title = models.CharField(choices=TypeOfStudy.choices, max_length=100, verbose_name='Наименование обучения',
-                             db_index=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    create = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
-
-    class Meta:
-        verbose_name = "Предмет"
-        verbose_name_plural = "Предметы"
-
-    def __str__(self):
-        return dict(Subject.TypeOfStudy.choices)[self.title]
-
-
 class UploadFiles(models.Model):
     cat = models.ForeignKey('Departments', on_delete=models.CASCADE, related_name='wuman', verbose_name="Отделение")
-    title = models.CharField(blank=True, max_length=250, db_index=True, verbose_name='Название файла')
-    file = models.FileField(upload_to=get_upload_path, max_length=250)
+    title = models.CharField(blank=True, max_length=500, db_index=True, verbose_name='Название файла')
+    file = models.FileField(upload_to=get_upload_path, max_length=500)
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     is_common = models.BooleanField(default=False, verbose_name='Общий файл')
+    description = models.TextField(max_length=900, verbose_name='Описание', default='',blank=True, null=True)
 
     class Meta:
         verbose_name = "Файл"
@@ -192,85 +169,6 @@ class Rating(models.Model):
             return f' {self.post.title} - {self.ip_address} - {self.get_value_display()} - {self.time_create}'
 
 
-class Question(models.Model):
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions', verbose_name="Предмет")
-    text = models.TextField(verbose_name="Текст вопроса")
-    option1 = models.CharField(max_length=200, verbose_name="Вариант 1")
-    option2 = models.CharField(max_length=200, verbose_name="Вариант 2")
-    option3 = models.CharField(max_length=200, verbose_name="Вариант 3")
-    option4 = models.CharField(max_length=200, verbose_name="Вариант 4")
-    correct_option = models.PositiveIntegerField(verbose_name="Правильный вариант",
-                                                 validators=[MinValueValidator(1), MaxValueValidator(4)])
-
-    class Meta:
-        verbose_name = "Вопрос"
-        verbose_name_plural = "Вопросы"
-
-    def __str__(self):
-        return f'{self.subject} - {self.text}'
-
-    def get_absolute_url(self):
-        return reverse('main:test', kwargs={'test_slug': self.subject.slug})
-
-
-class Slide(models.Model):
-    subject = models.ForeignKey(Subject, related_name='slides', on_delete=models.CASCADE, verbose_name='Предмет')
-    content = RichTextField(config_name='awesome_ckeditor', verbose_name="Текст слайда")
-    photo = models.ImageField(upload_to="courses/%Y/%m/%d/", default=None,
-                              blank=True, null=True, verbose_name="Фото")
-    order = models.PositiveIntegerField(verbose_name='Порядковый номер')
-
-    class Meta:
-        unique_together = ('subject', 'order')
-        ordering = ['order']
-        verbose_name = "Слайд"
-        verbose_name_plural = "Слайды"
-
-    def save(self, *args, **kwargs):
-        # Если order не установлен, установить его на максимальное значение + 1
-        if not self.order:
-            max_order = Slide.objects.filter(subject=self.subject).aggregate(models.Max('order'))['order__max']
-            self.order = max_order + 1 if max_order is not None else 1
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Slide {self.order} of {self.subject.title}"
-
-    # def get_absolute_url(self):
-    #     return reverse('main:subject_detail', kwargs={'subject_slug': self.subject.slug})
-
-
-class Video(models.Model):
-    title = models.CharField(max_length=100, verbose_name='Название видео')
-    file = models.FileField(upload_to='videos/', verbose_name='Файл')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата загрузки')
-
-    class Meta:
-        verbose_name = "Видео инструктажа"
-        verbose_name_plural = "Видео"
-
-    def __str__(self):
-        return self.title
-
-
-class Answer(models.Model):
-    video = models.ForeignKey(Video, related_name='answers', on_delete=models.CASCADE, verbose_name='Видео')
-    text = models.CharField(max_length=200, verbose_name='Текст')
-    next_video = models.ForeignKey(Video, null=True, related_name='next_videos', on_delete=models.SET_NULL,
-                                   verbose_name='Cледующее видео')
-
-    class Meta:
-        verbose_name = "Ответ для инструктажа"
-        verbose_name_plural = "Ответы для инструктажа"
-
-    def __str__(self):
-        return f'{self.text} - {self.next_video}'
-
-    def get_absolute_url(self):
-        return reverse("main:answer", kwargs={"answer_id": self.pk})
-
-
 class Comment(MPTTModel):
     """
     Модель древовидных комментариев
@@ -311,3 +209,55 @@ class Comment(MPTTModel):
         return f'{self.post} - {self.user}:{self.content[:20]}'
 
 
+class Equipment(models.Model):
+    name = models.CharField(max_length=350,verbose_name='Название средств индивидуальной защиты', unique=True)
+    description=models.CharField(max_length=500,verbose_name='Описание СИЗ')
+    quantity = models.CharField(default='1', verbose_name='Количество')
+    basis=models.CharField(max_length=500, verbose_name='Основание', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "СИЗ"
+        verbose_name_plural = "СИЗ"
+
+class WorkingConditions(models.Model):
+    name = models.CharField(max_length=250, verbose_name='Класс условий труда', unique=True, db_index=True)
+    description=models.CharField(max_length=250, verbose_name='Описание', blank=True, null=True)
+    money=models.PositiveIntegerField(verbose_name='Повышенная оплата труда,%',blank=True, null=True)
+    weekend=models.PositiveIntegerField(verbose_name='Дополнительный отпуск,количество дней',blank=True, null=True)
+    duration = models.BooleanField(verbose_name='Сокращенная продолжительность рабочего времени, да/нет')
+    milk = models.BooleanField(verbose_name='Молоко, да/нет')
+    food=models.BooleanField(verbose_name='Лечебно-профилактическое питание, да/нет')
+    pension=models.BooleanField(verbose_name='Льготное пенсионное обеспечение, да/нет')
+    medical = models.BooleanField(verbose_name='Проведение медицинских осмотров, да/нет')
+
+    class Meta:
+        verbose_name = 'Условия труда'
+        verbose_name_plural = 'Условия труда'
+
+    def __str__(self):
+        return self.name
+
+class JobDetails(models.Model):
+    class OPR(models.TextChoices):
+        LOW=('low', 'Низкий')
+        MODERATE=('moderate', 'Умеренный')
+        MEDIUM=('medium', 'Средний')
+        SIGNIFICANT = ('significant', 'Значительный')
+        HIGH = ('high', 'Высокий')
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, verbose_name='Должность')
+    department = models.ForeignKey('main.Departments', on_delete=models.CASCADE, verbose_name='Отделение')
+    working_conditions = models.ForeignKey(WorkingConditions, on_delete=models.CASCADE, verbose_name='Условия труда', null=True, blank=True)
+    date_of_sout=models.DateField(verbose_name='Дата СОУТ',blank=True,null=True)
+    opr = models.CharField(choices=OPR.choices, max_length=100, verbose_name='Уровень риска', blank=True, null=True)
+    history = HistoricalRecords()
+
+    class Meta:
+        unique_together = ('profession', 'department')
+        verbose_name = 'Рабочее место'
+        verbose_name_plural = 'Рабочие места'
+
+    def __str__(self):
+        return f'{self.department}-{self.profession}'

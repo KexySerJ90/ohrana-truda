@@ -1,6 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from main.models import Categorys, UploadFiles, Article, Departments, Comment
+from users.utils import COMMON_TEXT_INPUT_ATTRS
+
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -78,3 +80,13 @@ class CommentCreateForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
+
+
+class ContactForm(forms.Form):
+    username = forms.CharField(max_length=100, label="Логин", widget=forms.TextInput(attrs={
+        **COMMON_TEXT_INPUT_ATTRS,
+        'readonly': 'readonly',
+        'style': 'background-color: #dee2e6;'}))
+    email = forms.EmailField(label="E-mail", widget=forms.EmailInput(attrs=COMMON_TEXT_INPUT_ATTRS))
+    message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs=COMMON_TEXT_INPUT_ATTRS))
+

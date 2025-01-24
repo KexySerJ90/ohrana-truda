@@ -22,14 +22,13 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, FormView
 from ohr import settings
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
-    ContactForm, OTPForm, ProfessionForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, \
-    UserForgotPasswordForm
-from .models import SentMessage, MailDevice, OTP, Profession, SecurityQuestion, UserLoginHistory, JobDetails, Profile
+    OTPForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, UserForgotPasswordForm
+from .models import SentMessage, MailDevice, OTP, SecurityQuestion, UserLoginHistory, Profile
 from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialRequiredMixin
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
-from ohr.settings import EMAIL_HOST_USER, EMAIL_RECIPIENT_LIST, PHONE, AUTO_LOGOUT
-from .utils import UserQuerysetMixin, send_message, login_required_redirect, generate_otp, BaseUserView, sent_count
+from ohr.settings import EMAIL_HOST_USER, AUTO_LOGOUT
+from .utils import send_message, login_required_redirect, generate_otp, BaseUserView, sent_count
 from typing import Optional, Any, Dict
 
 
@@ -39,7 +38,8 @@ class LoginUser(ProfileRequiredMixin, LoginView):
     extra_context = {'title': 'Авторизация'}
 
     def get_success_url(self) -> str:
-        return self.request.GET.get('next', reverse_lazy('users:profile'))
+        response = self.request.GET.get('next', reverse_lazy('users:profile'))
+        return response
 
     def form_valid(self, form: LoginUserForm) -> Any:
         remember_me = form.cleaned_data.get('remember_me')
@@ -68,8 +68,10 @@ class LoginUser(ProfileRequiredMixin, LoginView):
             self.request.session['otp_sent_time'] = timezone.now().isoformat()
             self.request.session['user_id'] = user.hashed_id()
             return redirect('users:verify_otp')
-
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        if not user.two_factor_enabled:
+            response.delete_cookie('2fa_verified')
+        return response
 
 
 class VerifyOTPView(FormView):
@@ -225,32 +227,12 @@ class SettingsUser(LoginRequiredMixin, NotSocialRequiredMixin, DetailView):
 
         status_message = "включена" if user.two_factor_enabled else "выключена"
         # Возвращаем JsonResponse с новым статусом
-        return JsonResponse({'status': 'success', 'message': f'Двухфакторная авторизация {status_message}.',
+        response= JsonResponse({'status': 'success', 'message': f'Двухфакторная авторизация {status_message}.',
                              'new_status': user.two_factor_enabled})
 
-
-class MyResult(LoginRequiredMixin, StatusRequiredMixin, ListView):
-    model = get_user_model()
-    template_name = 'users/results.html'
-    extra_context = {'title': "Мои результаты"}
-
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return User.objects.prefetch_related('subject_completions__subjects').filter(pk=user.pk)
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-
-class LeaderResultsView(LoginRequiredMixin, ListView, UserQuerysetMixin):
-    template_name = 'users/leader_results.html'
-    paginate_by = 4
-    context_object_name = 'users'
-    extra_context = {'title': "Результаты подразделения"}
-
-    def get_queryset(self):
-        user = self.request.user
-        return self.get_user_queryset(user)
+        if not user.two_factor_enabled:
+            response.delete_cookie('2fa_verified')
+        return response
 
 
 def email_verification(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
@@ -335,70 +317,7 @@ class Welcome_social(UpdateView, BaseUserView):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('users:login')
-        if not request.user.is_social_user:
-            return redirect('users:profile')
         return super().dispatch(request, *args, **kwargs)
-
-
-@login_required
-def contact_view(request: HttpRequest) -> HttpResponse:
-    initial_data = {
-        'username': request.user.username,
-        'email': request.user.email}
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-            # Проверка на количество отправленных сообщений за день
-            today = timezone.now().date()
-            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today, purpose=SentMessage.PURPOSE.CONTACT).count()
-
-            if sent_count >= 3:
-                return render(request, 'users/contact_form.html', {
-                    'form': form,
-                    'error': 'Вы достигли лимита отправки сообщений на сегодня.'
-                })
-            # Формирование текста сообщения
-            full_message = f"Имя: {username}\nEmail: {email}\nСообщение:\n{message}"
-            # Отправка письма администратору
-            send_mail(
-                subject='Обратная связь',
-                message=full_message,
-                from_email=EMAIL_HOST_USER,
-                recipient_list=[EMAIL_RECIPIENT_LIST],
-            )
-            # Сохранение информации о отправленном сообщении
-            SentMessage.objects.create(user=request.user, purpose=SentMessage.PURPOSE.CONTACT)
-            return render(request, 'users/contact_success.html')  # Страница успешной отправки
-    else:
-        form = ContactForm(initial=initial_data)
-    return render(request, 'users/contact_form.html', {'form': form, 'phone': PHONE})
-
-
-class SIZForm(LoginRequiredMixin, FormView):
-    template_name = 'users/siz_form.html'
-    form_class = ProfessionForm
-    extra_context = {'title': "Калькулятор СИЗ"}
-
-
-class EquipmentListView(LoginRequiredMixin, View):
-    def get(self, request) -> JsonResponse:
-        profession_id = request.GET.get('profession_id')
-        equipment_list = []
-
-        if profession_id:
-            profession = Profession.objects.get(id=profession_id)
-            equipment_queryset = profession.equipment.all()
-
-            for equipment in equipment_queryset:
-                equipment_list.append({
-                    'description': equipment.description,
-                    'quantity': equipment.quantity,
-                })
-
-        return JsonResponse({'equipment': equipment_list})
 
 
 class ReserveMailView(LoginRequiredMixin, NotSocialRequiredMixin, FormView):
@@ -638,21 +557,3 @@ class LoginHistoryView(LoginRequiredMixin, ListView):
         # Фильтруем историю входов для текущего пользователя
         return super().get_queryset().filter(user=self.request.user)
 
-
-class SOUTUserView(LoginRequiredMixin, DetailView):
-    template_name = 'users/sout.html'
-    model = JobDetails
-    extra_context = {'title': "Результаты специальной оценки условий труда"}
-    context_object_name = 'workplace'
-
-    def get_object(self, queryset=None):
-        user = self.request.user
-        try:
-            # Получаем рабочее место по профессии и отделению текущего пользователя
-            obj = JobDetails.objects.get(
-                profession=user.profile.profession,
-                department=user.cat2
-            )
-        except JobDetails.DoesNotExist:
-            obj = None
-        return obj

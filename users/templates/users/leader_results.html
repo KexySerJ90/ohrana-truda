@@ -9,10 +9,10 @@
      {% elif user.status == 'worker' %} style="background-color: #a3cfbb;"
      {% endif %}>
     <h5>Информация о работнике: {{ user.first_name }} {{ user.last_name }}
-        {% if user.profile.patronymic %}{{ user.profile.patronymic }}{% endif %} ({{user}}), {% if user.profile.profession %}{{ user.profile.profession }}
+        {% if user.patronymic %}{{ user.patronymic }}{% endif %} ({{user}}), {% if user.profession %}{{ user.profession }}
         {% else %}{{ user.get_status_display }}{% endif %}</h5>
-    {% if user.profile.photo %}
-        <img id="profile-photo" src="{{ user.profile.photo.url }}" class="rounded-circle" style="width: 130px; height: 130px; border-radius: 50%;">
+    {% if user.photo %}
+        <img id="profile-photo" src="{{ user.photo.url }}" class="rounded-circle" style="width: 130px; height: 130px; border-radius: 50%;">
     {% endif %}
 </div>
         <div class="card-body">

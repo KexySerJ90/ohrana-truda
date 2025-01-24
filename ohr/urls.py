@@ -50,6 +50,7 @@ urlpatterns = [
     path('feeds/latest/', LatestPostFeed(), name='latest_post_feed'),
     path('', include('main.urls', namespace='main')),
     path('users/', include('users.urls', namespace="user")),
+    path('study/', include('study.urls', namespace="study")),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
     path("select2/", include("django_select2.urls")),

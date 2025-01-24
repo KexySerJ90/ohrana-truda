@@ -9,8 +9,9 @@ from django.shortcuts import redirect
 from django_select2.forms import ModelSelect2Widget
 from typing import Any
 from datetime import timedelta
-from main.models import Subject
-from users.models import User, Profession, SubjectCompletion, Notice, SentMessage
+
+from study.models import Subject, SubjectCompletion
+from users.models import Profession, Notice, SentMessage
 import pyotp
 COMMON_TEXT_INPUT_ATTRS = {'class': 'form-control'}
 
@@ -43,33 +44,6 @@ class BaseUserView:
             user=user,
             message=f"Поздравляем, вы завершили регистрацию!"
         )
-class UserQuerysetMixin:
-    """
-    Миксин для получения queryset пользователей в зависимости от их статуса.
-    """
-
-    def get_user_queryset(self, user):
-        """
-        Возвращает queryset активных пользователей, если у пользователя есть соответствующие права доступа.
-
-        Параметры:
-        user (User): объект пользователя, для которого необходимо получить queryset.
-
-        Возвращает:
-        QuerySet: queryset активных пользователей, отфильтрованный по категории и отсортированный по статусу.
-
-        """
-        # Проверяем статус пользователя и его права
-        if user.status == User.Status.LEADER or user.is_superuser or user.is_staff:
-            # Получаем активных пользователей с той же категорией и предзагружаем связанные данные
-            return User.objects.filter(
-                cat2=user.cat2,
-                is_active=True
-            ).prefetch_related('subject_completions__subjects').order_by('status')
-
-        # Если у пользователя нет прав доступа, выбрасываем исключение
-        raise PermissionDenied("You do not have permission to access this resource.")
-
 
 def generate_otp() -> tuple:
     """
@@ -97,8 +71,6 @@ def send_message(message: str, recipient: str, otp_code: str, user) -> None:
                     [user.email],
                     fail_silently=False,
                 )
-
-
 def login_required_redirect(view_func):
     @wraps(view_func)
     def _wrapped_view(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:

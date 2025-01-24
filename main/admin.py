@@ -3,8 +3,8 @@ from django.utils.safestring import mark_safe
 from django_mptt_admin.admin import DjangoMpttAdmin
 from simple_history.admin import SimpleHistoryAdmin
 
-from main.models import Categorys, UploadFiles, Subject, Article, Departments, Rating, Question, Slide, TagPost, Video, \
-    Answer, Comment, UniqueView
+from main.models import Categorys, UploadFiles, Article, Departments, Rating, TagPost, \
+    Comment, UniqueView, Equipment, WorkingConditions, JobDetails
 
 
 @admin.register(Categorys)
@@ -34,15 +34,6 @@ class UploadFilesAdmin(admin.ModelAdmin):
     readonly_fields = ['is_common']
 
 
-@admin.register(Subject)
-class SubjectAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
-
-
-@admin.register(Question)
-class QuestionAdmin(admin.ModelAdmin):
-    list_select_related=['subject']
-
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
@@ -59,22 +50,6 @@ class RatingAdmin(admin.ModelAdmin):
 class CommentAdmin(DjangoMpttAdmin):
     ordering = ['post', '-time_create']
     readonly_fields = ['user']
-
-@admin.register(Answer)
-class AnswerAdmin(admin.ModelAdmin):
-    ordering = ['id']
-
-
-@admin.register(Slide)
-class SlideAdmin(admin.ModelAdmin):
-    list_display = ('subject', 'order', 'post_photo')
-    ordering = ['subject', 'order']
-
-    @admin.display(description="Изображение", ordering='content')
-    def post_photo(self, slide: Article):
-        if slide.photo:
-            return mark_safe(f"<img src='{slide.photo.url}' width=50>")
-        return "Без фото"
 
 
 @admin.register(Article)
@@ -112,12 +87,23 @@ class UniqueViewAdmin(admin.ModelAdmin):
     search_fields = ['article']
     readonly_fields = ['article', 'ip_address','timestamp']
     list_filter=['ip_address']
+    list_select_related = ['article']
 
+@admin.register(Equipment)
+class EquipmentAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    ordering = ['name']
+    list_filter = ['siz__name']
 
-@admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    search_fields = ['title']
-    prepopulated_fields = {"slug": ("title",)}
+@admin.register(WorkingConditions)
+class WorkingConditionsAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(JobDetails)
+class JobDetailsAdmin(SimpleHistoryAdmin):
+    search_fields = ['profession']
+    list_filter = ['department','working_conditions']
+    list_select_related = ['profession','department']
 
 
 

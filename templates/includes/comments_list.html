@@ -6,7 +6,7 @@
         <li class="card border-0">
             <div class="row">
                 <div class="col-md-2">
-                    <img src="{% if node.user.photo %}{{ node.user.photo.url }}{% else %}{% static 'deps/default.png' %}{% endif %}" style="width: 100px;height: 100px;object-fit: cover; border-radius: 50%;" alt="{{ node.user }}"/>
+                    <img src="{% if node.user.profile.photo %}{{ node.user.profile.photo.url }}{% else %}{% static 'deps/default.png' %}{% endif %}" style="width: 100px;height: 100px;object-fit: cover; border-radius: 50%;" alt="{{ node.user }}"/>
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">
@@ -39,6 +39,9 @@
             <h6 class="card-title">
                 Форма добавления комментария
             </h6>
+                <div id="commentError" class="alert alert-danger d-none" role="alert">
+                    Вы можете оставлять комментарии не чаще чем раз в минуту.
+                </div>
             <form method="post" action="{% url 'main:comment_create_view' post.pk %}" id="commentForm" name="commentForm" data-post-id="{{ post.pk }}">
                 {{ form }}
                 <div class="d-grid gap-2 d-md-block mt-2">

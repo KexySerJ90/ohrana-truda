@@ -1,31 +1,29 @@
 from typing import Any, Dict, List, Optional
+from django.core.mail import send_mail
 from django.http import HttpRequest, HttpResponse
 import locale
 from itertools import chain
-
+from django.utils import timezone
 from babel.dates import format_datetime
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
 from django.contrib.postgres.search import TrigramSimilarity, TrigramWordSimilarity
 from django.core.exceptions import PermissionDenied
-from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.decorators.http import require_safe
 from django.views.generic import FormView, CreateView, ListView, DetailView, UpdateView, DeleteView
-
-from main.forms import UploadFileForm, SearchForm, AddPostForm, CommentCreateForm
-from main.models import UploadFiles, Article, Departments, TagPost, Rating, Subject, Question, Video, Answer, \
-    Comment, UniqueView
+from main.forms import UploadFileForm, SearchForm, AddPostForm, CommentCreateForm, ContactForm
+from main.models import UploadFiles, Article, Departments, TagPost, Rating, Comment, UniqueView, JobDetails
 from main.permissions import AuthorPermissionsMixin
 from main.utils import DataMixin, get_client_ip
-
-from users.models import SubjectCompletion, UserAnswer, User, Notice, Notification
+from ohr.settings import EMAIL_HOST_USER, EMAIL_RECIPIENT_LIST, PHONE
+from users.forms import ProfessionForm
+from users.models import Notice, Notification, SentMessage, Profession
 from users.permissions import StatusRequiredMixin
-
 
 class IndexView(ListView):
     queryset = Article.published
@@ -104,7 +102,17 @@ class Mainfiles(LoginRequiredMixin, StatusRequiredMixin, AuthorPermissionsMixin,
 
     def get_queryset(self):
         if self.has_permissions():
-            return UploadFiles.objects.filter(cat__slug=self.kwargs['dep_slug'])
+            queryset = UploadFiles.objects.filter(cat__slug=self.kwargs['dep_slug'])
+            order_by = self.request.GET.get('order_by', '')
+            if order_by == 'title':
+                queryset = queryset.order_by('title')
+            elif order_by == '-title':
+                queryset = queryset.order_by('-title')
+            elif order_by == 'uploaded_at':
+                queryset = queryset.order_by('uploaded_at')
+            elif order_by == '-uploaded_at':
+                queryset = queryset.order_by('-uploaded_at')
+            return queryset
         raise PermissionDenied
 
 
@@ -193,10 +201,9 @@ class PostSearchView(View):
             form = self.form_class(request.GET)
             if form.is_valid():
                 query = form.cleaned_data['query']
-
                 results_files = UploadFiles.objects.annotate(
                     similarity=TrigramSimilarity('file', query),
-                ).filter(similarity__gt=0.05).order_by('-similarity')
+                ).filter(similarity__gt=0.05).order_by('title','-similarity').distinct('title')
 
                 results_articles = Article.objects.annotate(
                     similarity=TrigramSimilarity('title', query),
@@ -270,158 +277,6 @@ class RatingCreateView(View):
             return JsonResponse({'status': 'created', 'rating_sum': rating.post.get_sum_rating()})
 
 
-@login_required
-def subject_detail(request: HttpRequest, subject_slug: str) -> HttpResponse:
-    subject = get_object_or_404(Subject, slug=subject_slug)
-    progress = get_object_or_404(SubjectCompletion, users=request.user, subjects=subject)
-
-    slides = list(subject.slides.all())
-    current_slide_index = slides.index(progress.current_slide) if progress.current_slide else 0
-    current_slide = slides[current_slide_index]
-
-    if request.method == 'POST':
-        if 'next' in request.POST:
-            if current_slide_index < len(slides) - 1:
-                progress.current_slide = slides[current_slide_index + 1]
-                progress.save()
-            else:
-                # Обучение завершено
-                progress.study_completed = True  # Сброс текущего слайда
-                progress.save()
-                return render(request, 'main/learning/learning_complete.html', context={'subject': subject})
-
-        elif 'previous' in request.POST and current_slide_index > 0:
-            progress.current_slide = slides[current_slide_index - 1]
-            progress.save()
-
-        elif 'reset_subject' in request.POST:
-            # Сброс текущего слайда и завершения обучения
-            progress.current_slide = slides[0]  # Устанавливаем первый слайд
-            progress.save()
-            return redirect('main:subject_detail', subject_slug=subject.slug)
-
-        return redirect('main:subject_detail', subject_slug=subject.slug)
-
-    context = {
-        'subject': subject,
-        'current_slide': current_slide,
-        'is_last_slide': current_slide_index == len(slides) - 1,
-        'current_slide_index': current_slide_index,
-        'study_completed': progress.study_completed,
-        'title': f'{subject.get_title_display()} - {current_slide_index + 1}'
-    }
-
-    if progress.study_completed and current_slide_index >= len(slides) - 1:
-        context['title'] = f'{subject.get_title_display()} - Завершено'
-        return render(request, 'main/learning/learning_complete.html', context)
-
-    return render(request, 'main/learning/subject_detail.html', context)
-
-
-@login_required
-def video_view(request: HttpRequest, video_slug: str) -> HttpResponse:
-    user = request.user
-    video = get_object_or_404(Video, slug=video_slug)
-    answers = video.answers.all()  # Получаем ответы для текущего видео
-    if video.slug == 'finish':
-        user.instructaj = True
-        user.save()
-    return render(request, 'main/video_player/video.html',
-                  {'video': video, 'answers': answers, 'title': f'Вводный инструктаж-{video}'})
-
-
-@login_required
-def answer_view(request: HttpRequest, answer_id: int) -> HttpResponse:
-    answer = get_object_or_404(Answer, id=answer_id)
-    next_video = answer.next_video
-    return redirect('main:video_detail', video_slug=next_video.slug)
-
-
-@login_required
-def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
-    subject = get_object_or_404(Subject, slug=test_slug)
-    user_completion = get_object_or_404(SubjectCompletion, users=request.user, subjects=subject)
-    incorrect_answers = user_completion.user_answers.exclude(selected_answer=F('question__correct_option'))
-    if 'questions' in request.session and request.session['questions'] and request.session['subject'] == subject.id:
-        question_ids = request.session['questions']
-        questions = Question.objects.filter(id__in=question_ids)
-    else:
-        questions = Question.objects.filter(subject=subject).order_by('?')[:10]
-        request.session['questions'] = [question.id for question in questions]
-        request.session['subject'] = subject.id
-    time_remaining = request.session.get('test_time_remaining', 600)
-    if 'reset_test' in request.POST:
-        # Сброс результатов
-        user_completion.score = 0
-        user_completion.completed = False
-        user_completion.user_answers.all().delete()
-        user_completion.save()
-        request.session['questions'] = None
-        request.session['test_time_remaining'] = 600
-        return redirect('main:test', test_slug=subject.slug)
-    if user_completion.completed:
-        del request.session['questions']
-        del request.session['subject']
-        request.session.pop('test_time_remaining', None)
-        return render(request, 'main/test_result.html', {
-            'subject': subject,
-            'score': user_completion.score,
-            'total': len(questions),
-            'passed': user_completion.completed,
-            'title': f'Тест {subject} завершен'
-        })
-    if request.method == 'POST':
-        if not user_completion.completed:
-            user_completion.score = 0
-            user_completion.user_answers.all().delete()
-        for question in questions:
-            answer = request.POST.get(f'question_{question.id}')
-            if answer:
-                selected_answer = int(answer)
-                user_completion.score += selected_answer == question.correct_option
-                UserAnswer.objects.create(
-                    user_completion=user_completion,
-                    question=question,
-                    selected_answer=selected_answer
-                )
-        if user_completion.score >= len(questions) - 3:
-            user_completion.completed = True
-            subject_message = f"Пользователь {request.user.first_name} {request.user.last_name} сдал тест по предмету '{subject}'."
-            leaders = get_user_model().objects.filter(status=User.Status.LEADER, cat2=request.user.cat2)
-            # Получаем админа (предположим, у вас есть пользователь с ролью 'admin')
-            admins = get_user_model().objects.filter(
-                is_superuser=True)
-            for leader in leaders:
-                if leader != request.user:
-                    if not Notice.objects.filter(user=leader, message__icontains=subject).exists():
-                        Notice.objects.create(
-                            user=leader,
-                            message=subject_message
-                        )
-            for admin in admins:
-                if not Notice.objects.filter(user=admin, message__icontains=subject).exists():
-                    Notice.objects.create(
-                        user=admin,
-                        message=subject_message
-                    )
-            Notice.objects.create(
-                user=request.user,
-                message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!"
-            )
-        user_completion.save()
-        del request.session['questions']
-        del request.session['subject']
-        del request.session['test_time_remaining']
-        return render(request, 'main/test_result.html',
-                      {'score': user_completion.score, 'total': len(questions), 'passed': user_completion.completed,
-                       'subject': subject, 'incorrect_answers': incorrect_answers,
-                       'title': f'Тест не сдан по {subject}'})
-    request.session['test_time_remaining'] = time_remaining
-    return render(request, 'main/test.html',
-                  {'subject': subject, 'questions': questions, 'user_completion': user_completion,
-                   'time_remaining': time_remaining, 'title': f'Тестирование по {subject}'})
-
-
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentCreateForm
@@ -453,7 +308,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
                 'author': comment.user.username,
                 'parent_id': comment.parent_id,
                 'time_create': format_datetime(comment.time_create, format='dd MMMM yyyy г. HH:mm', locale='ru'),
-                'photo': comment.user.photo.url,
+                'photo': comment.user.profile.photo.url,
                 'content': comment.content,
             }, status=200)
 
@@ -520,8 +375,89 @@ class NoticeReadView(View):
         notice.is_read = True
         notice.save()
         if request.user.status == get_user_model().Status.LEADER:
-            return redirect('users:leader_results')
-        return redirect('users:result')
+            return redirect('study:leader_results')
+        return redirect('study:result')
+
+
+@login_required
+def contact_view(request: HttpRequest) -> HttpResponse:
+    initial_data = {
+        'username': request.user.username,
+        'email': request.user.email}
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            # Проверка на количество отправленных сообщений за день
+            today = timezone.now().date()
+            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today, purpose=SentMessage.PURPOSE.CONTACT).count()
+
+            if sent_count >= 3:
+                return render(request, 'users/contact_form.html', {
+                    'form': form,
+                    'error': 'Вы достигли лимита отправки сообщений на сегодня.'
+                })
+            # Формирование текста сообщения
+            full_message = f"Имя: {username}\nEmail: {email}\nСообщение:\n{message}"
+            # Отправка письма администратору
+            send_mail(
+                subject='Обратная связь',
+                message=full_message,
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[EMAIL_RECIPIENT_LIST],
+            )
+            # Сохранение информации о отправленном сообщении
+            SentMessage.objects.create(user=request.user, purpose=SentMessage.PURPOSE.CONTACT)
+            return render(request, 'main/contact_success.html')  # Страница успешной отправки
+    else:
+        form = ContactForm(initial=initial_data)
+    return render(request, 'main/contact_form.html', {'form': form, 'phone': PHONE})
+
+
+class SIZForm(LoginRequiredMixin, FormView):
+    template_name = 'main/siz_form.html'
+    form_class = ProfessionForm
+    extra_context = {'title': "Калькулятор СИЗ"}
+
+
+class EquipmentListView(LoginRequiredMixin, View):
+    def get(self, request) -> JsonResponse:
+        profession_id = request.GET.get('profession_id')
+        equipment_list = []
+
+        if profession_id:
+            profession = Profession.objects.get(id=profession_id)
+            equipment_queryset = profession.equipment.all()
+
+            for equipment in equipment_queryset:
+                equipment_list.append({
+                    'description': equipment.description,
+                    'quantity': equipment.quantity,
+                    'basis': equipment.basis,
+                })
+
+        return JsonResponse({'equipment': equipment_list})
+
+class SOUTUserView(LoginRequiredMixin, DetailView):
+    template_name = 'main/sout.html'
+    model = JobDetails
+    extra_context = {'title': "Результаты специальной оценки условий труда"}
+    context_object_name = 'workplace'
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        try:
+            # Получаем рабочее место по профессии и отделению текущего пользователя
+            obj = JobDetails.objects.get(
+                profession=user.profile.profession,
+                department=user.cat2
+            )
+        except JobDetails.DoesNotExist:
+            obj = None
+        return obj
+
 
 
 def tr_handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
@@ -552,3 +488,6 @@ def tr_handler403(request: HttpRequest, exception: Exception) -> HttpResponse:
         'title': 'Ошибка доступа: 403',
         'error_message': 'Доступ к этой странице ограничен',
     })
+
+
+

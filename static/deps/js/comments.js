@@ -24,18 +24,21 @@ function replyComment() {
 
 async function createComment(event) {
     event.preventDefault();
-    const currentTime = Date.now();
 
-    if (currentTime - lastCommentTime < 600) { // 60000 мс = 1 минута
-        if (!alertShown) { // Проверяем, было ли показано сообщение
-            alert("Вы можете оставлять комментарии не чаще чем раз в минуту.");
-            alertShown = true; // Устанавливаем флаг, чтобы больше не показывать сообщение
-        }
-        return; // Прерываем выполнение функции
+    const currentTime = Date.now();
+    const timeLimit = 60 * 1000; // Ограничение в одну минуту (в миллисекундах)
+
+    if (currentTime - lastCommentTime < timeLimit) {
+        // Показываем сообщение об ошибке в шаблоне
+        document.getElementById('commentError').classList.remove('d-none');
+        setTimeout(() => {
+            document.getElementById('commentError').classList.add('d-none');
+        }, 5000); // Скрываем сообщение через 5 секунд
+        return;
     }
 
     lastCommentTime = currentTime;
-    localStorage.setItem('lastCommentTime', lastCommentTime); // Сохраняем время в localStorage
+    localStorage.setItem('lastCommentTime', lastCommentTime);
     commentFormSubmit.disabled = true;
     commentFormSubmit.innerText = "Ожидаем ответа сервера";
 
@@ -50,34 +53,27 @@ async function createComment(event) {
         });
 
         const comment = await response.json();
-        let commentTemplate = `<ul id="comment-thread-${comment.id}">
-                                <li class="card border-0">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <img src="${comment.photo}" style="width: 120px;height: 120px;object-fit: cover;" alt="${comment.user}"/>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="card-body">
-                                                <h6 class="card-title">
-                                                    <p>${comment.user}</p>
-                                                </h6>
-                                                <p class="card-text">
-                                                    ${comment.content}</p>
-                                                <a class="btn btn-sm btn-dark btn-reply" href="#commentForm" data-comment-id="${comment.id}" data-comment-username="${comment.user}">Ответить</a>
-                                                <hr/>
-                                                <time>${comment.time_create}</time></div></div></div></li></ul>`;
 
+        // Создаем элемент списка комментариев
+        const li = document.createElement('li');
+        li.className = 'card border-0';
+
+        // Добавляем содержимое комментария
+        li.innerHTML = ` <div class="row"> <div class="col-md-2"> <img src="${comment.photo}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;"> </div> <div class="col-md-10"> <div class="card-body"> <h6 class="card-title"><p>${comment.author}</p></h6> <p class="card-text">${comment.content}</p> <a class="btn btn-sm btn-dark btn-reply" href="#commentForm" data-comment-id="${comment.id}" data-comment-username="${comment.author}">Ответить</a> <hr /> <time>${comment.time_create}</time> </div> </div> </div> `;
+
+        // Вставляем новый комментарий в нужное место
         if (comment.is_child) {
-            document.querySelector(`#comment-thread-${comment.parent_id}`).insertAdjacentHTML("beforeend", commentTemplate);
+            const parentThread = document.querySelector(`#comment-thread-${comment.parent_id}`);
+            parentThread.appendChild(li);
         } else {
-            document.querySelector('.nested-comments').insertAdjacentHTML("beforeend", commentTemplate);
+            const commentsContainer = document.querySelector('.nested-comments');
+            commentsContainer.appendChild(li);
         }
 
         commentForm.reset();
         commentFormSubmit.disabled = false;
         commentFormSubmit.innerText = "Добавить комментарий";
         commentFormParentInput.value = null;
-        alertShown = false; // Сбрасываем флаг для следующего комментария
         replyUser();
     } catch (error) {
         console.log(error);

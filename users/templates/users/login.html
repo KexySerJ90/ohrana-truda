@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Авторизация</h1>
 
-<form method="post">
+<form method="post" style="width: 500px; ">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}" />
     {% for f in form %}

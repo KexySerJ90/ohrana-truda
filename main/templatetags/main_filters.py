@@ -1,3 +1,5 @@
+import os
+
 import markdown
 from django.db.models import Count, Q, F
 from django.template.defaultfilters import stringfilter
@@ -131,3 +133,13 @@ def pluralize_ru(value, arg):
         return arg.split(',')[1]  # род. число
     else:
         return arg.split(',')[2]
+
+@register.filter
+def file_icon(file_path):
+    _, extension = os.path.splitext(file_path)
+    if extension.lower() == '.pdf':
+        return '<i class="fas fa-file-pdf me-2"></i>'
+    elif extension.lower() == '.doc' or extension.lower() == '.docx':
+        return '<i class="fas fa-file-word me-2"></i>'
+    else:
+        return '<i class="fas fa-file me-2"></i>'  # Универсальная иконка для других типов файлов

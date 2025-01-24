@@ -1,6 +1,5 @@
 import hashlib
 from datetime import timedelta
-
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
@@ -10,8 +9,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from simple_history.models import HistoricalRecords
-
 
 class User(AbstractUser):
     class Status(models.TextChoices):
@@ -22,15 +19,15 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     phone=PhoneNumberField(max_length=15, unique=True,null=True, verbose_name='Телефон')
     cat2 = models.ForeignKey('main.Departments', on_delete=models.CASCADE, related_name='cat2', verbose_name="Отделение", null=True)
-    subject = models.ManyToManyField('main.Subject', blank=True, related_name='subjs', verbose_name="Предмет")
+    subject = models.ManyToManyField('study.Subject', blank=True, related_name='subjs', verbose_name="Предмет")
     status = models.CharField(choices=Status.choices, max_length=100, verbose_name='Статус')
     update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
-    instructaj= models.BooleanField(default=False, verbose_name="Инструктаж")
-    is_social_user = models.BooleanField(default=False)
-    last_activity = models.DateTimeField(default=timezone.now)
+    last_activity = models.DateTimeField(default=timezone.now, verbose_name="Последняя авторизация")
     two_factor_enabled = models.BooleanField(default=False, verbose_name='Двухфакторная авторизация')
     reserve_email=models.EmailField(default='',blank=True, null=True, verbose_name='Резервный Email')
     secret_answer = models.CharField(max_length=255, blank=True, null=True, verbose_name='Секретный ответ')
+    is_social_user = models.BooleanField(default=False, verbose_name="Социальный юзер?")
+
 
     class Meta:
         verbose_name = "Пользователь"
@@ -66,6 +63,7 @@ class Profile(models.Model):
     photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
     date_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
     date_of_work = models.DateField(verbose_name="Дата трудоустройства")
+    instructaj = models.BooleanField(default=False, verbose_name="Инструктаж")
 
     class Meta:
         verbose_name = "Профиль"
@@ -84,7 +82,7 @@ class SecurityQuestion(models.Model):
         FIRST_SCHOOL = ('first_school', 'В какой школе Вы учились в первый раз?')
         DREAM_VACATION = ('dream_vacation', 'Какое Ваше самое заветное место для отдыха?')
         FIRST_CAR = ('first_car', 'Какую машину Вы впервые водили?')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     question = models.CharField(choices=SecretQuestions.choices,max_length=255, verbose_name="Вопрос безопасности")
 
     def __str__(self):
@@ -97,9 +95,8 @@ class SecurityQuestion(models.Model):
         ordering = ['-user']
 
 class Profession(models.Model):
-    name = models.CharField(max_length=250,verbose_name='Название должности')
-    slug = models.SlugField(max_length=255, unique=True)
-    equipment = models.ManyToManyField('users.Equipment',blank=True, related_name='siz', verbose_name="Сизы")
+    name = models.CharField(max_length=250,verbose_name='Название должности', unique=True, db_index=True)
+    equipment = models.ManyToManyField('main.Equipment',blank=True, related_name='siz', verbose_name="Сизы")
 
     def __str__(self):
         return self.name
@@ -108,20 +105,8 @@ class Profession(models.Model):
         verbose_name = "Профессия"
         verbose_name_plural = "Профессии"
         ordering = ['-id']
-
-class Equipment(models.Model):
-    name = models.CharField(max_length=350,verbose_name='Название средств индивидуальной защиты')
-    description=models.CharField(max_length=500,verbose_name='Описание СИЗ')
-    quantity = models.CharField(default='1', verbose_name='Количество')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "СИЗ"
-        verbose_name_plural = "СИЗ"
 class OTP(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     otp_secret = models.CharField(max_length=40)
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
@@ -140,36 +125,6 @@ class MailDevice(Device):
 
         return f'2fa-{user}-{self.timestamp}'
 
-class SubjectCompletion(models.Model):
-    users = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='subject_completions', verbose_name="Пользователь")
-    subjects = models.ForeignKey('main.Subject', on_delete=models.CASCADE, related_name='subject_completions', verbose_name="Предмет")
-    completed = models.BooleanField(default=False, verbose_name="Тестирование")
-    score= models.PositiveIntegerField(default=0, verbose_name='Количество баллов')
-    study_completed=models.BooleanField(default=False, verbose_name="Обучение")
-    current_slide = models.ForeignKey('main.Slide', on_delete=models.SET_NULL, null=True)
-    history = HistoricalRecords()
-
-    class Meta:
-        unique_together = ('users', 'subjects')
-        verbose_name = "Экзамен"
-        verbose_name_plural = "Экзамены"
-
-
-    def __str__(self):
-        return f'{self.users.last_name} {str(self.users.first_name)} - {str(self.subjects)}'
-
-
-class UserAnswer(models.Model):
-    user_completion = models.ForeignKey(SubjectCompletion, on_delete=models.CASCADE, related_name='user_answers')
-    question = models.ForeignKey('main.Question', on_delete=models.CASCADE, related_name='user_answers')
-    selected_answer = models.PositiveIntegerField(verbose_name='Выбранный ответ', null=True)
-
-    class Meta:
-        verbose_name = "Ответы пользователей"
-        verbose_name_plural = "Ответы пользователей"
-
-    def __str__(self):
-        return f'{self.user_completion} - {self.question.text}'
 
 class SentMessage(models.Model):
     class PURPOSE(models.TextChoices):
@@ -224,7 +179,7 @@ class Notice(models.Model):
         return f"{self.user} : {self.message}, создан {self.created_at.strftime('%d.%m.%Y %H:%M')}"
 
 class UserLoginHistory(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     login_time = models.DateTimeField(auto_now_add=True)
     ip_address = models.GenericIPAddressField()
     location = models.CharField(max_length=100, blank=True)  # Для хранения геолокации
@@ -239,43 +194,3 @@ class UserLoginHistory(models.Model):
     def __str__(self):
         return f"{self.user.username} logged in at {self.login_time.strftime('%d.%m.%Y %H:%M')}"
 
-
-class WorkingConditions(models.Model):
-    name = models.CharField(max_length=250, verbose_name='Класс условий труда')
-    description=models.CharField(max_length=250, verbose_name='Описание', blank=True, null=True)
-    money=models.PositiveIntegerField(verbose_name='Повышенная оплата труда,%',blank=True, null=True)
-    weekend=models.PositiveIntegerField(verbose_name='Дополнительный отпуск,количество дней',blank=True, null=True)
-    duration = models.BooleanField(verbose_name='Сокращенная продолжительность рабочего времени, да/нет')
-    milk = models.BooleanField(verbose_name='Молоко, да/нет')
-    food=models.BooleanField(verbose_name='Лечебно-профилактическое питание, да/нет')
-    pension=models.BooleanField(verbose_name='Льготное пенсионное обеспечение, да/нет')
-    medical = models.BooleanField(verbose_name='Проведение медицинских осмотров, да/нет')
-
-    class Meta:
-        verbose_name = 'Условия труда'
-        verbose_name_plural = 'Условия труда'
-
-    def __str__(self):
-        return self.name
-
-class JobDetails(models.Model):
-    class OPR(models.TextChoices):
-        LOW=('low', 'Низкий')
-        MODERATE=('moderate', 'Умеренный')
-        MEDIUM=('medium', 'Средний')
-        SIGNIFICANT = ('significant', 'Значительный')
-        HIGH = ('high', 'Высокий')
-    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, verbose_name='Должность')
-    department = models.ForeignKey('main.Departments', on_delete=models.CASCADE, verbose_name='Отделение')
-    working_conditions = models.ForeignKey(WorkingConditions, on_delete=models.CASCADE, verbose_name='Условия труда', null=True, blank=True)
-    date_of_sout=models.DateField(verbose_name='Дата СОУТ',blank=True,null=True)
-    opr = models.CharField(choices=OPR.choices, max_length=100, verbose_name='Уровень риска', blank=True, null=True)
-    history = HistoricalRecords()
-
-    class Meta:
-        unique_together = ('profession', 'department')
-        verbose_name = 'Рабочее место'
-        verbose_name_plural = 'Рабочие места'
-
-    def __str__(self):
-        return f'{self.department}-{self.profession}'

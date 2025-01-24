@@ -20,12 +20,10 @@ urlpatterns = [
     path('category/<slug:cat_slug>/', views.ArticleCategory.as_view(), name='category'),
     path('edit/<slug:slug>/', views.UpdatePage.as_view(), name='edit_page'),
     path('tag/<slug:tag_slug>/', views.TagPostList.as_view(), name='tag'),
-    path('test/<slug:test_slug>/', views.test_view, name='test'),
     path('search/', views.PostSearchView.as_view(), name='post_search'),
     path('rating/', views.RatingCreateView.as_view(), name='rating'),
-    path('subject/<slug:subject_slug>/', views.subject_detail, name='subject_detail'),
-    # path('learning-complete/<slug:subject_slug>/', views.learning_complete, name='learning_complete'),
-    path('video/<slug:video_slug>/', views.video_view, name='video_detail'),
-    path('answer/<int:answer_id>/', views.answer_view, name='answer'),
-
+    path('contact/', views.contact_view, name='contact'),
+    path('sout-user/', views.SOUTUserView.as_view(), name='sout_user'),
+    path('siz/', views.SIZForm.as_view(), name='siz'),
+    path('get_equipment/', views.EquipmentListView.as_view(), name='get_equipment'),
 ]
