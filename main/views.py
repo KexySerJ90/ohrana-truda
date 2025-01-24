@@ -200,14 +200,17 @@ class PostSearchView(View):
         if 'query' in request.GET:
             form = self.form_class(request.GET)
             if form.is_valid():
+                A = 1.0
+                B = 0.4
                 query = form.cleaned_data['query']
                 results_files = UploadFiles.objects.annotate(
                     similarity=TrigramSimilarity('file', query),
                 ).filter(similarity__gt=0.05).order_by('title','-similarity').distinct('title')
 
                 results_articles = Article.objects.annotate(
-                    similarity=TrigramSimilarity('title', query),
-                ).filter(similarity__gt=0.05).order_by('-similarity')
+                    similarity=(A / (A + B) * TrigramSimilarity('title', query)
+                                + B / (A + B) * TrigramWordSimilarity(query, 'content'))
+                ).filter(similarity__gt=0.06).order_by('-similarity')
 
         context = {
             'form': form,

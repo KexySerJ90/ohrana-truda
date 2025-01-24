@@ -27,9 +27,9 @@ from users.utils import COMMON_TEXT_INPUT_ATTRS, ProfessionChoiceField
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label="Логин, E-mail или телефон",
-                               widget=forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS))
+                               widget=forms.TextInput({**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите Логин, E-mail или телефон'}))
     password = forms.CharField(label="Пароль",
-                               widget=forms.PasswordInput(attrs=COMMON_TEXT_INPUT_ATTRS))
+                               widget=forms.PasswordInput({'oncopy': 'return false;',**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите пароль'}))
     remember_me = forms.BooleanField(label="Запомни меня", required=False,
                                      widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
@@ -54,9 +54,9 @@ class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label="Логин", widget=forms.TextInput(
         attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите логин'}))
     password1 = forms.CharField(label="Пароль", widget=forms.PasswordInput(
-        attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите пароль'}))
+        attrs={'oncopy': 'return false;',**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите пароль'}))
     password2 = forms.CharField(label="Повтор пароля", widget=forms.PasswordInput(
-        attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Повторите пароль'}))
+        attrs={'oncopy': 'return false;',**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Повторите пароль'}))
     date_of_work = forms.DateField(label='Дата Трудоустройства', widget=DatePickerInput(options={
         "format": "DD/MM/YYYY",
         "minDate": (datetime.datetime.now() - datetime.timedelta(days=60 * 365 + Leap_years())),
@@ -68,7 +68,8 @@ class RegisterUserForm(UserCreationForm):
     cat2 = forms.ModelChoiceField(
         label="Отделение",
         empty_label='Выберите отделение',
-        queryset=Departments.objects.exclude(id__in=(1, 2)),  # исключаем категорию с id=1
+        # queryset=Departments.objects.exclude(id__in=(1, 2)),  # исключаем категорию с id=1
+        queryset=Departments.objects.all(),
         widget=ModelSelect2Widget(
             model=Departments,
             search_fields=['name__icontains'],

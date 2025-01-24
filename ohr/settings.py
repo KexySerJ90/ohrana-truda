@@ -126,6 +126,7 @@ DATABASES = {
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('POSTGRES_HOST'),
         'PORT': '5433' if os.name == 'posix' else '5432',
+
     }
 }
 
