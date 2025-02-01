@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+from users.commands import scheduler
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ohr.settings')
+
+
 
 application = get_wsgi_application()

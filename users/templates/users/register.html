@@ -1,42 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Регистрация</h1>
+<div class="container">
+  <div class="row justify-content-center">
+      <h1 class="mb-3 text-center">Регистрация</h1>
 
-<p class="alert alert-info">Пожалуйста, внимательно выберите поле "Статус". Это определит, какие виды обучения будут доступны для вас.</p>
-
-<form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}" />
-
-    {% for f in form %}
-    <p>
-        <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
-        <div class="input-group">
-        {{ f }}
-        {% if f.name == 'password1' or f.name == 'password2' %}
-            <button type="button" class="btn btn-secondary btn-sm toggle-password" data-target="{{ f.name }}">Показать пароль</button>
-        {% endif %}
+      <!-- Информационные сообщения -->
+      <div class="alert alert-info mb-3">
+    <p>Пожалуйста, внимательно выберите поле "Статус". Это определит, какие виды обучения будут доступны для вас.</p>
+    <p>Работники хозяйственного отдела, чьи рабочие места прикреплены к отделениям, выбирают в качестве статуса - рабочий, а в качестве отделения - то отделение, в котором фактически работают.</p>
+    <p>Работники немедицинского профиля - выбирают статус администрация.</p>
 </div>
-    </p>
-    <div class="form-error">{{ f.errors }}</div>
-    {% endfor %}
 
-    <p><button class="btn btn-dark" type="submit">Регистрация</button></p>
-</form>
+      <!-- Форма регистрации -->
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}"/>
 
-<script>
-    document.querySelectorAll('.toggle-password').forEach(button => {
-        button.addEventListener('click', function () {
-            const passwordField = document.querySelector(`input[name="${this.dataset.target}"]`);
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                this.textContent = 'Скрыть пароль'; // Измените текст кнопки
-            } else {
-                passwordField.type = 'password';
-                this.textContent = 'Показать пароль'; // Верните текст кнопки
-            }
-        });
-    });
-</script>
+        {% for f in form %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
+            <div class="input-group">
+              {{ f }}
+              {% if f.name == 'password1' or f.name == 'password2' %}
+                <button type="button" class="btn btn-outline-secondary btn-sm toggle-password" data-target="{{ f.name }}">Показать пароль</button>
+              {% endif %}
+            </div>
+            <small class="form-text text-danger">{{ f.errors }}</small>
+          </div>
+        {% endfor %}
+
+        <button class="btn btn-dark w-100" type="submit">Зарегистрироваться</button>
+      </form>
+  </div>
+    </div>
+
+<!-- Скрипт для переключения видимости пароля -->
+<script> document.querySelectorAll('.toggle-password').forEach(button => { button.addEventListener('click', function() { const passwordField = document.querySelector(`input[name="${this.dataset.target}"]`); if (passwordField.type === 'password') { passwordField.type = 'text'; this.textContent = 'Скрыть пароль'; } else { passwordField.type = 'password'; this.textContent = 'Показать пароль'; } }); }); </script>
+
+<script src="{% static 'deps/js/email_field.js' %}" type="text/javascript"></script>
 {% endblock %}

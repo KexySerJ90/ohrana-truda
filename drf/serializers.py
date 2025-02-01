@@ -1,9 +1,21 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from main.models import Article, UploadFiles, JobDetails
-from study.models import SubjectCompletion
-from users.models import UserLoginHistory
+from main.models import Article, UploadFiles, TagPost, UserLoginHistory, Categorys
+from profdetails.models import JobDetails, Equipment
+from study.models import SubjectCompletion, Subject
+from users.models import Profession, Departments
 
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TagPost
+        fields = ['id', 'tag', 'slug']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categorys
+        fields = '__all__'
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +30,21 @@ class UploadFilesSerializer(serializers.ModelSerializer):
         model = UploadFiles
         fields = ('id', 'cat_name', 'file', 'title', 'uploaded_at')
 
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+
+class JobDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobDetails
+        fields = '__all__'
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ('title', 'slug')
 
 class SubjectCompletionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,10 +79,16 @@ class ProfileUserSerializer(serializers.ModelSerializer):
 class UserLoginHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserLoginHistory
-        fields = ('id', 'login_time', 'ip_address', 'location', 'device_type', 'browser', 'os')
+        fields = ('login_time', 'location', 'device_type', 'browser', 'os')
 
 
-class JobDetailsSerializer(serializers.ModelSerializer):
+class ProfessionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = JobDetails
+        model = Profession
+        fields = '__all__'
+
+
+class DepartmentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Departments
         fields = '__all__'

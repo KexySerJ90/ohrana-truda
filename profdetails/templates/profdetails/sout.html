@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ title }}</h1>
+
+    <!-- Профиль пользователя -->
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <h3 class="mb-0">{{user.username}}</h3>
+            <p class="lead mb-1">{{user.last_name}} {{user.first_name}} {% if user.patronymic %}{{user.patronymic}}{% endif %}</p>
+            <p class="mb-0">{{user.profession}} ({{user.cat2}})</p>
+        </div>
+    </div>
+
+    <!-- Таблица с условиями труда -->
+    <div class="scroll-container">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Класс условий труда</th>
+                    <th scope="col">Повышенная оплата труда (%)</th>
+                    <th scope="col">Дополнительный отпуск (дни)</th>
+                    <th scope="col">Сокращенная продолжительность рабочего времени</th>
+                    <th scope="col">Молоко</th>
+                    <th scope="col">Лечебно-профилактическое питание</th>
+                    <th scope="col">Льготное пенсионное обеспечение</th>
+                    <th scope="col">Медицинские осмотры</th>
+                    <th scope="col">Дата отчета</th>
+                    <th scope="col">Уровень риска (ОПР)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if workplace.working_conditions %}
+                    <tr>
+                        <td>{{ workplace.working_conditions.description }}</td>
+                        <td>{{ workplace.working_conditions.money|default:"Нет данных" }}</td>
+                        <td>{{ workplace.working_conditions.weekend|default:"Нет данных" }}</td>
+                        <td>{{ workplace.working_conditions.duration|yesno:"Да,Нет" }}</td>
+                        <td>{{ workplace.working_conditions.milk|yesno:"Да,Нет" }}</td>
+                        <td>{{ workplace.working_conditions.food|yesno:"Да,Нет" }}</td>
+                        <td>{{ workplace.working_conditions.pension|yesno:"Да,Нет" }}</td>
+                        <td>{{ workplace.working_conditions.medical|yesno:"Да,Нет" }}</td>
+                        <td>{{ workplace.date_of_sout }}</td>
+                        <td>{{ workplace.get_opr_display }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10" class="text-center">Специальная оценка условий труда не проведена.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

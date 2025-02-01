@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <h1 class="text-center mb-4">Генерация изображения</h1>
+        <p class="alert alert-warning text-center mb-4">
+            Функционал находится на стадии бета-тестирования.<br>
+            Время создания изображения может занимать до 2-3 минут.
+        </p>
+
+        <form method="post" id="generate-form" onsubmit="showLoadingIndicator()">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="prompt" class="form-label">Введите описание изображения:</label>
+                <textarea id="prompt" name="prompt" class="form-control" rows="4" required placeholder="Введите описание для генерации изображения">{{ prompt|default_if_none:'' }}</textarea>
+            </div>
+            {% if error %}
+            <div id="error-message" class="alert alert-danger">{{error}}</div>
+            {% endif %}
+            <!-- Скрытое поле для хранения значения -->
+            <input type="hidden" id="selectedStyle" name="style" value="DEFAULT">
+
+            <!-- Текстовое сообщение -->
+            <p class="text-center mb-2 fw-bold fs-5">Можете выбрать стиль:</p>
+
+            <!-- Кнопки -->
+            <div class="mb-3 d-flex justify-content-evenly">
+                <button type="button" class="btn btn-outline-success active-style-btn" data-style="KANDINSKY" onclick="setSelectedStyle(this)" style="width: 30%;">Абстракционизм</button>
+                <button type="button" class="btn btn-outline-success active-style-btn" data-style="UHD" onclick="setSelectedStyle(this)" style="width: 30%;">Детальное фото</button>
+                <button type="button" class="btn btn-outline-success active-style-btn" data-style="ANIME" onclick="setSelectedStyle(this)" style="width: 30%;">Аниме</button>
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Сгенерировать</button>
+        </form>
+
+        <div id="loading-indicator" style="display: none;" class="text-center mt-4">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+            <p>Создание изображения...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.querySelectorAll('.active-style-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Проверяем, является ли кнопка активной
+                if (button.classList.contains('active')) {
+                    // Если активная, снимаем активность и сбрасываем стиль
+                    button.classList.remove('active');
+                    document.getElementById('selectedStyle').value = 'DEFAULT';
+                } else {
+                    // Если не активная, снимаем активность со всех кнопок и добавляем активность к текущей
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    document.getElementById('selectedStyle').value = button.dataset.style;
+                }
+            });
+        });
+    });
+
+    function showLoadingIndicator() {
+        document.getElementById('loading-indicator').style.display = 'block';
+    }
+</script>
+
+<style>
+    .active {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+        transform: scale(1.05);
+    }
+</style>
+
+
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function() {
+    setTimeout(function() {
+        $('#error-message').fadeOut(500); // Плавное исчезновение за 500 мс
+    }, 5000); // Через 5 секунд
+});
+</script>
+{% endblock %}

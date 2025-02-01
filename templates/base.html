@@ -45,10 +45,10 @@
                         {% if user.cat2.slug %}
                         <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' user.cat2.slug %}">{{user.cat2.name}}</a></li>
                         {% endif %}
-                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'administraciya' %}">Локально-нормативные документы</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'obshie' %}">ФЗ и другие документы по охране труда</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'obshie' %}">Локально-нормативные документы</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'administraciya' %}">ФЗ и другие документы по охране труда</a></li>
                         <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'sout' %}">СОУТ</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url 'main:siz' %}">Калькулятор СИЗ</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'profdetails:siz' %}">Калькулятор СИЗ</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -105,7 +105,7 @@
                                     <li><a class="dropdown-item text-white" href="{% url 'study:leader_results' %}">Моё подразделение</a></li>
                                     {% endif %}
                                     </li>
-                                        <li><a class="dropdown-item  text-white" href="{% url 'main:sout_user' %}">Класс условий труда</a>
+                                        <li><a class="dropdown-item  text-white" href="{% url 'profdetails:sout_user' %}">Класс условий труда</a>
                                     </li>
                                     {% if user.is_admin or user.is_staff %}
                                      <li><a class="dropdown-item  text-white" href="{% url 'main:add_file' %}">Добавить документ</a>
@@ -162,6 +162,7 @@
                 </div>
             </div>
     </section>
+    <br>
     {% block navigation %}{% endblock %}
 <footer class="bg-dark text-white text-center py-3">
     <div class="container">

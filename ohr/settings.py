@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'main',
     'users',
     'study',
+    'profdetails',
+    'drf',
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.postgres',
@@ -58,13 +60,13 @@ INSTALLED_APPS = [
     "bootstrap_datepicker_plus",
     'django_select2',
     "phonenumber_field",
-    'drf',
     'mptt',
     'django_mptt_admin',
     'social_django',
     "axes",
     'django_otp',
     'simple_history',
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -334,3 +336,8 @@ AXES_NEVER_LOCKOUT_GET_USERS = lambda request: [
 ]
 # ADMINS=[('admin', 'serega_soad_90@mail.ru'),]
 # SERVER_EMAIL = 'serega_soad_90@mail.ru'
+
+ALLOWED_EXTENSIONS = ('pdf', 'docx', 'doc', '.xlsx', 'rtf')
+MAX_FILE_SIZE = 200 * 1024 * 1024
+
+API_URL_KANDINSKY = 'https://api-key.fusionbrain.ai/'

@@ -2,56 +2,46 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
-from .models import SentMessage, Notification, Notice, MailDevice, OTP, Profession, \
-    SecurityQuestion, UserLoginHistory, Profile
+from .models import MailDevice, OTP, Profession, \
+    SecurityQuestion, Profile, Departments
+
 admin.site.register(get_user_model(), UserAdmin)
-admin.site.register(OTP)
 
 
-@admin.register(SentMessage)
-class SentMessageAdmin(admin.ModelAdmin):
-    list_select_related = ['user']
-    readonly_fields = ['user', 'purpose']
-    list_filter = ['purpose']
-
-
-@admin.register(Notification)
-class NotificationAdmin(admin.ModelAdmin):
-    fields = ['user', 'comment', 'is_read']
-    search_fields = ['user__username']
-    readonly_fields = ['user', 'comment']
-    list_select_related = ['user', 'comment']
-
-
-@admin.register(Notice)
-class NoticeAdmin(admin.ModelAdmin):
-    fields = ['user', 'message', 'is_read']
-    search_fields = ['user__username']
-    readonly_fields = ['user']
-    list_select_related = ['user']
+@admin.register(OTP)
+class OTPAdmin(admin.ModelAdmin):
+    readonly_fields = ['user', 'otp_secret', 'email']
+    list_filter = ['user', 'is_verified']
 
 
 @admin.register(MailDevice)
 class EmailDeviceAdmin(admin.ModelAdmin):
     readonly_fields = ['user']
     list_select_related = ['user']
+    list_filter = ['user']
 
 
 @admin.register(Profession)
 class ProfessionAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
+    actions = ['copy_profession']
 
+
+    @admin.action(description='Копировать похожие профессии')
+    def copy_profession(self, request, queryset):
+        for obj in queryset:
+            new_obj = Profession(name=f"Копия {obj.name}")
+            new_obj.save()  # Сначала сохраняем объект
+
+            # Затем устанавливаем оборудование через .set()
+            new_obj.equipment.set(obj.equipment.all())
+        message_bit = "Экземпляры профессий скопированы"
+        self.message_user(request, message_bit)
 
 @admin.register(SecurityQuestion)
 class SecurityQuestionAdmin(admin.ModelAdmin):
     readonly_fields = ['user', 'question']
-
-@admin.register(UserLoginHistory)
-class UserLoginHistoryAdmin(admin.ModelAdmin):
-    readonly_fields = ['user', 'login_time','ip_address','location','device_type','browser','os']
-    list_filter = ['user']
-    list_select_related = ['user']
 
 
 @admin.register(Profile)
@@ -64,3 +54,10 @@ class ProfileAdmin(admin.ModelAdmin):
         if profile.photo:
             return mark_safe(f"<img src='{profile.photo.url}' width=50>")
         return "Без фото"
+
+
+@admin.register(Departments)
+class DepartmentsAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ['name']

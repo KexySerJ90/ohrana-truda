@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 text-center">
+      <h1 class="mb-4">Просмотр сгенерированного изображения</h1>
+      <p class="lead mb-4">Вам понравилось это изображение?</p>
+      <img src="data:image/png;base64,{{ image_data }}" alt="сгенерированное изображение" class="img-thumbnail img-fluid mx-auto d-block mb-4">
+      <form id="save-form" action="{% url 'profdetails:save_image' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="prompt" value="{{ prompt }}">
+        <input type="hidden" name="image_data" value="{{ image_data }}">
+        <div class="d-flex justify-content-between">
+        <div>
+        <button id="save-image-button" type="submit" class="btn btn-dark me-3">Сохранить как аватарку</button>
+          </div>
+        <div>
+        <!-- Кнопка для генерации нового изображения -->
+        <a href="{% url 'profdetails:generate_image' %}" class="btn btn-outline-dark">Сгенерировать заново</a>
+     </div>
+    </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

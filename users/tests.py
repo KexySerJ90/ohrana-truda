@@ -2,11 +2,10 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from http import HTTPStatus
-
-from main.models import Departments
 import uuid
 from random import randint
 
+from users.models import Departments
 
 
 class RegisterUserTestCase(TestCase):

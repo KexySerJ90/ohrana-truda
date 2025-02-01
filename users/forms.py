@@ -12,14 +12,12 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, Pass
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django_recaptcha.fields import ReCaptchaField
-
-from main.models import Departments
 from main.utils import Leap_years
-from users.models import User, Profession, SecurityQuestion, Profile
+from users.models import User, Profession, SecurityQuestion, Profile, Departments
 from django_select2.forms import ModelSelect2Widget
 from phonenumber_field.formfields import PhoneNumberField
 
-from users.utils import COMMON_TEXT_INPUT_ATTRS, ProfessionChoiceField
+from users.utils import COMMON_TEXT_INPUT_ATTRS, ProfessionChoiceField, CustomEmailWidget
 
 
 # Определим общий стиль для текстовых полей
@@ -48,7 +46,7 @@ class OTPForm(forms.Form):
 
 class RegisterUserForm(UserCreationForm):
     STATUS_CHOICES = [('', 'Выберите статус')] + User.Status.choices
-
+    email = forms.EmailField(widget=CustomEmailWidget())
     status = forms.ChoiceField(choices=STATUS_CHOICES, label='Статус',
                                widget=forms.Select(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите статус'}))
     username = forms.CharField(label="Логин", widget=forms.TextInput(
@@ -68,8 +66,8 @@ class RegisterUserForm(UserCreationForm):
     cat2 = forms.ModelChoiceField(
         label="Отделение",
         empty_label='Выберите отделение',
-        # queryset=Departments.objects.exclude(id__in=(1, 2)),  # исключаем категорию с id=1
-        queryset=Departments.objects.all(),
+        queryset=Departments.objects.exclude(id__in=(1, 2)),  # исключаем категорию с id=1
+        # queryset=Departments.objects.all(),
         widget=ModelSelect2Widget(
             model=Departments,
             search_fields=['name__icontains'],
@@ -333,8 +331,9 @@ class WelcomeSocialForm(ProfileUserForm):
 
 
 class UserForgotPasswordForm(PasswordResetForm):
-    email = forms.EmailField(max_length=254, widget=forms.EmailInput(attrs=COMMON_TEXT_INPUT_ATTRS))
-
+    email = forms.EmailField(
+        widget=CustomEmailWidget()
+    )
     def get_users(self, email):
         email_field_name = get_user_model().get_email_field_name()
         # Фильтруем пользователей по основному email и reserve_email
@@ -408,13 +407,6 @@ class UserPasswordChangeForm(PasswordChangeForm):
     new_password2 = forms.CharField(label="Подтверждение пароля",
                                     widget=forms.PasswordInput(attrs=COMMON_TEXT_INPUT_ATTRS))
 
-
-class ProfessionForm(forms.ModelForm):
-    name = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию')
-
-    class Meta:
-        model = Profession
-        fields = ['name']
 
 
 class ReserveEmailForm(forms.ModelForm):

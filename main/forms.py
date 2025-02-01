@@ -1,7 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from main.models import Categorys, UploadFiles, Article, Departments, Comment
-from users.utils import COMMON_TEXT_INPUT_ATTRS
+from main.models import Categorys, UploadFiles, Article, Comment
+from main.utils import validate_file
+from users.models import Departments
+
+from users.utils import COMMON_TEXT_INPUT_ATTRS, CustomEmailWidget
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -9,17 +12,27 @@ class MultipleFileInput(forms.ClearableFileInput):
 
 
 class MultipleFileField(forms.FileField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleFileInput())
-        super().__init__(*args, **kwargs)
+    widget = MultipleFileInput()
 
-    def clean(self, data, initial=None):
-        single_file_clean = super().clean
-        if isinstance(data, (list, tuple)):
-            result = [single_file_clean(d, initial) for d in data]
-        else:
-            result = [single_file_clean(data, initial)]
-        return result
+    def to_python(self, data):
+        if hasattr(data, '__iter__') and not isinstance(data, str):
+            return list(super(MultipleFileField, self).to_python(item) for item in data)
+        return super().to_python(data)
+
+    def validate(self, value):
+        super().validate(value)
+        for v in value:
+            validate_file(v)
+
+class UploadFileForm(forms.ModelForm):
+    cat = forms.ModelChoiceField(queryset=Departments.objects.all().order_by('name'), empty_label="Отделение не выбрано",
+                                 label="Отделения")
+    files = MultipleFileField(label="Файл")
+
+
+    class Meta:
+        model = UploadFiles
+        fields = ['cat', 'files']
 
 
 class AddPostForm(forms.ModelForm):
@@ -40,28 +53,6 @@ class AddPostForm(forms.ModelForm):
         if len(title) > 60:
             raise ValidationError("Длина превышает 60 символов")
         return title
-
-
-class UploadFileForm(forms.ModelForm):
-    cat = forms.ModelChoiceField(queryset=Departments.objects.all().order_by('name'), empty_label="Отделение не выбрано",
-                                 label="Отделения")
-    files = MultipleFileField(label="Файл")
-    MAX_UPLOAD_SIZE = 10 * 1024 * 1024
-
-    class Meta:
-        model = UploadFiles
-        fields = ['cat', 'files']
-
-
-
-    def clean_files(self):
-        files = self.cleaned_data.get('files')
-        if files:
-            for uploaded_file in files:
-                if uploaded_file.size > self.MAX_UPLOAD_SIZE:
-                    raise ValidationError(f"Размер файла {uploaded_file.name} превышает максимальный размер в 10 MB.")
-        return files
-
 
 class SearchForm(forms.Form):
     query = forms.CharField(
@@ -87,6 +78,6 @@ class ContactForm(forms.Form):
         **COMMON_TEXT_INPUT_ATTRS,
         'readonly': 'readonly',
         'style': 'background-color: #dee2e6;'}))
-    email = forms.EmailField(label="E-mail", widget=forms.EmailInput(attrs=COMMON_TEXT_INPUT_ATTRS))
+    email = forms.EmailField(widget=CustomEmailWidget())
     message = forms.CharField(label="Сообщение", widget=forms.Textarea(attrs=COMMON_TEXT_INPUT_ATTRS))
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+        <div class="card text-center">
+            <div class="card-body">
+                <h1 class="card-title">Спасибо Вам!</h1>
+                <p class="card-text">Ваше сообщение успешно доставлено!</p>
+                <a href="{% url 'main:index' %}" class="btn btn-dark">Вернуться на главную</a>
+            </div>
+            <div class="card-footer text-muted">
+                Мы свяжемся с вами в ближайшее время.
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

@@ -1002,3 +1002,10 @@ section {
     flex-grow: 1; /* Растягиваем содержимое карточки */
 }
 
+.avatar {
+    transition: transform 0.2s; /* Плавный переход */
+}
+
+.avatar:active {
+    transform: scale(1.2); /* Увеличение изображения при нажатии */
+}

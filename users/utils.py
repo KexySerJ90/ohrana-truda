@@ -1,6 +1,9 @@
+from datetime import timedelta
+
+from django.forms import widgets
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from functools import wraps
 from django import forms
@@ -8,10 +11,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django_select2.forms import ModelSelect2Widget
 from typing import Any
-from datetime import timedelta
-
+from main.models import Notice, SentMessage
 from study.models import Subject, SubjectCompletion
-from users.models import Profession, Notice, SentMessage
+from users.models import Profession
 import pyotp
 COMMON_TEXT_INPUT_ATTRS = {'class': 'form-control'}
 
@@ -97,3 +99,11 @@ def sent_count(user,purpose):
     thirty_minutes_ago = timezone.now() - timedelta(minutes=30)
     sent_count = SentMessage.objects.filter(user=user, timestamp__gte=thirty_minutes_ago,purpose=purpose).count()
     return sent_count
+
+
+class CustomEmailWidget(widgets.EmailInput):
+    def __init__(self, attrs=None):
+        default_attrs = {'class': 'form-control', 'oninput': "withoutCyr(this)", 'placeholder': 'Введите ваш E-mail'}
+        if attrs:
+            default_attrs.update(attrs)
+        super().__init__(attrs=default_attrs)

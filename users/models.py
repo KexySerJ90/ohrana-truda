@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
+
 from django.utils import timezone
 from django_otp.models import Device
 from phonenumber_field.modelfields import PhoneNumberField
@@ -18,7 +19,7 @@ class User(AbstractUser):
         ADMINISTRATION = ('administration', 'Административный персонал')
     email = models.EmailField(_("email address"), unique=True)
     phone=PhoneNumberField(max_length=15, unique=True,null=True, verbose_name='Телефон')
-    cat2 = models.ForeignKey('main.Departments', on_delete=models.CASCADE, related_name='cat2', verbose_name="Отделение", null=True)
+    cat2 = models.ForeignKey('users.Departments', on_delete=models.CASCADE, related_name='cat2', verbose_name="Отделение", null=True)
     subject = models.ManyToManyField('study.Subject', blank=True, related_name='subjs', verbose_name="Предмет")
     status = models.CharField(choices=Status.choices, max_length=100, verbose_name='Статус')
     update = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
@@ -57,7 +58,7 @@ class User(AbstractUser):
         return None
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name='profile')
     patronymic = models.CharField(max_length=100, blank=True, null=True, verbose_name="Отчество (необязательное поле)")
     profession = models.ForeignKey('users.Profession', on_delete=models.CASCADE, verbose_name='Профессия')
     photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
@@ -96,7 +97,7 @@ class SecurityQuestion(models.Model):
 
 class Profession(models.Model):
     name = models.CharField(max_length=250,verbose_name='Название должности', unique=True, db_index=True)
-    equipment = models.ManyToManyField('main.Equipment',blank=True, related_name='siz', verbose_name="Сизы")
+    equipment = models.ManyToManyField('profdetails.Equipment',blank=True, related_name='siz', verbose_name="Сизы")
 
     def __str__(self):
         return self.name
@@ -106,10 +107,10 @@ class Profession(models.Model):
         verbose_name_plural = "Профессии"
         ordering = ['-id']
 class OTP(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
     otp_secret = models.CharField(max_length=40)
     email = models.EmailField(unique=True)
-    is_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False, verbose_name='Пройдена верификация?')
 
     def __str__(self):
         return self.email
@@ -126,71 +127,18 @@ class MailDevice(Device):
         return f'2fa-{user}-{self.timestamp}'
 
 
-class SentMessage(models.Model):
-    class PURPOSE(models.TextChoices):
-        RESCUE=('rescue', 'Восстановление пароля')
-        RESET=('reset', 'Сброс OTP')
-        CONTACT=('contact', 'Контакты')
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    purpose = models.CharField(choices=PURPOSE.choices, max_length=100, verbose_name='Цель')
+class Departments(models.Model):
+    name = models.CharField(max_length=100, db_index=True, verbose_name="Отделение")
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    is_inpatient = models.BooleanField(default=False, verbose_name='Является стационарным отделением?')
 
     class Meta:
-        verbose_name = "Количество попыток для отправки сообщений"
-        verbose_name_plural = "Количество попыток для отправки сообщений"
+        verbose_name = "Отделение"
+        verbose_name_plural = "Отделения"
 
     def __str__(self):
-        return f'{self.user} - {self.timestamp} -  {dict(SentMessage.PURPOSE.choices)[self.purpose]}'
-
-
-class Notification(models.Model):
-    '''Оповещение по комментариям'''
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь',
-                             related_name='notifications')
-    comment = models.ForeignKey('main.Comment', on_delete=models.CASCADE, verbose_name='Комментарий',
-                                related_name='notifications')
-    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-
-    class Meta:
-        ordering = ['user','-created_at']
-        verbose_name = 'Оповещение'
-        verbose_name_plural = 'Оповещения'
-
-    def __str__(self):
-        return f"{self.user} : {self.comment}, создан {self.created_at.strftime('%d.%m.%Y %H:%M')}"
+        return self.name
 
     def get_absolute_url(self):
-        return reverse("main:notification_read", kwargs={"pk": self.pk})
-
-class Notice(models.Model):
-    '''Оповещение по событиям'''
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='notice', verbose_name="Пользователь")
-    message = models.TextField(verbose_name='Сообщение')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
-
-    class Meta:
-        ordering = ['user','-created_at']
-        verbose_name = 'Уведомление'
-        verbose_name_plural = 'Уведомления'
-
-    def __str__(self):
-        return f"{self.user} : {self.message}, создан {self.created_at.strftime('%d.%m.%Y %H:%M')}"
-
-class UserLoginHistory(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    login_time = models.DateTimeField(auto_now_add=True)
-    ip_address = models.GenericIPAddressField()
-    location = models.CharField(max_length=100, blank=True)  # Для хранения геолокации
-    device_type = models.CharField(max_length=50, blank=True)  # Тип устройства (мобильное, десктоп)
-    browser = models.CharField(max_length=200, blank=True)  # Браузер
-    os = models.CharField(max_length=100, blank=True)
-
-    class Meta:
-        verbose_name = 'История входа пользователей'
-        verbose_name_plural = 'История входа пользователей'
-
-    def __str__(self):
-        return f"{self.user.username} logged in at {self.login_time.strftime('%d.%m.%Y %H:%M')}"
+        return reverse('main:maindoc', kwargs={'dep_slug': self.slug})
 

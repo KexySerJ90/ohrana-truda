@@ -1,3 +1,5 @@
+import os
+
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.core.validators import MinLengthValidator, MaxLengthValidator
@@ -25,24 +27,9 @@ class Categorys(models.Model):
         return reverse('main:category', kwargs={'cat_slug': self.slug})
 
 
-class Departments(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name="Отделение")
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    is_inpatient = models.BooleanField(default=False, verbose_name='Является стационарным отделением?')
-
-    class Meta:
-        verbose_name = "Отделение"
-        verbose_name_plural = "Отделения"
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('main:maindoc', kwargs={'dep_slug': self.slug})
-
 class UploadFiles(models.Model):
-    cat = models.ForeignKey('Departments', on_delete=models.CASCADE, related_name='wuman', verbose_name="Отделение")
-    title = models.CharField(blank=True, max_length=500, db_index=True, verbose_name='Название файла')
+    cat = models.ForeignKey('users.Departments', on_delete=models.CASCADE, related_name='upload_files', verbose_name="Отделение")
+    title = models.CharField(max_length=700, blank=True, db_index=True, verbose_name='Название файла')
     file = models.FileField(upload_to=get_upload_path, max_length=500)
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
     is_common = models.BooleanField(default=False, verbose_name='Общий файл')
@@ -56,7 +43,7 @@ class UploadFiles(models.Model):
     def save(self, *args, **kwargs):
         # Устанавливаем title по умолчанию, если оно пустое
         if not self.title and self.file:
-            self.title = self.file.name
+            self.title = os.path.basename(self.file.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -209,55 +196,72 @@ class Comment(MPTTModel):
         return f'{self.post} - {self.user}:{self.content[:20]}'
 
 
-class Equipment(models.Model):
-    name = models.CharField(max_length=350,verbose_name='Название средств индивидуальной защиты', unique=True)
-    description=models.CharField(max_length=500,verbose_name='Описание СИЗ')
-    quantity = models.CharField(default='1', verbose_name='Количество')
-    basis=models.CharField(max_length=500, verbose_name='Основание', null=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "СИЗ"
-        verbose_name_plural = "СИЗ"
-
-class WorkingConditions(models.Model):
-    name = models.CharField(max_length=250, verbose_name='Класс условий труда', unique=True, db_index=True)
-    description=models.CharField(max_length=250, verbose_name='Описание', blank=True, null=True)
-    money=models.PositiveIntegerField(verbose_name='Повышенная оплата труда,%',blank=True, null=True)
-    weekend=models.PositiveIntegerField(verbose_name='Дополнительный отпуск,количество дней',blank=True, null=True)
-    duration = models.BooleanField(verbose_name='Сокращенная продолжительность рабочего времени, да/нет')
-    milk = models.BooleanField(verbose_name='Молоко, да/нет')
-    food=models.BooleanField(verbose_name='Лечебно-профилактическое питание, да/нет')
-    pension=models.BooleanField(verbose_name='Льготное пенсионное обеспечение, да/нет')
-    medical = models.BooleanField(verbose_name='Проведение медицинских осмотров, да/нет')
+class Notification(models.Model):
+    '''Оповещение по комментариям'''
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь',
+                             related_name='notifications')
+    comment = models.ForeignKey('main.Comment', on_delete=models.CASCADE, verbose_name='Комментарий',
+                                related_name='notifications')
+    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
     class Meta:
-        verbose_name = 'Условия труда'
-        verbose_name_plural = 'Условия труда'
+        ordering = ['user','-created_at']
+        verbose_name = 'Оповещение'
+        verbose_name_plural = 'Оповещения'
 
     def __str__(self):
-        return self.name
+        return f"{self.user} : {self.comment}, создан {self.created_at.strftime('%d.%m.%Y %H:%M')}"
 
-class JobDetails(models.Model):
-    class OPR(models.TextChoices):
-        LOW=('low', 'Низкий')
-        MODERATE=('moderate', 'Умеренный')
-        MEDIUM=('medium', 'Средний')
-        SIGNIFICANT = ('significant', 'Значительный')
-        HIGH = ('high', 'Высокий')
-    profession = models.ForeignKey(Profession, on_delete=models.CASCADE, verbose_name='Должность')
-    department = models.ForeignKey('main.Departments', on_delete=models.CASCADE, verbose_name='Отделение')
-    working_conditions = models.ForeignKey(WorkingConditions, on_delete=models.CASCADE, verbose_name='Условия труда', null=True, blank=True)
-    date_of_sout=models.DateField(verbose_name='Дата СОУТ',blank=True,null=True)
-    opr = models.CharField(choices=OPR.choices, max_length=100, verbose_name='Уровень риска', blank=True, null=True)
-    history = HistoricalRecords()
+    def get_absolute_url(self):
+        return reverse("main:notification_read", kwargs={"pk": self.pk})
+
+class Notice(models.Model):
+    '''Оповещение по событиям'''
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='notice', verbose_name="Пользователь")
+    message = models.TextField(verbose_name='Сообщение')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    is_study = models.BooleanField(default=False, verbose_name='По обучение?')
+    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
 
     class Meta:
-        unique_together = ('profession', 'department')
-        verbose_name = 'Рабочее место'
-        verbose_name_plural = 'Рабочие места'
+        ordering = ['user','-created_at']
+        verbose_name = 'Уведомление'
+        verbose_name_plural = 'Уведомления'
 
     def __str__(self):
-        return f'{self.department}-{self.profession}'
+        return f"{self.user} : {self.message}, создан {self.created_at.strftime('%d.%m.%Y %H:%M')}"
+
+
+class UserLoginHistory(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    login_time = models.DateTimeField(auto_now_add=True)
+    ip_address = models.GenericIPAddressField()
+    location = models.CharField(max_length=100, blank=True)  # Для хранения геолокации
+    device_type = models.CharField(max_length=50, blank=True)  # Тип устройства (мобильное, десктоп)
+    browser = models.CharField(max_length=200, blank=True)  # Браузер
+    os = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        verbose_name = 'История входа пользователей'
+        verbose_name_plural = 'История входа пользователей'
+
+    def __str__(self):
+        return f"{self.user.username} logged in at {self.login_time.strftime('%d.%m.%Y %H:%M')}"
+
+
+class SentMessage(models.Model):
+    class PURPOSE(models.TextChoices):
+        RESCUE=('rescue', 'Восстановление пароля')
+        RESET=('reset', 'Сброс OTP')
+        CONTACT=('contact', 'Контакты')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Время отправки')
+    purpose = models.CharField(choices=PURPOSE.choices, max_length=100, verbose_name='Цель')
+
+    class Meta:
+        verbose_name = "Количество попыток для отправки сообщений"
+        verbose_name_plural = "Количество попыток для отправки сообщений"
+
+    def __str__(self):
+        return f'{self.user} - {self.timestamp} -  {dict(SentMessage.PURPOSE.choices)[self.purpose]}'

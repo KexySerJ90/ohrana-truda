@@ -14,18 +14,21 @@ class SubjectAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_select_related=['subject']
+    list_filter = ['subject']
 
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     ordering = ['id']
     list_select_related = ['next_video']
+    list_filter = ['video']
 
 
 @admin.register(Slide)
 class SlideAdmin(admin.ModelAdmin):
     list_display = ('subject', 'order', 'post_photo')
     ordering = ['subject', 'order']
+    list_filter = ['subject']
 
     @admin.display(description="Изображение", ordering='content')
     def post_photo(self, slide: Article):
@@ -99,6 +102,7 @@ class UserAnswerAdmin(admin.ModelAdmin):
     readonly_fields = ['user_completion', 'question', 'selected_answer']
     ordering = ['user_completion']
     list_select_related = ['user_completion', 'question']
+    list_filter = ['user_completion__users', 'user_completion__subjects']
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)

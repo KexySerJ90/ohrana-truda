@@ -6,10 +6,13 @@ from rest_framework.response import Response
 
 from drf.permissions import IsAdminOrReadOnly
 from drf.serializers import ArticleSerializer, UploadFilesSerializer, LeaderSerializer, ProfileUserSerializer, \
-    UserLoginHistorySerializer, JobDetailsSerializer
-from main.models import Article, Categorys, UploadFiles, WorkingConditions, JobDetails
+    UserLoginHistorySerializer, JobDetailsSerializer, TagSerializer, ProfessionSerializer, CategorySerializer, \
+    SubjectSerializer, EquipmentSerializer
+from main.models import Article, Categorys, UploadFiles, TagPost, UserLoginHistory
+from profdetails.models import JobDetails, WorkingConditions, Equipment
+from study.models import Subject
 from study.utils import UserQuerysetMixin
-from users.models import UserLoginHistory
+from users.models import Profession, Departments
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
@@ -27,6 +30,16 @@ class ArticleViewSet(viewsets.ModelViewSet):
         cats = Categorys.objects.get(pk=pk)
         return Response({'cats': cats.name})
 
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = TagPost.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Categorys.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 # class ArticleApiView(generics.ListCreateAPIView):
 #     queryset = Article.objects.all()
@@ -50,6 +63,12 @@ class UploadFilesViewSet(viewsets.ModelViewSet):
         return UploadFiles.objects.filter(
             cat__id__in=[6, 1, 2] + [user_department_ids]
         ).select_related('cat')
+
+
+class SubjectViewSet(viewsets.ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 
 class LeaderViewSet(viewsets.ViewSet, UserQuerysetMixin):
@@ -84,6 +103,12 @@ class UserLoginHistoryViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, 
         return UserLoginHistory.objects.filter(user=user)
 
 
+
+class EquipmentViewSet(viewsets.ModelViewSet):
+    queryset = Equipment.objects.all()
+    serializer_class = EquipmentSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
 class JobDetailsListViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = JobDetailsSerializer
     permission_classes = [IsAuthenticated]
@@ -98,3 +123,15 @@ class JobDetailsListViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, vi
     def working_condition(self, request, pk=None):
         working_conditions = WorkingConditions.objects.get(pk=pk)
         return Response({'working_conditions': working_conditions.name})
+
+
+class ProfessionViewSet(viewsets.ModelViewSet):
+    queryset = Profession.objects.all()
+    serializer_class = ProfessionSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+class DepartmentsViewSet(viewsets.ModelViewSet):
+    queryset = Departments.objects.all()
+    serializer_class = Departments
+    permission_classes = (IsAdminOrReadOnly,)

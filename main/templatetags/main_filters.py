@@ -28,7 +28,7 @@ def cuter(value):
     Пример использования:
     {{ 'path/to/file.txt' | cuter }}  -> 'File'
     """
-    return '.'.join(value.split("/")[-1].split(".")).capitalize()
+    return '.'.join(value.split("/")[-1].split(".")[:-1]).capitalize()
 
 
 @register.filter

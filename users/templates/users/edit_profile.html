@@ -27,7 +27,14 @@
 </form>
 {% if not perms.users.social_auth %}
 <hr>
-<p><a href="{% url 'users:settings_user' %}">Настройки</a></p>
+<div class="d-flex justify-content-between">
+  <div>
+    <a href="{% url 'users:settings_user' %}" class="btn btn-outline-primary">Настройки</a>
+  </div>
+  <div>
+    <a href="{% url 'profdetails:generate_image' %}" class="btn btn-outline-success">Создание аватарки</a>
+  </div>
+</div>
 {% endif %}
 {{ redirect_to_login_immediately }}
 
@@ -79,9 +86,11 @@ $(document).ready(function() {
   });
 
   setTimeout(function() {
-    $('#success-message, #error-message').fadeOut();
+    $('#success-message, #error-message').fadeOut(1500);
   }, 5000);
 });
+
+
 </script>
 {% endblock %}
 {% endblock %}

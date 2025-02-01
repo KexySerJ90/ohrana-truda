@@ -1,6 +1,9 @@
+import os
 from datetime import datetime
+from django.core.exceptions import ValidationError
 from django.utils import timezone
-from typing import Dict, Any
+from ohr.settings import ALLOWED_EXTENSIONS, MAX_FILE_SIZE
+
 
 def get_upload_path(instance, filename: str) -> str:
     """ Определяет путь для загрузки файла в зависимости от категории и других параметров объекта. :param instance: Экземпляр модели, для которого определяется путь загрузки. :param filename: Имя загружаемого файла. :return: Строка с полным путем для сохранения файла. """
@@ -47,3 +50,15 @@ def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     ip_address = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
     return ip_address
+
+
+def validate_file(file):
+    """Метод для проверки файла."""
+    try:
+        if file.size > MAX_FILE_SIZE:
+            raise ValidationError(f"Размер файла {file.name} превышает допустимый предел ({MAX_FILE_SIZE / 1048576:.0f} МБ).")
+        _, ext = os.path.splitext(file.name.lower())
+        if ext[1:] not in ALLOWED_EXTENSIONS:
+            raise ValidationError(f"Разрешено загружать только файлы с расширениями: {', '.join(ALLOWED_EXTENSIONS)}.")
+    except AttributeError as e:
+        raise ValidationError(f"Произошла ошибка при проверке размера файла: {e}")

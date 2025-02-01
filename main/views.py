@@ -17,13 +17,14 @@ from django.views import View
 from django.views.decorators.http import require_safe
 from django.views.generic import FormView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from main.forms import UploadFileForm, SearchForm, AddPostForm, CommentCreateForm, ContactForm
-from main.models import UploadFiles, Article, Departments, TagPost, Rating, Comment, UniqueView, JobDetails
+from main.models import UploadFiles, Article, TagPost, Rating, Comment, UniqueView, \
+    Notification, Notice, UserLoginHistory, SentMessage
 from main.permissions import AuthorPermissionsMixin
 from main.utils import DataMixin, get_client_ip
-from ohr.settings import EMAIL_HOST_USER, EMAIL_RECIPIENT_LIST, PHONE
-from users.forms import ProfessionForm
-from users.models import Notice, Notification, SentMessage, Profession
+from ohr.settings import EMAIL_HOST_USER, EMAIL_RECIPIENT_LIST, PHONE, DEFAULT_USER_IMAGE
+from users.models import Departments
 from users.permissions import StatusRequiredMixin
+
 
 class IndexView(ListView):
     queryset = Article.published
@@ -49,20 +50,6 @@ def about(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/about.html', context)
 
 
-# def upload_and_display_files(request):
-#     files = UploadFiles.objects.all()
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             category = form.cleaned_data['cat']
-#             for uploaded_file in request.FILES.getlist('files'):
-#                 UploadFiles.objects.create(file=uploaded_file, cat=category)
-#             return redirect('main:add_page')
-#     else:
-#         form = UploadFileForm()
-#
-#     return render(request, 'main/addfile.html', {'form': form, 'files': files})
-
 class UploadFileView(LoginRequiredMixin, UserPassesTestMixin, FormView):
     template_name = 'main/addfile.html'
     form_class = UploadFileForm
@@ -73,16 +60,19 @@ class UploadFileView(LoginRequiredMixin, UserPassesTestMixin, FormView):
         files: List[Any] = self.request.FILES.getlist('files')
         is_common: bool = category.is_inpatient
         departments = Departments.objects.filter(is_inpatient=is_common)
-        for uploaded_file in files:
-            if category.is_inpatient:
-                for department in departments:
-                    # UploadFiles.objects.create(file=uploaded_file, cat=department, is_common=is_common)
-                    UploadFiles.objects.bulk_create(
-                        [UploadFiles(file=uploaded_file, cat=department, is_common=is_common)])
-            else:
-                # mainfiles = Departments.objects.get(id=1)
-                # UploadFiles.objects.create(file=uploaded_file, cat=category)
-                UploadFiles.objects.bulk_create([UploadFiles(file=uploaded_file, cat=category)])
+        if is_common:
+            first_department = departments.first()  # берем первое отделение для создания общей записи
+            common_upload = UploadFiles.objects.create(cat=first_department, file=files[0], is_common=True)
+
+            # Создаем ссылки на общий файл для остальных отделений
+            for department in departments.exclude(pk=first_department.pk):
+                UploadFiles.objects.create(cat=department, file=common_upload.file, is_common=True)
+
+            # Для амбулаторных отделений создаем отдельные записи
+        else:
+            for uploaded_file in files:
+                UploadFiles.objects.create(file=uploaded_file, cat=category, is_common=False)
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -97,7 +87,6 @@ class UploadFileView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 class Mainfiles(LoginRequiredMixin, StatusRequiredMixin, AuthorPermissionsMixin, ListView):
     template_name = 'main/mainfiles.html'
     context_object_name = 'posts'
-    title_page = 'Общие файлы'
     paginate_by = 6
 
     def get_queryset(self):
@@ -115,6 +104,13 @@ class Mainfiles(LoginRequiredMixin, StatusRequiredMixin, AuthorPermissionsMixin,
             return queryset
         raise PermissionDenied
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        department = Departments.objects.get(slug=self.kwargs['dep_slug'])
+        context[
+            'title'] = f'Файлы - {department.name}'  # Здесь предполагается, что название отделения хранится в поле name
+        return context
+
 
 class ArticlePosts(DataMixin, ListView):
     template_name = 'main/posts.html'
@@ -123,7 +119,7 @@ class ArticlePosts(DataMixin, ListView):
     cat_selected = 0
 
     def get_queryset(self):
-        return Article.published.select_related('category')
+        return Article.published.select_related('category').prefetch_related('ratings')
 
 
 class AddPostView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -148,7 +144,7 @@ class ShowPost(DataMixin, DetailView):
 
     def get_object(self, queryset=None) -> Article:
         # Получаем объект статьи
-        article = get_object_or_404(Article.published.prefetch_related('comments__user'),
+        article = get_object_or_404(Article.published.prefetch_related('comments__user__profile'),
                                     slug=self.kwargs[self.slug_url_kwarg])
         ip_address = get_client_ip(self.request)
         if not UniqueView.objects.filter(article=article, ip_address=ip_address).exists():
@@ -205,12 +201,12 @@ class PostSearchView(View):
                 query = form.cleaned_data['query']
                 results_files = UploadFiles.objects.annotate(
                     similarity=TrigramSimilarity('file', query),
-                ).filter(similarity__gt=0.05).order_by('title','-similarity').distinct('title')
+                ).filter(similarity__gt=0.07).order_by('title', '-similarity').distinct('title')
 
                 results_articles = Article.objects.annotate(
                     similarity=(A / (A + B) * TrigramSimilarity('title', query)
                                 + B / (A + B) * TrigramWordSimilarity(query, 'content'))
-                ).filter(similarity__gt=0.06).order_by('-similarity')
+                ).filter(similarity__gt=0.25).order_by('-similarity')
 
         context = {
             'form': form,
@@ -226,8 +222,6 @@ class PostSearchView(View):
         #     search=search_vector,
         #     rank=SearchRank(search_vector, search_query)
         # ).filter(search=search_query).order_by('-rank')
-        # A = 1.0
-        # B = 0.4
 
 
 class TagPostList(DataMixin, ListView):
@@ -250,7 +244,7 @@ class RatingCreateView(View):
     def post(self, request, *args, **kwargs):
         post_id = request.POST.get('post_id')
         value = int(request.POST.get('value'))
-        ip_address=get_client_ip(request)
+        ip_address = get_client_ip(request)
         user = request.user if request.user.is_authenticated else None
         # Для неавторизованных пользователей
         if user is None:
@@ -311,7 +305,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
                 'author': comment.user.username,
                 'parent_id': comment.parent_id,
                 'time_create': format_datetime(comment.time_create, format='dd MMMM yyyy г. HH:mm', locale='ru'),
-                'photo': comment.user.profile.photo.url,
+                'photo': comment.user.profile.photo.url if comment.user.profile.photo else DEFAULT_USER_IMAGE,
                 'content': comment.content,
             }, status=200)
 
@@ -379,6 +373,8 @@ class NoticeReadView(View):
         notice.save()
         if request.user.status == get_user_model().Status.LEADER:
             return redirect('study:leader_results')
+        elif not notice.is_study:
+            return redirect('users:profile')
         return redirect('study:result')
 
 
@@ -395,7 +391,8 @@ def contact_view(request: HttpRequest) -> HttpResponse:
             message = form.cleaned_data['message']
             # Проверка на количество отправленных сообщений за день
             today = timezone.now().date()
-            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today, purpose=SentMessage.PURPOSE.CONTACT).count()
+            sent_count = SentMessage.objects.filter(user=request.user, timestamp__date=today,
+                                                    purpose=SentMessage.PURPOSE.CONTACT).count()
 
             if sent_count >= 3:
                 return render(request, 'users/contact_form.html', {
@@ -418,50 +415,16 @@ def contact_view(request: HttpRequest) -> HttpResponse:
         form = ContactForm(initial=initial_data)
     return render(request, 'main/contact_form.html', {'form': form, 'phone': PHONE})
 
+class LoginHistoryView(LoginRequiredMixin, ListView):
+    model = UserLoginHistory
+    template_name = 'main/login_history.html'
+    context_object_name = 'history'
+    ordering = ['-login_time']
+    paginate_by = 20
 
-class SIZForm(LoginRequiredMixin, FormView):
-    template_name = 'main/siz_form.html'
-    form_class = ProfessionForm
-    extra_context = {'title': "Калькулятор СИЗ"}
-
-
-class EquipmentListView(LoginRequiredMixin, View):
-    def get(self, request) -> JsonResponse:
-        profession_id = request.GET.get('profession_id')
-        equipment_list = []
-
-        if profession_id:
-            profession = Profession.objects.get(id=profession_id)
-            equipment_queryset = profession.equipment.all()
-
-            for equipment in equipment_queryset:
-                equipment_list.append({
-                    'description': equipment.description,
-                    'quantity': equipment.quantity,
-                    'basis': equipment.basis,
-                })
-
-        return JsonResponse({'equipment': equipment_list})
-
-class SOUTUserView(LoginRequiredMixin, DetailView):
-    template_name = 'main/sout.html'
-    model = JobDetails
-    extra_context = {'title': "Результаты специальной оценки условий труда"}
-    context_object_name = 'workplace'
-
-    def get_object(self, queryset=None):
-        user = self.request.user
-        try:
-            # Получаем рабочее место по профессии и отделению текущего пользователя
-            obj = JobDetails.objects.get(
-                profession=user.profile.profession,
-                department=user.cat2
-            )
-        except JobDetails.DoesNotExist:
-            obj = None
-        return obj
-
-
+    def get_queryset(self):
+        # Фильтруем историю входов для текущего пользователя
+        return super().get_queryset().filter(user=self.request.user)
 
 def tr_handler404(request: HttpRequest, exception: Exception) -> HttpResponse:
     """
@@ -491,6 +454,3 @@ def tr_handler403(request: HttpRequest, exception: Exception) -> HttpResponse:
         'title': 'Ошибка доступа: 403',
         'error_message': 'Доступ к этой странице ограничен',
     })
-
-
-

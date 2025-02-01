@@ -7,9 +7,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, RedirectView
+
+from main.models import Notice
 from study.models import Subject, SubjectCompletion, Video, Answer, Question, UserAnswer
-from study.utils import UserQuerysetMixin
-from users.models import Profile, Notice, User
+from study.utils import UserQuerysetMixin, create_notice_if_not_exists
+from users.models import Profile, User
 from users.permissions import StatusRequiredMixin
 
 
@@ -120,39 +122,34 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         if not user_completion.completed:
             user_completion.score = 0
             user_completion.user_answers.all().delete()
+        answers_to_create = []
         for question in questions:
             answer = request.POST.get(f'question_{question.id}')
             if answer:
                 selected_answer = int(answer)
                 user_completion.score += selected_answer == question.correct_option
-                UserAnswer.objects.create(
+                answers_to_create.append(UserAnswer(
                     user_completion=user_completion,
                     question=question,
                     selected_answer=selected_answer
-                )
+                ))
+        # Создаем все объекты сразу одной операцией
+        UserAnswer.objects.bulk_create(answers_to_create)
         if user_completion.score >= len(questions) - 3:
             user_completion.completed = True
-            subject_message = f"Пользователь {request.user.first_name} {request.user.last_name} сдал тест по предмету '{subject}'."
-            leaders = get_user_model().objects.filter(status=User.Status.LEADER, cat2=request.user.cat2)
-            # Получаем админа (предположим, у вас есть пользователь с ролью 'admin')
-            admins = get_user_model().objects.filter(
-                is_superuser=True)
+            leaders = get_user_model().objects.filter(
+                status=User.Status.LEADER,
+                cat2=request.user.cat2
+            ).exclude(pk=request.user.pk)  # Исключаем текущего пользователя
+            admins = get_user_model().objects.filter(is_superuser=True)
             for leader in leaders:
-                if leader != request.user:
-                    if not Notice.objects.filter(user=leader, message__icontains=subject).exists():
-                        Notice.objects.create(
-                            user=leader,
-                            message=subject_message
-                        )
+                create_notice_if_not_exists(user=request.user, role=leader,subject= subject)
             for admin in admins:
-                if not Notice.objects.filter(user=admin, message__icontains=subject).exists():
-                    Notice.objects.create(
-                        user=admin,
-                        message=subject_message
-                    )
+                create_notice_if_not_exists(user=request.user, role=admin, subject=subject)
             Notice.objects.create(
                 user=request.user,
-                message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!"
+                message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!",
+                is_study = True
             )
         user_completion.save()
         del request.session['questions']

@@ -19,11 +19,13 @@ from django.utils import timezone
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import View
-from django.views.generic import CreateView, UpdateView, ListView, DetailView, FormView
+from django.views.generic import CreateView, UpdateView, DetailView, FormView
+
+from main.models import SentMessage
 from ohr import settings
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     OTPForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, UserForgotPasswordForm
-from .models import SentMessage, MailDevice, OTP, SecurityQuestion, UserLoginHistory, Profile
+from .models import MailDevice, OTP, SecurityQuestion, Profile
 from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialRequiredMixin
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
@@ -546,14 +548,5 @@ def delete_secret_answer(request):
     return redirect('users:secretquestion_verify')
 
 
-class LoginHistoryView(LoginRequiredMixin, ListView):
-    model = UserLoginHistory
-    template_name = 'users/login_history.html'
-    context_object_name = 'history'
-    ordering = ['-login_time']
-    paginate_by = 20
 
-    def get_queryset(self):
-        # Фильтруем историю входов для текущего пользователя
-        return super().get_queryset().filter(user=self.request.user)
 

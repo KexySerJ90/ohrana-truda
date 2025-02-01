@@ -56,7 +56,7 @@ class Slide(models.Model):
     content = RichTextField(config_name='awesome_ckeditor', verbose_name="Текст слайда")
     photo = models.ImageField(upload_to="courses/%Y/%m/%d/", default=None,
                               blank=True, null=True, verbose_name="Фото")
-    order = models.PositiveIntegerField(verbose_name='Порядковый номер')
+    order = models.PositiveIntegerField(verbose_name='Порядковый номер', blank=True)
 
     class Meta:
         unique_together = ('subject', 'order')
@@ -135,7 +135,7 @@ class UserAnswer(models.Model):
     selected_answer = models.PositiveIntegerField(verbose_name='Выбранный ответ', null=True)
 
     class Meta:
-        verbose_name = "Ответы пользователей"
+        verbose_name = "Ответ пользователя"
         verbose_name_plural = "Ответы пользователей"
 
     def __str__(self):

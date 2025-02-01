@@ -23,7 +23,5 @@ urlpatterns = [
     path('search/', views.PostSearchView.as_view(), name='post_search'),
     path('rating/', views.RatingCreateView.as_view(), name='rating'),
     path('contact/', views.contact_view, name='contact'),
-    path('sout-user/', views.SOUTUserView.as_view(), name='sout_user'),
-    path('siz/', views.SIZForm.as_view(), name='siz'),
-    path('get_equipment/', views.EquipmentListView.as_view(), name='get_equipment'),
+    path('login-history/', views.LoginHistoryView.as_view(), name='login_history'),
 ]
