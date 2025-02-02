@@ -32,10 +32,10 @@ class Subject(models.Model):
 class Question(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions', verbose_name="Предмет")
     text = models.TextField(verbose_name="Текст вопроса")
-    option1 = models.CharField(max_length=200, verbose_name="Вариант 1")
-    option2 = models.CharField(max_length=200, verbose_name="Вариант 2")
-    option3 = models.CharField(max_length=200, verbose_name="Вариант 3")
-    option4 = models.CharField(max_length=200, verbose_name="Вариант 4")
+    option1 = models.CharField(max_length=300, verbose_name="Вариант 1")
+    option2 = models.CharField(max_length=300, verbose_name="Вариант 2")
+    option3 = models.CharField(max_length=300, verbose_name="Вариант 3")
+    option4 = models.CharField(max_length=300, verbose_name="Вариант 4")
     correct_option = models.PositiveIntegerField(verbose_name="Правильный вариант",
                                                  validators=[MinValueValidator(1), MaxValueValidator(4)])
 

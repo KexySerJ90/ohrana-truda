@@ -15,10 +15,6 @@ body {
   box-shadow: 5px 5px 25px 19px #000000;
 }
 
-.product_id {
-  color: gray;
-  font-size: 15px;
-}
 
 .badge.bg-warning.text-dark {
   position: absolute;
@@ -587,24 +583,6 @@ nav > div a.nav-item.nav-link:focus
 }
 
 
-#carouselExampleIndicators .carousel-item img {
-            width: 110%; /* Ширина на 100% от родительского контейнера */
-            height: 450px; /* Фиксированная высота */
-            object-fit: cover; /* Обеспечиваем, чтобы изображение заполнило контейнер */
-        }
-
-        /* Стили для стрелок */
-        .carousel-control-next, .carousel-control-prev {
-            filter: invert(1); /* Делаем стрелки белыми для лучшей видимости на темном фоне */
-        }
-.carousel-item {
-            transition: transform 0.5s ease;
-
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center;
-        }
-
-
 .card-img-top {
     overflow: hidden; /* Если это необходимо */
     transition: transform 0.3s ease;
@@ -791,7 +769,7 @@ input[type="number"]:focus {
 .icon-cards {
   position: relative;
   width: 60vw;
-  height: 40vw;
+  height: 30vw;
   max-width: 380px;
   max-height: 250px;
   margin: 0;
@@ -826,6 +804,7 @@ input[type="number"]:focus {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   transform-origin: center;
+  overflow: hidden;
 }
 .icon-cards__item:nth-child(1) {
   background: #343a40 ; /* Темно-серый */
@@ -839,6 +818,7 @@ input[type="number"]:focus {
   background: #adb5bd; /* Светло-серый */
   transform: rotateY(240deg) translateZ(35vw);
 }
+
 
 @-webkit-keyframes carousel {
   0%, 17.5% {
