@@ -1,19 +1,17 @@
 import base64
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.base import ContentFile
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.utils.text import slugify
-
 from django.views import View
 from django.views.generic import DetailView, FormView
-
 from ohr.settings import API_URL_KANDINSKY, env
 from profdetails.forms import ProfessionForm
 from profdetails.models import JobDetails
 from profdetails.utils import Text2ImageAPI
 from users.models import Profession
+from typing import Optional, Dict, Any
+
 
 class SIZForm(LoginRequiredMixin, FormView):
     template_name = 'profdetails/siz_form.html'
@@ -46,7 +44,7 @@ class SOUTUserView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Результаты специальной оценки условий труда"}
     context_object_name = 'workplace'
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset: Optional[JobDetails] = None) -> Optional[JobDetails]:
         user = self.request.user
         try:
             # Получаем рабочее место по профессии и отделению текущего пользователя
@@ -62,11 +60,11 @@ class SOUTUserView(LoginRequiredMixin, DetailView):
 class GenerateImageView(View):
     template_name = 'profdetails/generate_image_form.html'
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         prompt = request.session.get('prompt')
-        return render(request, self.template_name, {'prompt':prompt})
+        return render(request, self.template_name, {'prompt': prompt})
 
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse:
         prompt = request.POST.get('prompt')
         style = request.POST.get('style')
         api_url = API_URL_KANDINSKY
@@ -74,26 +72,31 @@ class GenerateImageView(View):
         secret_key = env('API_SECRET_KANDINSKY')
 
         api = Text2ImageAPI(api_url, api_key, secret_key)
-        model_id = api.get_model()
-        uuid = api.generate(prompt, model_id, style=style)
-        images = api.check_generation(uuid)
+        model_id: str = api.get_model()
+        uuid: str = api.generate(prompt, model_id, style=style)
+        images: Optional[list] = api.check_generation(uuid)
+
         if images:
-            image_data = images[0]
-            context = {'image_data': image_data}
+            image_data: str = images[0]
+            context: Dict[str, Any] = {'image_data': image_data}
             request.session['prompt'] = prompt
             return render(request, 'profdetails/preview_image.html', context)
+
         return render(request, self.template_name, {'error': 'Изображение не было сгенерировано.'})
 
 
 class SaveImageView(View):
-    def post(self, request):
+    def post(self, request: HttpRequest) -> HttpResponse:
         prompt = request.session.get('prompt')
         image_data = request.POST.get('image_data')
         ext = 'png'
-        filename = f'{prompt}.{ext}'
-        # Декодируем изображение
-        decoded_img = base64.b64decode(image_data)
-        # Сохраняем файл
-        request.user.profile.photo.save(filename, ContentFile(decoded_img), save=True)
-        del self.request.session['prompt']
+
+        if prompt and image_data:
+            filename = f'{prompt}.{ext}'
+            # Декодируем изображение
+            decoded_img: bytes = base64.b64decode(image_data)
+            # Сохраняем файл
+            request.user.profile.photo.save(filename, ContentFile(decoded_img), save=True)
+            del self.request.session['prompt']
+
         return redirect('users:profile')

@@ -4,7 +4,7 @@
     <h1 class="text-center">{{ video.title }}</h1>
     <div class="text-center">
         <div class="video-player">
-        <video id = "video" width="800" controls controlslist="nodownload noplaybackrate" preload="auto" class="img-fluid">
+        <video id = "video" width="800" controls controlslist="nodownload" preload="auto" class="img-fluid">
             <source src="{{ video.file.url }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>

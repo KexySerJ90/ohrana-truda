@@ -1,24 +1,37 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock %}
-
 
 {% block content %}
-    <div class="mt-5 pt-5 bg-white custom-shadow rounded">
-        <h2 class="m-2"><strong>{{ content }}</strong></h2>
-        <p class="m-2">{{ text_on_page }}</p>
-    </div>
+
+    <!-- Секция "О нас" -->
+    <section class="custom-section container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <h1 class="about-us-header">Добро пожаловать в нашу больницу!</h1>
+                <p class="about-us-text">
+                    Наша больница – это современное медицинское учреждение, предоставляющее широкий спектр услуг по диагностике, лечению и профилактике различных заболеваний. Мы стремимся обеспечить высочайший уровень медицинского обслуживания, используя передовые технологии и индивидуальный подход к каждому пациенту.
+                </p>
+                <p class="about-us-text">
+                    В нашей команде работают высококвалифицированные специалисты, обладающие многолетним опытом работы в области медицины. Мы постоянно совершенствуем свои навыки и знания, чтобы быть на шаг впереди в борьбе за здоровье наших пациентов.
+                </p>
+                <p class="about-us-text">
+                    Мы гордимся тем, что наши пациенты доверяют нам самое ценное – своё здоровье. И мы делаем всё возможное, чтобы оправдать это доверие каждый день.
+                </p>
+            </div>
+        </div>
+
+        <!-- Адрес -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10 col-lg-8 address-container">
+                <h3 class="address-title">Наш адрес:</h3>
+                <p class="address-details">
+                    г. Москва, ул. Волоколамское шоссе, д. 63<br>
+                    Телефон: +7 (495) 123-45-67<br>
+                    Email: info@example.ru
+                </p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
-{% block footer %}
-<footer class="py-4 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023</p>
-    </div>
-</footer>
-{% endblock %}
 
 

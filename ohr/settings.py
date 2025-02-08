@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost',"127.0.0.1", "10.135.75.86"]
+ALLOWED_HOSTS = ['.localhost',"127.0.0.1", "10.135.75.86", 'ikb1-ohrana-truda.ru']
 INTERNAL_IPS = ["127.0.0.1", "10.135.75.86"]
 
 # Application definition
@@ -82,9 +82,9 @@ MIDDLEWARE = [
     'users.middleware.UpdateLastActivityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "axes.middleware.AxesMiddleware",
     "django_auto_logout.middleware.auto_logout",
     'simple_history.middleware.HistoryRequestMiddleware',
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = 'ohr.urls'
@@ -188,8 +188,8 @@ LOGIN_URL = 'users:login'
 # LOGIN_URL = 'two_factor:login'
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
     'axes.backends.AxesStandaloneBackend',
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'users.authentication.EmailAuthBackend',
 ]
@@ -327,8 +327,7 @@ SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['first_name', 'last_name']
 
 
 AXES_FAILURE_LIMIT: 7 #attempt
-AXES_COOLOFF_TIME: 0.5 #wait 1 hour
-AXES_RESET_ON_SUCCESS=True
+AXES_COOLOFF_TIME: 1 #wait 1 hour
 AXES_LOCKOUT_TEMPLATE='users/account-locked.html'
 AXES_ONLY_USER_FAILURES =True
 AXES_NEVER_LOCKOUT_GET_USERS = lambda request: [

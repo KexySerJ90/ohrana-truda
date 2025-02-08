@@ -9,11 +9,10 @@ from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 from simple_history.models import HistoricalRecords
 from main.utils import get_upload_path
-from users.models import Profession
 
 
 class Categorys(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name="Категория")
+    name = models.CharField(max_length=100, db_index=True, verbose_name="Категория", unique=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
     class Meta:
@@ -66,7 +65,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="Slug", validators=[
         MinLengthValidator(5, message="Минимум 5 символов"),
-        MaxLengthValidator(100, message="Максимум 100 символов"),
+        MaxLengthValidator(255, message="Максимум 255 символов"),
     ])
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/", default=None,
                               blank=True, null=True, verbose_name="Фото")

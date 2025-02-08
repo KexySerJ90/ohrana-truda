@@ -28,22 +28,22 @@ def subject_detail(request: HttpRequest, subject_slug: str) -> HttpResponse:
         if 'next' in request.POST:
             if current_slide_index < len(slides) - 1:
                 progress.current_slide = slides[current_slide_index + 1]
-                progress.save()
+                progress.save(update_fields=['current_slide'])
             else:
                 progress.current_slide = None
                 # Обучение завершено
                 progress.study_completed = True  # Сброс текущего слайда
-                progress.save()
+                progress.save(update_fields=['current_slide', 'study_completed'])
                 return render(request, 'study/learning/learning_complete.html', context={'subject': subject})
 
         elif 'previous' in request.POST and current_slide_index > 0:
             progress.current_slide = slides[current_slide_index - 1]
-            progress.save()
+            progress.save(update_fields=['current_slide'])
 
         elif 'reset_subject' in request.POST:
             # Сброс текущего слайда и завершения обучения
             progress.current_slide = slides[0]  # Устанавливаем первый слайд
-            progress.save()
+            progress.save(update_fields=['current_slide'])
             return redirect('study:subject_detail', subject_slug=subject.slug)
 
         return redirect('study:subject_detail', subject_slug=subject.slug)
@@ -71,7 +71,7 @@ class VideoInstruktajView(LoginRequiredMixin, View):
         answers = video.answers.all()  # Получаем ответы для текущего видео
         if video.slug == 'finish':
             profile.instructaj = True
-            profile.save()
+            profile.save(update_fields=['instructaj'])
         return render(request, 'study/video_player/video.html',
                       {'video': video, 'answers': answers, 'title': f'Вводный инструктаж-{video}'})
 
@@ -169,10 +169,6 @@ class MyResult(LoginRequiredMixin, StatusRequiredMixin, ListView):
     model = get_user_model()
     template_name = 'study/results.html'
     extra_context = {'title': "Мои результаты"}
-
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return User.objects.prefetch_related('subject_completions__subjects').filter(pk=user.pk)
 
     def get_object(self, queryset=None):
         return self.request.user

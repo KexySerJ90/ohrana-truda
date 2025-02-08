@@ -26,6 +26,7 @@ class ProfessionAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ['name']
     actions = ['copy_profession']
+    list_filter = ['worker']
 
 
     @admin.action(description='Копировать похожие профессии')

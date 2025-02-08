@@ -23,6 +23,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, FormView
 
 from main.models import SentMessage
 from ohr import settings
+from study.utils import BaseUserView
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     OTPForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, UserForgotPasswordForm
 from .models import MailDevice, OTP, SecurityQuestion, Profile
@@ -30,7 +31,7 @@ from .permissions import ProfileRequiredMixin, StatusRequiredMixin, NotSocialReq
 from .token import user_tokenizer_generate
 from django.core.mail import send_mail
 from ohr.settings import EMAIL_HOST_USER, AUTO_LOGOUT
-from .utils import send_message, login_required_redirect, generate_otp, BaseUserView, sent_count
+from .utils import send_message, login_required_redirect, generate_otp, sent_count
 from typing import Optional, Any, Dict
 
 
@@ -61,9 +62,8 @@ class LoginUser(ProfileRequiredMixin, LoginView):
             otp_secret, otp_code = generate_otp()
             otp_obj, created = OTP.objects.get_or_create(user=user, email=user.email)
             otp_obj.otp_secret = otp_secret
-            otp_obj.save()
-            device = MailDevice.objects.create(user=user, name=f'2fa-{user.username}')
-            device.save()
+            otp_obj.save(update_fields=['otp_secret'])
+            MailDevice.objects.create(user=user, name=f'2fa-{user.username}')
             send_message('Ваш код подтверждения', EMAIL_HOST_USER, otp_code, user)
             print(otp_code)
             self.request.session['user_email'] = user.email
@@ -92,7 +92,7 @@ class VerifyOTPView(FormView):
             otp = pyotp.TOTP(otp_obj.otp_secret, interval=3000)
             if otp.verify(enter_otp_code):
                 otp_obj.is_verified = True
-                otp_obj.save()
+                otp_obj.save(update_fields=['is_verified'])
                 user = get_user_model().objects.get(email=user_email)
                 if user:
                     login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
@@ -120,7 +120,7 @@ class ResendOtpView(View):
             if otp_obj:
                 user = get_user_model().objects.get(email=user_email)
                 if user:
-                    count=sent_count(user, SentMessage.PURPOSE.RESET)
+                    count = sent_count(user, SentMessage.PURPOSE.RESET)
                     if count >= 3:
                         return JsonResponse(
                             {'success': False,
@@ -154,7 +154,7 @@ class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
             user.phone = None
         user.save()
         profile_data = {field: form.cleaned_data[field] for field in form.Meta.fields if
-                     field in ['patronymic', 'profession', 'photo', 'date_birth', 'date_of_work']}
+                        field in ['patronymic', 'profession', 'photo', 'date_birth', 'date_of_work']}
         Profile.objects.create(
             user=user,
             **profile_data)
@@ -225,12 +225,12 @@ class SettingsUser(LoginRequiredMixin, NotSocialRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs) -> JsonResponse:
         user = self.get_object()
         user.two_factor_enabled = not user.two_factor_enabled  # Переключаем состояние
-        user.save()
+        user.save(update_fields=['two_factor_enabled'])
 
         status_message = "включена" if user.two_factor_enabled else "выключена"
         # Возвращаем JsonResponse с новым статусом
-        response= JsonResponse({'status': 'success', 'message': f'Двухфакторная авторизация {status_message}.',
-                             'new_status': user.two_factor_enabled})
+        response = JsonResponse({'status': 'success', 'message': f'Двухфакторная авторизация {status_message}.',
+                                 'new_status': user.two_factor_enabled})
 
         if not user.two_factor_enabled:
             response.delete_cookie('2fa_verified')
@@ -454,10 +454,11 @@ class UserPasswordResetView(PasswordResetView):
         user = get_user_model().objects.get(Q(reserve_email=email) | Q(email=email))
         count = sent_count(user, purpose=SentMessage.PURPOSE.RESCUE)
         if count >= 3:
-            messages.error(self.request, 'Вы достигли лимита отправки сообщений на данную элеутронную почту за последние 30 минут.')
+            messages.error(self.request,
+                           'Вы достигли лимита отправки сообщений на данную элеутронную почту за последние 30 минут.')
             return self.form_invalid(form)
         if not user.secret_answer:
-            SentMessage.objects.create(user=user,is_rescue=True)
+            SentMessage.objects.create(user=user, is_rescue=True)
             return super().form_valid(form)
         self.request.session['sec_user_email'] = email
         SentMessage.objects.create(user=user, purpose=SentMessage.PURPOSE.RESCUE)
@@ -530,7 +531,7 @@ class UserSecretQuestionVerify(NotSocialRequiredMixin, PasswordResetView, FormVi
 def delete_reserve_email(request):
     user = request.user
     user.reserve_email = None
-    user.save()
+    user.save(update_fields=['reserve_email'])
     send_mail(
         subject='Удаление резервного Email',
         message=f'{user.username}, Вы удалили резервную почту для восстановления данных аккаунта.\n\n'
@@ -546,7 +547,3 @@ def delete_reserve_email(request):
 def delete_secret_answer(request):
     request.session['delete_secret_answer'] = True
     return redirect('users:secretquestion_verify')
-
-
-
-

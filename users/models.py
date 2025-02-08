@@ -40,7 +40,7 @@ class User(AbstractUser):
 
     def update_last_activity(self):
         self.last_activity = timezone.now()
-        self.save()
+        self.save(update_fields=['last_activity'])
 
 
     def is_online(self):
@@ -98,6 +98,7 @@ class SecurityQuestion(models.Model):
 class Profession(models.Model):
     name = models.CharField(max_length=250,verbose_name='Название должности', unique=True, db_index=True)
     equipment = models.ManyToManyField('profdetails.Equipment',blank=True, related_name='siz', verbose_name="Сизы")
+    worker = models.BooleanField(verbose_name='Немедицинская должность?', default=False)
 
     def __str__(self):
         return self.name

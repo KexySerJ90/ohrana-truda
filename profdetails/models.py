@@ -5,7 +5,7 @@ from users.models import Profession
 
 
 class Equipment(models.Model):
-    name = models.CharField(max_length=350,verbose_name='Название средств индивидуальной защиты', unique=True)
+    name = models.CharField(max_length=350,verbose_name='Название средств индивидуальной защиты', unique=True, db_index=True)
     description=models.CharField(max_length=500,verbose_name='Описание СИЗ')
     quantity = models.CharField(default='1', verbose_name='Количество')
     basis=models.CharField(max_length=500, verbose_name='Основание', null=True)

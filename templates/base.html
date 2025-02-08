@@ -11,10 +11,7 @@
     <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/f139337a84.js" crossorigin="anonymous"></script>
-    <!-- Стиль footer-a для главной страницы -->
-    {% block css %}
 
-    {% endblock %}
     <!-- Favicons for different platforms -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'deps/favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'deps/favicon/favicon-32x32.png' %}">
@@ -28,7 +25,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container">
-             <a class="nav-item nav-link" href="{% url 'main:index' %}"><i class="fa-solid fa-house-medical"></i></a>
+             <a class="nav-item nav-link" href="{% url 'main:index' %}"><img src="{% static 'deps/icons/logo.svg' %}" alt="Иконка" style="height: 30px;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

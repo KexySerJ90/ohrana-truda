@@ -1,4 +1,11 @@
 class UpdateLastActivityMiddleware:
+    """
+        Middleware для обновления времени последней активности пользователя.
+        Этот middleware проверяет, аутентифицирован ли пользователь при каждом запросе.
+        Если пользователь аутентифицирован, вызывается метод update_last_activity(),
+        который обновляет время последней активности пользователя.
+    """
+
     def __init__(self, get_response):
         self.get_response = get_response
 

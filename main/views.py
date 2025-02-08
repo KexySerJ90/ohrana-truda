@@ -41,13 +41,9 @@ class IndexView(ListView):
 
 @require_safe
 def about(request: HttpRequest) -> HttpResponse:
-    context = {
+    return render(request, 'main/about.html', context = {
         'title': 'Home - О нас',
-        'content': "О нас",
-        'text_on_page': "Текст о том почему мы классные."
-    }
-
-    return render(request, 'main/about.html', context)
+    })
 
 
 class UploadFileView(LoginRequiredMixin, UserPassesTestMixin, FormView):
@@ -61,14 +57,24 @@ class UploadFileView(LoginRequiredMixin, UserPassesTestMixin, FormView):
         is_common: bool = category.is_inpatient
         departments = Departments.objects.filter(is_inpatient=is_common)
         if is_common:
-            first_department = departments.first()  # берем первое отделение для создания общей записи
-            common_upload = UploadFiles.objects.create(cat=first_department, file=files[0], is_common=True)
+            # Создаем общие записи для каждого файла
+            common_uploads = []
+            for uploaded_file in files:
+                common_upload = UploadFiles.objects.create(
+                    cat=departments.first(),  # Берем первое отделение для создания общей записи
+                    file=uploaded_file,
+                    is_common=True
+                )
+                common_uploads.append(common_upload)
 
-            # Создаем ссылки на общий файл для остальных отделений
-            for department in departments.exclude(pk=first_department.pk):
-                UploadFiles.objects.create(cat=department, file=common_upload.file, is_common=True)
-
-            # Для амбулаторных отделений создаем отдельные записи
+            # Копируем общие записи для остальных отделений
+            for common_upload in common_uploads:
+                for department in departments.exclude(pk=common_upload.cat.pk):
+                    UploadFiles.objects.create(
+                        cat=department,
+                        file=common_upload.file,
+                        is_common=True
+                    )
         else:
             for uploaded_file in files:
                 UploadFiles.objects.create(file=uploaded_file, cat=category, is_common=False)
@@ -177,10 +183,12 @@ class ArticleCategory(DataMixin, ListView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        cat = context['posts'][0].category
-        return self.get_mixin_context(context,
-                                      title='Категория - ' + cat.name,
-                                      cat_selected=cat.pk, )
+        if context['posts']:
+            cat = context['posts'][0].category
+            context = self.get_mixin_context(context,
+                                             title='Категория - ' + cat.name,
+                                             cat_selected=cat.pk)
+        return context
 
 
 class PostSearchView(View):
@@ -362,7 +370,7 @@ class NotificationReadView(View):
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         notification = get_object_or_404(Notification, pk=pk, user=request.user)
         notification.is_read = True
-        notification.save()
+        notification.save(update_fields=['is_read'])
         return redirect(notification.comment.post.get_absolute_url())
 
 
@@ -370,7 +378,7 @@ class NoticeReadView(View):
     def get(self, request: HttpRequest, pk: int) -> HttpResponse:
         notice = get_object_or_404(Notice, pk=pk, user=request.user)
         notice.is_read = True
-        notice.save()
+        notice.save(update_fields=['is_read'])
         if request.user.status == get_user_model().Status.LEADER:
             return redirect('study:leader_results')
         elif not notice.is_study:

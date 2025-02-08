@@ -6,16 +6,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-9 col-md-8 col-sm-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="mb-0"><a class="text-black" href="{% url 'main:addpost' %}">Добавить статью</a></h4>
             </div>
             <div class="row">
                 {% for post in posts %}
-                <div class="col-md-5 mb-4">
+                <div class="col-md-6 col-sm-12 mb-4">
                     <div class="card h-100">
                         <a href="{{ post.get_absolute_url }}">
-                <img class="card-img-top" src="{{ post.photo.url }}" alt="{{ post.title }}">
+                            <img class="card-img-top img-fluid img-responsive" src="{{ post.photo.url }}" alt="{{ post.title }}">
                         </a>
                         <div class="card-body">
                             <h5 class="card-title">{{ post.title }}</h5>
@@ -43,14 +43,13 @@
                                     Просмотры: {{ post.views|format_views }}
                                 </small>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4 col-sm-12">
             <div class="card mb-4">
                 <div class="list-group">
                     <a class="list-group-item list-group-item-action list-group-item active" aria-current="true"
@@ -60,7 +59,7 @@
                        style="background-color:#212529; border-color:#212529" href="{% url 'main:home' %}">Все
                         категории</a>
                     {% else %}
-                    <a class="list-group-item list-group-item-action " href="{% url 'main:home' %}">Все категории</a>
+                     <a class="list-group-item list-group-item-action " href="{% url 'main:home' %}">Все категории</a>
                     {% endif %}
                     {% show_categories cat_selected %}
                     <br>
@@ -83,9 +82,7 @@
     </div>
 </div>
 
-
 {% endblock %}
-
 
 {% block navigation %}
 {% include 'includes/nav.html' %}

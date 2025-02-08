@@ -2,8 +2,6 @@ from datetime import timedelta
 
 from django.forms import widgets
 from django.utils import timezone
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from functools import wraps
 from django import forms
@@ -11,41 +9,13 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect
 from django_select2.forms import ModelSelect2Widget
 from typing import Any
-from main.models import Notice, SentMessage
-from study.models import Subject, SubjectCompletion
+from main.models import SentMessage
 from users.models import Profession
 import pyotp
 COMMON_TEXT_INPUT_ATTRS = {'class': 'form-control'}
 
 
-class BaseUserView:
-    def handle_subjects(self, user):
-        sub_titles = None
-        if user.status == 'leader':
-            sub_titles = ['first_aid', 'safe_method1', 'suot']
-        elif user.status == 'medic':
-            sub_titles = ['safe_method1']
-        elif user.status == 'worker':
-            sub_titles = ['first_aid', 'safe_method2']
 
-        if sub_titles:
-            subjects = Subject.objects.filter(title__in=sub_titles)
-            for sub in subjects:
-                subject_completion, created = SubjectCompletion.objects.get_or_create(users=user, subjects=sub)
-                user.subject.add(sub)
-                subject_completion.save()
-        try:
-            leader = get_user_model().objects.get(status=get_user_model().Status.LEADER, cat2=user.cat2)
-            if leader != user:
-                Notice.objects.create(
-                    user=leader,
-                    message=f"{user.profile.profession} {user.last_name} {user.first_name} завершил регистрацию")
-        except ObjectDoesNotExist:
-            pass
-        Notice.objects.create(
-            user=user,
-            message=f"Поздравляем, вы завершили регистрацию!"
-        )
 
 def generate_otp() -> tuple:
     """
