@@ -10,6 +10,7 @@ from main.models import Categorys, TagPost, Article
 
 register = template.Library()
 
+
 @register.simple_tag()
 def tag_categories():
     return Categorys.objects.all()
@@ -148,3 +149,8 @@ def file_icon(file_path):
         return '<i class="fas fa-file-word me-2"></i>'
     else:
         return '<i class="fas fa-file me-2"></i>'  # Универсальная иконка для других типов файлов
+
+
+@register.filter
+def div_size(size):
+    return round(size / 1048576,1)

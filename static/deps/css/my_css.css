@@ -42,10 +42,6 @@ a {
   text-decoration: none;                              /* Отсутствие подчеркивания */
 }
 
-a:hover {
-  color: #CC0000;                                     /* Красный цвет ссылки при наведении */
-  text-decoration: underline;                         /* Подчеркивание при наведении */
-}
 
 /* Стили изображений */
 img {
@@ -77,15 +73,6 @@ img.img-article-left.thumb {
   height: 60px;                                       /* Высота шапки */
 }
 
-/* Кнопка в шапке */
-div.button {
-  background: #3F4137;                                /* Темно-зеленый фон */
-  max-width: 200px;                                   /* Максимальная ширина кнопки */
-  margin: 0 auto;                                     /* Центровка кнопки по горизонтали */
-  padding: 5px 20px 5px 20px;                         /* Внутренние отступы */
-  border-radius: 10px;                                /* Скругленные углы */
-  font-size: 20px;                                    /* Размер шрифта */
-}
 
 /* Основная область контента */
 .content {
@@ -344,7 +331,7 @@ nav > div a.nav-item.nav-link:hover, nav > div a.nav-item.nav-link:focus {
 
 
 .card-img-top {
-    overflow: hidden; /* Если это необходимо */
+    overflow: hidden;
     transition: transform 0.3s ease;
     height: 200px;
 }
@@ -436,7 +423,7 @@ video::-webkit-media-controls-fullscreen-button {
 /* Убираем стрелочки у цифрового инпута */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none; // Yeah, yeah everybody write about it
+    -webkit-appearance: none;
 }
 
 input[type='number'],
@@ -756,6 +743,315 @@ section {
     object-fit: cover; /* или contain, в зависимости от вашего предпочтения */
 }
 
+
+div[class*=box] {
+  height: 33.33%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-1 { background-color: #0d6efd; }
+.box-2 { background-color: #3C3C3C; }
+.box-3 { background-color: #198754; }
+
+.btn {
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 250px;
+  cursor: pointer;
+}
+
+/*
+========================
+      BUTTON ONE
+========================
+*/
+.btn-one {
+  color: #FFF;
+  transition: all 0.3s;
+  position: relative;
+}
+.btn-one span {
+  transition: all 0.3s;
+}
+.btn-one::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-top-color: #0d6efd;
+  border-bottom-color: #0d6efd;
+  transform: scale(0.1, 1);
+}
+.btn-one:hover span {
+  letter-spacing: 2px;
+}
+.btn-one:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+.btn-one::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+  background-color: rgba(255,255,255,0.1);
+}
+.btn-one:hover::after {
+  opacity: 0;
+  transform: scale(0.1, 1);
+}
+
+
+/*
+========================
+      BUTTON TWO
+========================
+*/
+.btn-two {
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+}
+.btn-two span {
+  z-index: 2;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.btn-two::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.1);
+}
+.btn-two::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.1);
+}
+.btn-two:hover::before {
+  transform: rotate(-45deg);
+  background-color: rgba(255,255,255,0);
+}
+.btn-two:hover::after {
+  transform: rotate(45deg);
+  background-color: rgba(255,255,255,0);
+}
+
+
+/*
+========================
+      BUTTON THREE
+========================
+*/
+.btn-three {
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+}
+.btn-three::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.1);
+  transition: all 0.3s;
+}
+.btn-three:hover::before {
+  opacity: 0 ;
+  transform: scale(0.5,0.5);
+}
+.btn-three::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.5);
+  transform: scale(1.2,1.2);
+}
+.btn-three:hover::after {
+  opacity: 1;
+  transform: scale(1,1);
+}
+
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+.like-dislike-btns .btn {
+    margin-right: 10px;
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
+/* Иконки Bootstrap */
+.bi {
+    margin-right: 5px;
+}
+
+/* Общий контейнер для кнопок и текста рейтинга */
+.rating-buttons {
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Отступ для блока с рейтингом */
+.rating-sum {
+    margin-left: 20px;
+}
+
+
+.bi-star-fill {
+    color: gold;
+}
+
+@import url("//fonts.googleapis.com/css?family=Roboto:500");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Выравнивает содержимое по правому краю */
+}
+
+.face-button {
+  height: 64px;
+  display: inline-block;
+  border: 3px solid #0d6efd;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #0d6efd;
+  overflow: hidden;
+}
+.face-button .icon {
+  margin-right: 6px;
+}
+.face-button .face-primary,
+.face-button .face-secondary {
+  display: block;
+  padding: 0 32px;
+  line-height: 64px;
+  transition: margin 0.4s;
+}
+.face-button .face-primary {
+  background-color: #0d6efd;
+  color: #fff;
+}
+.face-button:hover .face-primary {
+  margin-top: -64px;
+}
+
+
+#toggle-2fa {
+    width: auto; /* Или укажите фиксированную ширину */
+    padding: 10px 20px; /* Увеличьте отступы для лучшего внешнего вида */
+}
+
+
+
+
+
+
 .custom-section { padding-top: 100px; padding-bottom: 50px; }
 .about-us-header { color: #444; margin-bottom: 40px; }
 .about-us-text { line-height: 1.7; color: #666; }
@@ -767,3 +1063,9 @@ section {
       text-align: center; }
 .address-title { color: #444; margin-bottom: 10px; }
 .address-details { color: #777; } @media (max-width: 768px) { .about-us-header { font-size: 24px; } .address-container { margin-top: 30px; }
+
+
+
+
+
+

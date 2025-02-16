@@ -31,17 +31,26 @@
                             </p>
                             <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Читать пост</a>
                         </div>
-                        <div class="card-footer">
-                            <div class="rating-buttons">
-                                <button class="btn btn-sm btn-primary" data-post="{{ post.id }}" data-value="1">Лайк
-                                </button>
-                                <button class="btn btn-sm btn-secondary" data-post="{{ post.id }}" data-value="-1">
-                                    Дизлайк
-                                </button>
-                                <button class="btn btn-sm btn-secondary rating-sum">{{ post.get_sum_rating }}</button>
                                 <small class="text-muted float-end">
                                     Просмотры: {{ post.views|format_views }}
                                 </small>
+                        <div class="card-footer">
+<div class="rating-buttons d-flex justify-content-between align-items-center">
+    <!-- Кнопки лайков/дизлайков -->
+    <div class="like-dislike-btns">
+        <button class="btn btn-sm btn-outline-success like-btn" data-post="{{ post.id }}" data-value="1">
+            <i class="bi bi-hand-thumbs-up"></i> Лайк
+        </button>
+        <button class="btn btn-sm btn-outline-danger dislike-btn" data-post="{{ post.id }}" data-value="-1">
+            <i class="bi bi-hand-thumbs-down"></i> Дизлайк
+        </button>
+    </div>
+
+    <!-- Отображение суммарного рейтинга -->
+    <span class="rating-sum text-muted ms-auto">
+        <i class="bi bi-star-fill me-1"></i><strong>{{ post.get_sum_rating|format_views }}</strong>
+    </span>
+
                             </div>
                         </div>
                     </div>

@@ -28,11 +28,21 @@
         {% for p in posts %}
         <div class="col">
             <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
+                <div class="card-body" data-toggle="tooltip" title="{{ p.description}}">
                     <h5 class="card-title">{{ p.title|cuter }}</h5>
                     <p class="card-text">Дата загрузки: {{ p.uploaded_at|date:"d-m-Y H:i" }}</p>
+                    <div class="button-container">
+                    <a class="face-button" href="{{ p.file.url }}" download>
+                  <div class="face-primary">
+                    <span class="icon fa fa-cloud"></span>
+                    Скачать
+                  </div>
+                  <div class="face-secondary">
                     {{ p.file.url|file_icon|safe }}
-                    <a href="{{ p.file.url }}" class="btn btn-dark" download>Скачать файл</a>
+                    Размер: {{p.file.size|div_size}} MB
+                  </div>
+                </a>
+                </div>
                 </div>
             </div>
         </div>
@@ -52,3 +62,4 @@ $(document).ready(function() {
 });
 
 </script>
+

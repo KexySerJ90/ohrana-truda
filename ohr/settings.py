@@ -326,8 +326,10 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/users/welcome_social/'
 SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['first_name', 'last_name']
 
 
-AXES_FAILURE_LIMIT: 7 #attempt
-AXES_COOLOFF_TIME: 1 #wait 1 hour
+
+AXES_FAILURE_LIMIT = 5 #attempt
+AXES_RESET_ON_SUCCESS=True
+AXES_COOLOFF_TIME = 1 #wait 1 hour
 AXES_LOCKOUT_TEMPLATE='users/account-locked.html'
 AXES_ONLY_USER_FAILURES =True
 AXES_NEVER_LOCKOUT_GET_USERS = lambda request: [
@@ -340,3 +342,4 @@ ALLOWED_EXTENSIONS = ('pdf', 'docx', 'doc', '.xlsx', 'rtf')
 MAX_FILE_SIZE = 200 * 1024 * 1024
 
 API_URL_KANDINSKY = 'https://api-key.fusionbrain.ai/'
+
