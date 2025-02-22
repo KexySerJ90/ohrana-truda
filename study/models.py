@@ -140,3 +140,30 @@ class UserAnswer(models.Model):
 
     def __str__(self):
         return f'{self.user_completion} - {self.question.text}'
+
+
+
+class Achievement(models.Model):
+    TYPE_CHOICES = (
+        ('site_entry', 'Зайди на сайт'),
+        ('intro_instruct', 'Пройди вводный инструктаж'),
+        ('finish_training', 'Закончи своё первое обучение'),
+        ('first_test', 'Сдай первое тестирование'),
+        ('photo_profile', 'Установи аватарку'),
+        ('free_tester', 'Сдай тест без единой ошибки'),
+        ('all_exams_passed', 'Сдай все тесты'),
+        ('master_of_exams', 'Ботаник'),
+        ('all_achievements', 'Получи все достижения'),
+    )
+
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='achievements')
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'type')
+        verbose_name = "Достижение"
+        verbose_name_plural = "Достижения"
+
+    def __str__(self):
+        return f"{self.user.username}: {self.get_type_display()}"

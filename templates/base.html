@@ -93,7 +93,7 @@
                                         <li><a class="dropdown-item text-white" href="{% url 'user:welcome_social' %}">Завершить регистрацию</a></li>
                                     {% else %}
                                     <li><a class="dropdown-item  text-white" href="{% url 'user:profile' %}">Личный кабинет</a></li>
-
+                                    <li><a class="dropdown-item  text-white" href="{% url 'user:settings_user' %}">Настройки</a></li>
                                     {% if user.subject.all or user.is_admin or user.is_staff %}
                                     <li><a class="dropdown-item text-white" href="{% url 'study:result' %}">Мои результаты</a></li>
                                     {% endif %}

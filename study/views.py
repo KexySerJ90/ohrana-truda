@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import ListView, RedirectView
 
 from main.models import Notice
-from study.models import Subject, SubjectCompletion, Video, Answer, Question, UserAnswer
+from study.models import Subject, SubjectCompletion, Video, Answer, Question, UserAnswer, Achievement
 from study.utils import UserQuerysetMixin, create_notice_if_not_exists
 from users.models import Profile, User
 from users.permissions import StatusRequiredMixin
@@ -34,6 +34,7 @@ def subject_detail(request: HttpRequest, subject_slug: str) -> HttpResponse:
                 # Обучение завершено
                 progress.study_completed = True  # Сброс текущего слайда
                 progress.save(update_fields=['current_slide', 'study_completed'])
+                Achievement.objects.get_or_create(user=request.user, type='finish_training')
                 return render(request, 'study/learning/learning_complete.html', context={'subject': subject})
 
         elif 'previous' in request.POST and current_slide_index > 0:
@@ -72,6 +73,7 @@ class VideoInstruktajView(LoginRequiredMixin, View):
         if video.slug == 'finish':
             profile.instructaj = True
             profile.save(update_fields=['instructaj'])
+            Achievement.objects.get_or_create(user=self.request.user, type='intro_instruct')
         return render(request, 'study/video_player/video.html',
                       {'video': video, 'answers': answers, 'title': f'Вводный инструктаж-{video}'})
 
@@ -137,6 +139,15 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         UserAnswer.objects.bulk_create(answers_to_create)
         if user_completion.score >= len(questions) - 3:
             user_completion.completed = True
+            Achievement.objects.get_or_create(user=request.user, type='first_test')
+            user_completion.save()
+            exams=SubjectCompletion.objects.filter(users=request.user)
+            if all(exam.completed for exam in exams):
+                Achievement.objects.get_or_create(user=request.user, type='all_exams_passed')
+            if user_completion.score == 5:
+                Achievement.objects.get_or_create(user=request.user, type='free_tester')
+                if all(exam.score == 5 for exam in exams):
+                    Achievement.objects.get_or_create(user=request.user, type='master_of_exams')
             leaders = get_user_model().objects.filter(
                 status=User.Status.LEADER,
                 cat2=request.user.cat2
@@ -151,7 +162,6 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
                 message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!",
                 is_study = True
             )
-        user_completion.save()
         del request.session['questions']
         del request.session['subject']
         del request.session['test_time_remaining']
@@ -183,3 +193,59 @@ class LeaderResultsView(LoginRequiredMixin, ListView, UserQuerysetMixin):
     def get_queryset(self):
         user = self.request.user
         return self.get_user_queryset(user)
+
+
+class Achievements(LoginRequiredMixin, ListView):
+    template_name = 'study/achievements.html'
+    context_object_name = 'achieve'
+    title_page = 'Достижения'
+    model = Achievement
+
+    ICONS_BY_TYPE = {
+        'site_entry': 'house-door-fill',
+        'intro_instruct': 'info-circle-fill',
+        'finish_training': 'calendar-check',
+        'first_test': 'check-circle-fill',
+        'photo_profile': 'person-fill',
+        'free_tester': 'pencil-square',
+        'all_exams_passed': 'hand-thumbs-up-fill',
+        'master_of_exams': 'cup-fill',
+        'all_achievements': 'trophy-fill',
+    }
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Получаем текущий пользователя
+        user = self.request.user
+
+        # Получаем все достижения пользователя за один запрос
+        user_achievements = Achievement.objects.filter(user=user).values_list('type', flat=True)
+
+        # Типы достижений
+        achievements = Achievement.TYPE_CHOICES
+
+        # Формируем словарь достижений с их статусом и иконкой
+        context['achievements'] = []
+        for achievement_type, achievement_label in achievements:
+            status = achievement_type in user_achievements  # Проверяем наличие достижения
+            icon_class = self.ICONS_BY_TYPE.get(achievement_type, 'star-fill')  # Иконка по типу достижения
+            context['achievements'].append({
+                'type': achievement_type,
+                'label': achievement_label,
+                'is_completed': status,
+                'icon_class': icon_class
+            })
+        all_achievements_completed = all(
+            achievement['is_completed'] for achievement in context['achievements']
+            if achievement['type'] != 'all_achievements'
+        )
+        if all_achievements_completed and 'all_achievements' not in user_achievements:
+            Achievement.objects.create(user=user, type='all_achievements')
+
+
+        # Проверяем, выполнены ли все достижения
+        context['all_complete'] = all(achievement['is_completed'] for achievement in context['achievements'])
+
+        return context

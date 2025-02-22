@@ -3,7 +3,7 @@ from django.utils.safestring import mark_safe
 from simple_history.admin import SimpleHistoryAdmin
 
 from main.models import Article
-from study.models import Subject, Question, Answer, Slide, Video, UserAnswer, SubjectCompletion
+from study.models import Subject, Question, Answer, Slide, Video, UserAnswer, SubjectCompletion, Achievement
 
 
 @admin.register(Subject)
@@ -108,3 +108,8 @@ class UserAnswerAdmin(admin.ModelAdmin):
         queryset = super().get_queryset(request)
         # Используем prefetch_related для оптимизации запросов
         return queryset.prefetch_related('user_completion__subjects', 'user_completion__users')
+
+
+@admin.register(Achievement)
+class UserAnswerAdmin(admin.ModelAdmin):
+    list_select_related = ['user']

@@ -46,6 +46,7 @@ class OTPForm(forms.Form):
 
 class RegisterUserForm(UserCreationForm):
     STATUS_CHOICES = [('', 'Выберите статус')] + User.Status.choices
+    SEX_CHOICES = [('', 'Выберите пол')] + Profile.Sex.choices
     email = forms.EmailField(widget=CustomEmailWidget())
     status = forms.ChoiceField(choices=STATUS_CHOICES, label='Статус',
                                widget=forms.Select(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите статус'}))
@@ -75,11 +76,13 @@ class RegisterUserForm(UserCreationForm):
         ))
     profession = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию', widget=forms.Select(
         attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите профессию'}))
+    sex=forms.ChoiceField(choices=SEX_CHOICES, label="Пол", widget=forms.Select(
+        attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите пол'}))
     patronymic=forms.CharField(label='Отчество', required=False, widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
 
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email', 'phone', 'last_name', 'first_name', 'patronymic', 'cat2', 'status', 'profession',
+        fields = ['username', 'email', 'phone', 'last_name', 'first_name', 'patronymic', 'sex','cat2', 'status', 'profession',
                   'date_of_work', 'password1', 'password2']
         labels = {
             'email': 'E-mail',
@@ -94,7 +97,7 @@ class RegisterUserForm(UserCreationForm):
 
     def save(self, commit=True):
         user_data = {field: self.cleaned_data[field] for field in self.Meta.fields if
-                     field not in ['patronymic', 'profession', 'date_of_work', 'password1','password2']}
+                     field not in ['patronymic', 'profession', 'date_of_work', 'sex', 'password1','password2']}
         # Сохраняем пользователя
         user = get_user_model()(**user_data)
         user.set_password(self.cleaned_data['password1'])# Устанавливаем пароль
@@ -143,6 +146,7 @@ class CustomClearableFileInput(forms.ClearableFileInput):
 
 
 class ProfileUserForm(forms.ModelForm):
+    SEX_CHOICES = [('', 'Выберите пол')] + Profile.Sex.choices
     username = forms.CharField(disabled=True, label='Логин', widget=forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS))
     masked_phone = forms.CharField(label="Телефон", required=False, disabled=True,
                                    widget=forms.TextInput(attrs=COMMON_TEXT_INPUT_ATTRS))
@@ -157,10 +161,12 @@ class ProfileUserForm(forms.ModelForm):
     }))
     profession = ProfessionChoiceField(label="Профессия", empty_label='Выберите профессию')
     patronymic=forms.CharField(label='Отчество', required=False, widget=forms.TextInput(attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Введите отчество'}))
+    sex = forms.ChoiceField(choices=SEX_CHOICES, label="Пол", widget=forms.Select(
+        attrs={**COMMON_TEXT_INPUT_ATTRS, 'placeholder': 'Выберите пол'}))
 
     class Meta:
         model = get_user_model()
-        fields = ['photo', 'username', 'last_name', 'first_name', 'patronymic', 'masked_phone', 'cat2', 'status',
+        fields = ['photo', 'username', 'last_name', 'first_name', 'patronymic', 'sex', 'masked_phone', 'cat2', 'status',
                   'profession', 'date_birth']
         labels = {
             'first_name': 'Имя',
@@ -200,7 +206,7 @@ class ProfileUserForm(forms.ModelForm):
                     profile.photo.delete(save=False)
             elif field not in ['username', 'patronymic', 'profession', 'date_birth', 'date_of_work','masked_phone']:
                 setattr(user, field, self.cleaned_data[field])
-            elif field in ['patronymic', 'profession', 'date_birth','date_of_work']:
+            elif field in ['patronymic', 'profession', 'sex', 'date_birth','date_of_work']:
                 setattr(profile, field, self.cleaned_data[field])
         if commit:
             user.save()

@@ -23,6 +23,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, FormView
 
 from main.models import SentMessage
 from ohr import settings
+from study.models import Achievement
 from study.utils import BaseUserView
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     OTPForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, UserForgotPasswordForm
@@ -154,7 +155,7 @@ class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
             user.phone = None
         user.save()
         profile_data = {field: form.cleaned_data[field] for field in form.Meta.fields if
-                        field in ['patronymic', 'profession', 'photo', 'date_birth', 'date_of_work']}
+                        field in ['patronymic', 'profession', 'sex','photo', 'date_birth', 'date_of_work']}
         Profile.objects.create(
             user=user,
             **profile_data)
@@ -187,10 +188,6 @@ class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = 'users/edit_profile.html'
-    extra_context = {
-        'title': "Профиль пользователя",
-        'default_image': settings.DEFAULT_USER_IMAGE,
-    }
 
     def get_initial(self):
         initial = super().get_initial()
@@ -198,7 +195,14 @@ class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
         initial['patronymic'] = self.request.user.profile.patronymic
         initial['date_birth'] = self.request.user.profile.date_birth
         initial['profession'] = self.request.user.profile.profession
+        initial['sex'] = self.request.user.profile.sex
         return initial
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['default_image'] = settings.DEFAULT_USER_WOMAN_IMAGE if self.request.user.profile.sex == Profile.Sex.WOMAN else settings.DEFAULT_USER_IMAGE
+        context['title'] = 'Профиль пользователя'
+        return context
 
     def get_success_url(self) -> str:
         return reverse_lazy('users:profile')

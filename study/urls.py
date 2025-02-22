@@ -10,5 +10,6 @@ urlpatterns = [
     path('answer/<int:answer_id>/', views.AnswerView.as_view(), name='answer'),
     path('result/', views.MyResult.as_view(), name='result'),
     path('leader/', views.LeaderResultsView.as_view(), name='leader_results'),
+    path('achievements/', views.Achievements.as_view(), name='achievements'),
 
 ]

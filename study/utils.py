@@ -73,3 +73,4 @@ def create_notice_if_not_exists(user, role, subject):
             message__contains=subject_message,
     ).exists():
         Notice.objects.create(user=role, message=subject_message, is_study = True)
+

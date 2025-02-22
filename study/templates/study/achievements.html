@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container my-4">
+    <h1 class="mb-4">{{ title_page }}</h1>
+
+    <!-- Карточка достижений -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12 mb-4">
+            <div class="card shadow border-0 p-4 rounded">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Твои достижения</h2>
+
+                    <!-- Значки достижений -->
+                    <div class="d-flex flex-wrap justify-content-evenly align-items-center gap-3">
+                        {% for achievement in achievements %}
+                            <div class="icon-container d-flex flex-column align-items-center" data-toggle="tooltip" title="{{ achievement.label }}">
+                                <i class="bi bi-{{ achievement.icon_class }} icon-achievment {{ achievement.is_completed|yesno:'completed,disabled' }}"></i>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Сообщение о завершении всех предметов -->
+                    {% if all_complete %}
+                        <p class="text-success mt-4 text-center lead fw-bold">Поздравляем! Ты получил все достижения!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+</script>

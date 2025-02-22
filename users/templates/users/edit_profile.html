@@ -2,14 +2,10 @@
 
 {% block content %}
 
-<h1>Профиль</h1>
 <form id="profile-form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if user.profile.photo %}
-    <p><img id="profile-photo" src="{{ user.profile.photo.url }}" class="rounded-circle" style="width: 250px; height: 250px; border-radius: 50%;">
-    {% else %}
-    <p><img id="profile-photo" src="{{ default_image }}">
-    {% endif %}
+
+    <p><img id="profile-photo" {% if user.profile.photo %} src="{{ user.profile.photo.url }}" {% else %} src="{{ default_image }}" {% endif %} class="rounded-circle" style="width: 250px; height: 250px; border-radius: 50%;">
     <div class="form-error">{{ form.non_field_errors }}</div>
     {% for f in form %}
     <p>

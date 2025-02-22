@@ -113,8 +113,7 @@ class Mainfiles(LoginRequiredMixin, StatusRequiredMixin, AuthorPermissionsMixin,
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         department = Departments.objects.get(slug=self.kwargs['dep_slug'])
-        context[
-            'title'] = f'Файлы - {department.name}'  # Здесь предполагается, что название отделения хранится в поле name
+        context['title'] = f'Файлы - {department.name}'  # Здесь предполагается, что название отделения хранится в поле name
         return context
 
 

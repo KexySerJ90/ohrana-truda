@@ -58,11 +58,15 @@ class User(AbstractUser):
         return None
 
 class Profile(models.Model):
+    class Sex(models.TextChoices):
+        MAN=('man', 'Мужчина')
+        WOMAN=('women', 'Женщина')
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name='profile')
     patronymic = models.CharField(max_length=100, blank=True, null=True, verbose_name="Отчество (необязательное поле)")
     profession = models.ForeignKey('users.Profession', on_delete=models.CASCADE, verbose_name='Профессия')
     photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, verbose_name="Фотография")
     date_birth = models.DateField(blank=True, null=True, verbose_name="Дата рождения")
+    sex=models.CharField(choices=Sex.choices, max_length=50, blank=True,null=True, default=Sex.MAN ,verbose_name="Пол")
     date_of_work = models.DateField(verbose_name="Дата трудоустройства")
     instructaj = models.BooleanField(default=False, verbose_name="Инструктаж")
 

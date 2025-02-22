@@ -197,6 +197,7 @@ AUTHENTICATION_BACKENDS = [
 AUTH_USER_MODEL = 'users.User'
 
 DEFAULT_USER_IMAGE = MEDIA_URL + 'users/default.png'
+DEFAULT_USER_WOMAN_IMAGE = MEDIA_URL + 'users/default_woman.png'
 
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
