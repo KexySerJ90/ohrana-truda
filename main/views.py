@@ -300,6 +300,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         comment.user = self.request.user
         comment.parent_id = form.cleaned_data.get('parent')
         comment.save()
+        if 'image' in self.request.FILES:
+            image_file = self.request.FILES['image']
+            comment.image.save(image_file.name, image_file)
         parent_comment_id = comment.parent_id
         if parent_comment_id:
             parent_comment = get_object_or_404(Comment, id=parent_comment_id)

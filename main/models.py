@@ -176,6 +176,7 @@ class Comment(MPTTModel):
                               max_length=10)
     parent = TreeForeignKey('self', verbose_name='Родительский комментарий', null=True, blank=True,
                             related_name='children', on_delete=models.CASCADE)
+    image=models.ImageField(upload_to="comments/%Y/%m/%d/", blank=True, null=True, verbose_name='Изображение')
 
     class MTTMeta:
         """

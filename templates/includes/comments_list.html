@@ -13,6 +13,9 @@
                         <h6 class="card-title">
                             <p>{{ node.user.username }}</p>
                         </h6>
+                            {% if node.image %}
+                                <img src="{{ node.image.url }}" alt="Image for comment" width="150">
+                            {% endif %}
                         <p class="card-text">
                             {{ node.content }}
                         </p>
@@ -42,12 +45,20 @@
                 <div id="commentError" class="alert alert-danger d-none" role="alert">
                     Вы можете оставлять комментарии не чаще чем раз в минуту.
                 </div>
-            <form method="post" action="{% url 'main:comment_create_view' post.pk %}" id="commentForm" name="commentForm" data-post-id="{{ post.pk }}">
-                {{ form }}
-                <div class="d-grid gap-2 d-md-block mt-2">
-                    <button type="submit" class="btn btn-dark" id="commentSubmit">Добавить комментарий</button>
-                </div>
-            </form>
+<form method="post" action="{% url 'main:comment_create_view' post.pk %}" id="commentForm" name="commentForm" data-post-id="{{ post.pk }}" enctype="multipart/form-data">
+    {{ form.content }}
+
+    <!-- Добавляем input для загрузки изображений -->
+    <input type="file" name="image" id="imageUpload" class="form-control" style="display:none;" accept="image/*">
+
+    <div class="d-grid gap-2 d-md-block mt-2">
+        <button type="submit" class="btn btn-dark" id="commentSubmit">Отправить</button>
+        <label for="imageUpload" class="btn btn-light ms-2" style="margin-left: 10px;">
+            <i class="fas fa-paperclip"></i>
+        </label>
+    </div>
+</form>
+
         </div>
     </div>
 {% endif %}
