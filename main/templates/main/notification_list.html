@@ -2,7 +2,16 @@
 {% load main_filters %}
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">Уведомления</h2>
+    <h2 class="mb-4">{{ title }}</h2>
+    {% if request.resolver_match.view_name == 'main:archive' %}
+        <div class="filter-buttons mb-3">
+            <div class="btn-group" role="group" aria-label="Фильтры уведомлений">
+                <a href="{% url 'main:archive' %}?type=notification" class="btn btn-outline-primary filter-btn {% if request.GET.type == 'notification' %}active{% endif %}">Только комментарии</a>
+                <a href="{% url 'main:archive' %}?type=notice" class="btn btn-outline-primary filter-btn {% if request.GET.type == 'notice' %}active{% endif %}">Только уведомления</a>
+                <a href="{% url 'main:archive' %}" class="btn btn-outline-primary filter-btn {% if not request.GET.type or request.GET.type == '' %}active{% endif %}">Все</a>
+            </div>
+        </div>
+    {% endif %}
     <div class="accordion" id="notificationsAccordion">
         {% for notification in notifications_and_notices %}
             <div class="card mb-3">
@@ -16,20 +25,20 @@
                     </span>
                     <small class="text-muted">{{ notification.created_at }}</small>
                 </div>
-                        <div id="collapse_{{ forloop.counter }}" class="collapse" aria-labelledby="heading_{{ forloop.counter }}" data-parent="#notificationsAccordion">
-            <div class="card-body d-flex justify-content-between align-items-center">
-                {% if notification.comment %}
-                    <p>"{{ notification.comment.content }}"</p>
-                    <a href="{{ notification.get_absolute_url }}" class="btn btn-outline-dark btn-sm">Читать комментарий</a>
-                {% elif notification.is_study %}
-                    <span></span><!-- Для баланса -->
-                    <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-outline-dark btn-sm">Успеваемость</a>
-                {% else %}
-                    <span></span><!-- Для баланса -->
-                    <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-outline-dark btn-sm">Прочитано</a>
-                {% endif %}
-            </div>
-        </div>
+                <div id="collapse_{{ forloop.counter }}" class="collapse" aria-labelledby="heading_{{ forloop.counter }}" data-parent="#notificationsAccordion">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        {% if notification.comment %}
+                            <p>"{{ notification.comment.content }}"</p>
+                            <a href="{{ notification.get_absolute_url }}" class="btn btn-outline-dark btn-sm">Читать комментарий</a>
+                        {% elif notification.is_study %}
+                            <span></span><!-- Для баланса -->
+                            <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-outline-dark btn-sm">Успеваемость</a>
+                        {% else %}
+                            <span></span><!-- Для баланса -->
+                            <a href="{% url 'main:notice_read' notification.pk %}" class="btn btn-outline-dark btn-sm">Прочитано</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         {% empty %}
             <div class="alert alert-info" role="alert">
@@ -37,10 +46,15 @@
             </div>
         {% endfor %}
     </div>
+    {% if not request.resolver_match.view_name == 'main:archive' %}
+        <a href="{% url 'main:archive' %}" class="btn btn-primary float-end mt-n5">Архив</a>
+    {% endif %}
 </div>
 
+<script> // JavaScript для добавления активного класса к кнопкам фильтров document.querySelectorAll('.filter-btn').forEach(button => { button.addEventListener('click', function() { document.querySelectorAll('.filter-btn').forEach(btn => { btn.classList.remove('active'); }); this.classList.add('active'); }); }); </script>
 
-<script> document.addEventListener('DOMContentLoaded', () => { const accordionItems = document.querySelectorAll('#notificationsAccordion .card-header'); accordionItems.forEach(item => { item.addEventListener('click', () => { const targetCollapse = item.nextElementSibling; targetCollapse.classList.toggle('show'); }); }); });
-</script>
+<script> document.addEventListener('DOMContentLoaded', () => { const accordionItems = document.querySelectorAll('#notificationsAccordion .card-header'); accordionItems.forEach(item => { item.addEventListener('click', () => { const targetCollapse = item.nextElementSibling; targetCollapse.classList.toggle('show'); }); }); }); </script>
+
+<style> /* Стиль для активных кнопок */ .filter-btn.active { background-color: #007bff !important; color: white !important; border-color: #007bff !important; } </style>
 
 {% endblock %}

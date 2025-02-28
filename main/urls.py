@@ -15,6 +15,7 @@ urlpatterns = [
     path('post/<int:pk>/comments/create/', views.CommentCreateView.as_view(), name='comment_create_view'),
     path('post/<int:post_pk>/comments/delete/<int:pk>/', views.CommentDeleteView.as_view(), name='comment_delete_view'),
     path('notifications/', views.NotificationListView.as_view(), name='notification-list'),
+    path('archive/', views.ArchiveNotifications.as_view(), name='archive'),
     path('notifications/read/<int:pk>/', views.NotificationReadView.as_view(), name='notification_read'),
     path('notice/read/<int:pk>/', views.NoticeReadView.as_view(), name='notice_read'),
     path('category/<slug:cat_slug>/', views.ArticleCategory.as_view(), name='category'),

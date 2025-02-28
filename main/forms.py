@@ -69,12 +69,16 @@ class CommentCreateForm(forms.ModelForm):
     parent = forms.IntegerField(widget=forms.HiddenInput, required=False)
     content = forms.CharField(label='', widget=EmojiPickerTextareaAdmin(
         attrs={'cols': 90, 'rows': 5, 'placeholder': 'Комментарий', 'class': 'form-control'}))
-    image = forms.ImageField(label='Изображение', required=False)
+    image = forms.ImageField(required=False, widget=forms.HiddenInput)
 
 
     class Meta:
         model = Comment
-        fields = ('content','image')
+        fields = ('content',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['image'].disabled = True
 
 
 

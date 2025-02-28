@@ -1,8 +1,8 @@
+from itertools import chain
 from typing import Any, Dict, List, Optional
 from django.core.mail import send_mail
 from django.http import HttpRequest, HttpResponse
 import locale
-from itertools import chain
 from django.utils import timezone
 from babel.dates import format_datetime
 from django.contrib.auth import get_user_model
@@ -343,29 +343,38 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
+    extra_context = {'title': 'Уведомления'}
     template_name = 'main/notification_list.html'
     context_object_name = 'notifications_and_notices'
 
     def get_queryset(self) -> list[Notification | Notice]:
-        # Получаем уведомления для текущего пользователя
-        notifications = Notification.objects.filter(user=self.request.user, is_read=False).order_by('-created_at')
+        return self.get_notifications(is_read=False)
 
-        # Получаем уведомления (Notice) для текущего пользователя
-        notices = Notice.objects.filter(user=self.request.user, is_read=False).order_by('-created_at')
 
-        # Объединяем оба QuerySet
+    def get_notifications(self, is_read: bool, notification_type: str = None) -> list[Notification | Notice]:
+        notifications = Notification.objects.filter(user=self.request.user, is_read=is_read)
+        notices = Notice.objects.filter(user=self.request.user, is_read=is_read)
+
+        if notification_type == 'notification':
+            return notifications.order_by('-created_at')
+        elif notification_type == 'notice':
+            return notices.order_by('-created_at')
+        # Если тип не указан, возвращаем все
         return sorted(
             chain(notifications, notices),
             key=lambda instance: instance.created_at,
             reverse=True
         )
 
-    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context['notifications'] = Notification.objects.filter(user=self.request.user)
-        context['notices'] = Notice.objects.filter(user=self.request.user)
-        context['title'] = 'Уведомления'
-        return context
+
+class ArchiveNotifications(NotificationListView):
+    extra_context = {'title': 'Архив уведомлений'}
+
+    def get_queryset(self) -> list[Notification | Notice]:
+        notification_type = self.request.GET.get('type', None)
+        notifications = self.get_notifications(is_read=True, notification_type=notification_type)
+        return notifications
+
 
 
 class NotificationReadView(View):
