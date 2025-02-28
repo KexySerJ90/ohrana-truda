@@ -110,8 +110,8 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         request.session['test_time_remaining'] = 600
         return redirect('study:test', test_slug=subject.slug)
     if user_completion.completed:
-        del request.session['questions']
-        del request.session['subject']
+        request.session.pop('questions', None)
+        request.session.pop('subject', None)
         request.session.pop('test_time_remaining', None)
         return render(request, 'study/test_result.html', {
             'subject': subject,
@@ -139,21 +139,23 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         UserAnswer.objects.bulk_create(answers_to_create)
         if user_completion.score >= len(questions) - 3:
             user_completion.completed = True
-            Achievement.objects.get_or_create(user=request.user, type='first_test')
             user_completion.save()
-            exams=SubjectCompletion.objects.filter(users=request.user)
-            if all(exam.completed for exam in exams):
-                Achievement.objects.get_or_create(user=request.user, type='all_exams_passed')
-            if user_completion.score == 5:
-                Achievement.objects.get_or_create(user=request.user, type='free_tester')
-                if all(exam.score == 5 for exam in exams):
-                    Achievement.objects.get_or_create(user=request.user, type='master_of_exams')
-            leaders = get_user_model().objects.filter(
+            first_test_achievement, first_test_created = Achievement.objects.get_or_create(user=request.user, type='first_test')
+            if first_test_created:
+                exams=SubjectCompletion.objects.filter(users=request.user)
+                if all(exam.completed for exam in exams):
+                    Achievement.objects.get_or_create(user=request.user, type='all_exams_passed')
+                if user_completion.score == 10:
+                    free_tester_achievement, free_tester_created= Achievement.objects.get_or_create(user=request.user, type='free_tester')
+                    if free_tester_created:
+                        if all(exam.score == 10 for exam in exams):
+                            Achievement.objects.get_or_create(user=request.user, type='master_of_exams')
+            leader = get_user_model().objects.filter(
                 status=User.Status.LEADER,
                 cat2=request.user.cat2
-            ).exclude(pk=request.user.pk)  # Исключаем текущего пользователя
+            ).exclude(pk=request.user.pk).first()  # Исключаем текущего пользователя
             admins = get_user_model().objects.filter(is_superuser=True)
-            for leader in leaders:
+            if leader:
                 create_notice_if_not_exists(user=request.user, role=leader,subject= subject)
             for admin in admins:
                 create_notice_if_not_exists(user=request.user, role=admin, subject=subject)
@@ -162,9 +164,9 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
                 message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!",
                 is_study = True
             )
-        del request.session['questions']
-        del request.session['subject']
-        del request.session['test_time_remaining']
+        request.session.pop('questions', None)
+        request.session.pop('subject', None)
+        request.session.pop('test_time_remaining', None)
         return render(request, 'study/test_result.html',
                       {'score': user_completion.score, 'total': len(questions), 'passed': user_completion.completed,
                        'subject': subject, 'incorrect_answers': incorrect_answers,
@@ -213,6 +215,17 @@ class Achievements(LoginRequiredMixin, ListView):
         'all_achievements': 'trophy-fill',
     }
 
+    def get_queryset(self):
+        # Получаем все достижения текущего пользователя
+        queryset = super().get_queryset()
+
+        # Обновляем значения is_received на True
+        for achievement in queryset:
+            if not achievement.is_received:
+                achievement.is_received = True
+                achievement.save(update_fields=['is_received'])
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

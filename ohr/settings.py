@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django_otp',
     'simple_history',
     'django_apscheduler',
+    'emoji_picker',
 ]
 
 SITE_ID = 1
@@ -101,6 +102,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'study.context_processors.subject_completions',
+                'study.context_processors.achievements',
                 'main.context_processors.notifications',
             ],
         },

@@ -31,7 +31,7 @@
             </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown ">
                     <a class="nav-item nav-link"  href="#"  role="tab" aria-selected="true"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Информация
@@ -133,12 +133,24 @@
     </a>
         {% endif %}
     </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {% if achievements and achievements_count%}
+    <a href="{% url 'study:achievements' %}" class="position-relative">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{achievements_count}}
+        </span>
+        <i class="bi bi-trophy" style="font-size: 1.5rem; "></i>
+    </a>
+        {% endif %}
+    </div>
+
                 <div class="card-body">
                     <div class="input-group">
                         <form action="{% url 'main:post_search' %}" method="get" class="input-group">
-                            <input type="text" name="query" class="form-control me-2" placeholder="Введите название документа (статьи)"
+                            <input type="text" name="query" class="form-control form-control-lg me-2" placeholder="Введите название документа (статьи)"
                                    required="" id="id_query">
-                            <button class="btn btn-outline-primary text-white" id="button-search" type="submit">Поиск</button>
+                            <button class="btn btn-outline-primary text-white btn-sm" id="button-search" type="submit">Поиск</button>
                         </form>
                     </div>
                 </div>

@@ -32,10 +32,11 @@ class Subject(models.Model):
 class Question(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='questions', verbose_name="Предмет")
     text = models.TextField(verbose_name="Текст вопроса")
+    normative = models.CharField(max_length=300, blank=True, null=True, default='', verbose_name='Обоснование')
     option1 = models.CharField(max_length=300, verbose_name="Вариант 1")
     option2 = models.CharField(max_length=300, verbose_name="Вариант 2")
     option3 = models.CharField(max_length=300, verbose_name="Вариант 3")
-    option4 = models.CharField(max_length=300, verbose_name="Вариант 4")
+    option4 = models.CharField(max_length=300, verbose_name="Вариант 4", blank=True, null=True)
     correct_option = models.PositiveIntegerField(verbose_name="Правильный вариант",
                                                  validators=[MinValueValidator(1), MaxValueValidator(4)])
 
@@ -49,6 +50,18 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('study:test', kwargs={'test_slug': self.subject.slug})
 
+
+class UserAnswer(models.Model):
+    user_completion = models.ForeignKey('study.SubjectCompletion', on_delete=models.CASCADE, related_name='user_answers')
+    question = models.ForeignKey('study.Question', on_delete=models.CASCADE, related_name='user_answers')
+    selected_answer = models.PositiveIntegerField(verbose_name='Выбранный ответ', null=True)
+
+    class Meta:
+        verbose_name = "Ответ пользователя"
+        verbose_name_plural = "Ответы пользователей"
+
+    def __str__(self):
+        return f'{self.user_completion} - {self.question.text}'
 
 
 class Slide(models.Model):
@@ -129,18 +142,6 @@ class SubjectCompletion(models.Model):
         return f'{self.users.last_name} {str(self.users.first_name)} - {str(self.subjects)}'
 
 
-class UserAnswer(models.Model):
-    user_completion = models.ForeignKey('study.SubjectCompletion', on_delete=models.CASCADE, related_name='user_answers')
-    question = models.ForeignKey('study.Question', on_delete=models.CASCADE, related_name='user_answers')
-    selected_answer = models.PositiveIntegerField(verbose_name='Выбранный ответ', null=True)
-
-    class Meta:
-        verbose_name = "Ответ пользователя"
-        verbose_name_plural = "Ответы пользователей"
-
-    def __str__(self):
-        return f'{self.user_completion} - {self.question.text}'
-
 
 
 class Achievement(models.Model):
@@ -158,7 +159,9 @@ class Achievement(models.Model):
 
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='achievements')
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)
+    is_received=models.BooleanField(default=False, verbose_name='Получено')
     created_at = models.DateTimeField(auto_now_add=True)
+
 
     class Meta:
         unique_together = ('user', 'type')

@@ -1,5 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from emoji_picker.widgets import EmojiPickerTextareaAdmin
+
 from main.models import Categorys, UploadFiles, Article, Comment
 from main.utils import validate_file
 from users.models import Departments
@@ -65,9 +67,10 @@ class CommentCreateForm(forms.ModelForm):
     Форма добавления комментариев к статьям
     """
     parent = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    content = forms.CharField(label='', widget=forms.Textarea(
-        attrs={'cols': 30, 'rows': 5, 'placeholder': 'Комментарий', 'class': 'form-control'}))
+    content = forms.CharField(label='', widget=EmojiPickerTextareaAdmin(
+        attrs={'cols': 90, 'rows': 5, 'placeholder': 'Комментарий', 'class': 'form-control'}))
     image = forms.ImageField(label='Изображение', required=False)
+
 
     class Meta:
         model = Comment

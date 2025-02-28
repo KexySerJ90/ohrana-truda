@@ -21,7 +21,7 @@
         {% for answer in incorrect_answers %}
             <div class="col-md-6 mb-3">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" data-toggle="tooltip" title="{{ answer.question.normative }}">
                         Вопрос: {{ answer.question.text }}
                     </div>
                     <div class="card-body">
@@ -55,3 +55,10 @@
 </div>
 <br>
 {% endblock %}
+
+<script>
+$(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+</script>

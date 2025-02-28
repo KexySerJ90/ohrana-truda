@@ -8,3 +8,4 @@ def notifications(request):
             'notifications_count':notifications.count()+notice.count()
         }
     return {}
+

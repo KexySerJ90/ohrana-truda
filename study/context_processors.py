@@ -6,3 +6,11 @@ def subject_completions(request):
     return {}
 
 
+def achievements(request):
+    if request.user.is_authenticated:
+        achievements=request.user.achievements.filter(user=request.user, is_received=False)
+        return {
+            'achievements': achievements,
+            'achievements_count':achievements.count()
+        }
+    return {}

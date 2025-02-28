@@ -113,3 +113,4 @@ class UserAnswerAdmin(admin.ModelAdmin):
 @admin.register(Achievement)
 class UserAnswerAdmin(admin.ModelAdmin):
     list_select_related = ['user']
+    list_filter = ['user']

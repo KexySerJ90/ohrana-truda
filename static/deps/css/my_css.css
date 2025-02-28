@@ -239,6 +239,7 @@ ul.control li a:hover {
   box-shadow: none;
 }
 
+
 /* Стили для анимации мигания */
 .blink {
     animation: blink-animation 1s steps(5, start) infinite;
@@ -281,6 +282,34 @@ ul.control li a:hover {
         max-height: 400px; /* Максимальная высота для выпадающих списков */
         overflow-y: auto; /* Включаем возможность прокрутки */
     }
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: all 0.15s ease-in-out;
+}
+
+.custom-file-label:hover {
+    color: #333;
+    background-color: #ebedef;
+    border-color: #adbbc1;
+}
+
+.custom-file-label.active {
+    background-color: #0d6efd !important;
+    color: #fff !important;
+    border-color: #0d6efd !important;
 }
 
 /* Навигационные вкладки */
@@ -432,6 +461,24 @@ input[type="number"]:focus {
     appearance: none;
     -moz-appearance: textfield;
 }
+
+/* ДОСТИЖЕНИЯ */
+.icon-achievment {
+    font-size: 48px;
+}
+
+/* Яркий стиль для выполненных достижений */
+.completed {
+    color: var(--bs-primary); /* По умолчанию синий цвет Bootstrap */
+}
+
+/* Тусклый стиль для невыполненных достижений */
+.disabled {
+    opacity: 0.5;
+    filter: grayscale(100%); /* Делает иконку черно-белой */
+}
+/* ДОСТИЖЕНИЯ */
+
 
 .input-group {
         display: flex;

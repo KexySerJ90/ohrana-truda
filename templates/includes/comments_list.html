@@ -46,17 +46,19 @@
                     Вы можете оставлять комментарии не чаще чем раз в минуту.
                 </div>
 <form method="post" action="{% url 'main:comment_create_view' post.pk %}" id="commentForm" name="commentForm" data-post-id="{{ post.pk }}" enctype="multipart/form-data">
-    {{ form.content }}
+    {{ form }}
 
-    <!-- Добавляем input для загрузки изображений -->
+<div class="d-grid gap-2 d-md-block mt-2">
+    <button type="submit" class="btn btn-dark" id="commentSubmit">Отправить</button>
+
+    <!-- Добавление обработки события change для imageUpload -->
     <input type="file" name="image" id="imageUpload" class="form-control" style="display:none;" accept="image/*">
 
-    <div class="d-grid gap-2 d-md-block mt-2">
-        <button type="submit" class="btn btn-dark" id="commentSubmit">Отправить</button>
-        <label for="imageUpload" class="btn btn-light ms-2" style="margin-left: 10px;">
-            <i class="fas fa-paperclip"></i>
-        </label>
-    </div>
+<!-- Обновленная кнопка для выбора файла -->
+<label for="imageUpload" class="btn btn-light ms-2 custom-file-label" style="margin-left: 10px; cursor: pointer;">
+    <i class="fas fa-paperclip"></i><span class="upload-status">Прикрепить файл</span>
+</label>
+</div>
 </form>
 
         </div>
@@ -105,5 +107,20 @@
             });
         });
     });
+</script>
+<script>
+document.getElementById("imageUpload").addEventListener("change", function () {
+    let label = document.querySelector(".custom-file-label");
+    let uploadStatus = document.querySelector(".upload-status");
+
+    // Получаем имя файла
+    let fileName = this.files.length > 0 ? this.files[0].name : "Прикрепить файл";
+
+    // Обновляем текст в элементе upload-status
+    uploadStatus.textContent = fileName;
+
+    // Добавляем активный класс
+    label.classList.add("active");
+});
 </script>
 {% endblock %}
