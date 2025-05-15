@@ -6,3 +6,11 @@ def new_users_handler(backend, user, response, *args, **kwargs):
         user.groups.add(group[0])
     user.is_social_user = True
     user.save()
+
+
+def zamestitel(backend, user, response, *args, **kwargs):
+    group=Group.objects.filter(name='zamestitel')
+    if len(group):
+        user.groups.add(group[0])
+    user.zamestitel = True
+    user.save()

@@ -29,8 +29,8 @@
                 </div>
 
                 <!-- Отображение суммарного рейтинга -->
-                <span class="rating-sum text-muted mt-2 mt-md-0">
-                    Рейтинг: <strong>{{ post.get_sum_rating|format_views }}</strong>
+                <span class="rating-sum text-muted mt-2 mt-md-0 d-flex align-items-center">
+                    Рейтинг: <div class="stronger"> {{ post.get_sum_rating|format_views }}</div>
                 </span>
             </div>
             <br>

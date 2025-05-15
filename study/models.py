@@ -107,7 +107,7 @@ class Video(models.Model):
 
 class Answer(models.Model):
     video = models.ForeignKey(Video, related_name='answers', on_delete=models.CASCADE, verbose_name='Видео')
-    text = models.CharField(max_length=200, verbose_name='Текст')
+    text = models.CharField(max_length=300, verbose_name='Текст')
     next_video = models.ForeignKey(Video, null=True, related_name='next_videos', on_delete=models.SET_NULL,
                                    verbose_name='Cледующее видео')
 
@@ -116,7 +116,7 @@ class Answer(models.Model):
         verbose_name_plural = "Ответы для инструктажа"
 
     def __str__(self):
-        return f'{self.text} - {self.next_video}'
+        return f'{self.video} - {self.next_video}'
 
     def get_absolute_url(self):
         return reverse("study:answer", kwargs={"answer_id": self.pk})
@@ -130,6 +130,7 @@ class SubjectCompletion(models.Model):
     score= models.PositiveIntegerField(default=0, verbose_name='Количество баллов')
     study_completed=models.BooleanField(default=False, verbose_name="Обучение")
     current_slide = models.ForeignKey('Slide', on_delete=models.SET_NULL, null=True)
+    data=models.DateField(blank=True,null=True, verbose_name='Дата сдачи тестирования')
     history = HistoricalRecords()
 
     class Meta:

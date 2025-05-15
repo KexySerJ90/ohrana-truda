@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                 {% for post in posts %}
-                <div class="col-md-6 col-sm-12 mb-4">
+                <div class="col-md-6 col-sm-6">
                     <div class="card h-100">
                         <a href="{{ post.get_absolute_url }}">
                             <img class="card-img-top img-fluid img-responsive" src="{{ post.photo.url }}" alt="{{ post.title }}">
@@ -26,7 +26,7 @@
                             </p>
                             <p class="card-text">
                                 <small class="text-muted">
-                                    Категория: {{ post.category.name }} | Дата: {{ post.time_update|date:"d-m-Y H:i:s"}}
+                                    {% if post.category %} Категория: {{ post.category.name }} | {% endif %} Дата: {{ post.time_update|date:"d-m-Y H:i:s"}}
                                 </small>
                             </p>
                             <a href="{{ post.get_absolute_url }}" class="btn btn-dark">Читать пост</a>
@@ -48,7 +48,7 @@
 
     <!-- Отображение суммарного рейтинга -->
     <span class="rating-sum text-muted ms-auto">
-        <i class="bi bi-star-fill me-1"></i><strong>{{ post.get_sum_rating|format_views }}</strong>
+        <i class="bi bi-star-fill me-1"></i><div class ="stronger">{{ post.get_sum_rating|format_views }}</div>
     </span>
 
                             </div>
@@ -91,9 +91,10 @@
     </div>
 </div>
 
+<script src="{% static 'deps/js/ratings.js' %}"></script>
 {% endblock %}
 
 {% block navigation %}
 {% include 'includes/nav.html' %}
-<script src="{% static 'deps/js/ratings.js' %}"></script>
+
 {% endblock %}

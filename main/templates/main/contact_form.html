@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <h1>Свяжитесь с нами!</h1>
+    <h3>Здесь Вы можете задать свой вопрос по охране труда!</h3>
     <form method="post">
         {% csrf_token %}
         {% for f in form %}
@@ -15,7 +15,7 @@
         <button class="btn btn-dark" type="submit">Отправить</button>
     </form>
 <br>
-<p class="alert alert-info" style="font-weight: bold;">Вы также можете связаться с Вашим специалистом по охране труда по номеру {{phone}}</p>
+<p class="alert alert-info" style="font-weight: bold;">Вы также можете связаться с Вашим специалистом по охране труда по номеру {{telephone}}</p>
 
 <script src="{% static 'deps/js/email_field.js' %}" type="text/javascript"></script>
 

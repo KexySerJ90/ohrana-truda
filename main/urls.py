@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('maindoc/<slug:dep_slug>/', views.Mainfiles.as_view(), name='maindoc'),
     path('about/', views.about, name='about'),
+    path('consent/', views.consent, name='consent'),
     path('addfile/', views.UploadFileView.as_view(), name='add_file'),
     path('posts/', views.ArticlePosts.as_view(), name='home'),
     path('addpost/', views.AddPostView.as_view(), name='addpost'),
@@ -26,3 +27,5 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('login-history/', views.LoginHistoryView.as_view(), name='login_history'),
 ]
+
+

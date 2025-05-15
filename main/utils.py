@@ -47,6 +47,7 @@ def Leap_years(years_to_subtract: int = 16) -> int:
     ])
 
 def get_client_ip(request):
+    """Метод для опеределения ip пользователя"""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     ip_address = x_forwarded_for.split(',')[0] if x_forwarded_for else request.META.get('REMOTE_ADDR')
     return ip_address

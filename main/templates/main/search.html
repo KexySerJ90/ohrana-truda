@@ -46,6 +46,13 @@
     </h1>
     <form method="get" >
         {{ form.query }}
-        <input type="submit" value="Поиск" class="btn btn-dark text-white">
+        <input type="submit" list="articles" value="Поиск" class="btn btn-dark text-white" >
+        <datalist id="articles">
+            {% for article in articles %}
+             <option value="{{ article.title }}"></option>
+            {% endfor %}
+        </datalist>
     </form>
-{% endif %} {% endblock %}
+{% endif %}
+
+{% endblock %}

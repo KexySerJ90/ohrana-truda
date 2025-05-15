@@ -14,12 +14,14 @@ from typing import Optional, Dict, Any
 
 
 class SIZForm(LoginRequiredMixin, FormView):
+    """Представление для отображения формы СИЗ"""
     template_name = 'profdetails/siz_form.html'
     form_class = ProfessionForm
     extra_context = {'title': "Калькулятор СИЗ"}
 
 
 class EquipmentListView(LoginRequiredMixin, View):
+    """Представление для получения результата СИЗ по профессии"""
     def get(self, request) -> JsonResponse:
         profession_id = request.GET.get('profession_id')
         equipment_list = []
@@ -39,6 +41,7 @@ class EquipmentListView(LoginRequiredMixin, View):
 
 
 class SOUTUserView(LoginRequiredMixin, DetailView):
+    """Представление для просмотра СОУТ"""
     template_name = 'profdetails/sout.html'
     model = JobDetails
     extra_context = {'title': "Результаты специальной оценки условий труда"}
@@ -58,26 +61,27 @@ class SOUTUserView(LoginRequiredMixin, DetailView):
 
 
 class GenerateImageView(View):
-    template_name = 'profdetails/generate_image_form.html'
+    """Представление для генерации изображения"""
+    template_name: str = 'profdetails/generate_image_form.html'
 
     def get(self, request: HttpRequest) -> HttpResponse:
-        prompt = request.session.get('prompt')
+        prompt: Optional[str] = request.session.get('prompt')
         return render(request, self.template_name, {'prompt': prompt})
 
     def post(self, request: HttpRequest) -> HttpResponse:
-        prompt = request.POST.get('prompt')
-        style = request.POST.get('style')
-        api_url = API_URL_KANDINSKY
-        api_key = env('API_KEY_KANDINSKY')
-        secret_key = env('API_SECRET_KANDINSKY')
+        prompt: Optional[str] = request.POST.get('prompt')
+        style: Optional[str] = request.POST.get('style')
+        api_url: str = API_URL_KANDINSKY
+        api_key: str = env('API_KEY_KANDINSKY')
+        secret_key: str = env('API_SECRET_KANDINSKY')
 
         api = Text2ImageAPI(api_url, api_key, secret_key)
-        model_id: str = api.get_model()
-        uuid: str = api.generate(prompt, model_id, style=style)
-        images: Optional[list] = api.check_generation(uuid)
+        pipeline_id = api.get_pipeline()
+        uuid: str = api.generate(prompt, pipeline_id, style=style)
+        files : Optional[list] = api.check_generation(uuid)
 
-        if images:
-            image_data: str = images[0]
+        if files :
+            image_data: str = files[0]
             context: Dict[str, Any] = {'image_data': image_data}
             request.session['prompt'] = prompt
             return render(request, 'profdetails/preview_image.html', context)
@@ -86,13 +90,14 @@ class GenerateImageView(View):
 
 
 class SaveImageView(View):
+    """Представление для сохранения сгенеиророванного изображения на аватар пользователя"""
     def post(self, request: HttpRequest) -> HttpResponse:
-        prompt = request.session.get('prompt')
-        image_data = request.POST.get('image_data')
-        ext = 'png'
+        prompt: Optional[str] = request.session.get('prompt')
+        image_data: Optional[str] = request.POST.get('image_data')
+        ext: str = 'png'
 
         if prompt and image_data:
-            filename = f'{prompt}.{ext}'
+            filename: str = f'{prompt}.{ext}'
             # Декодируем изображение
             decoded_img: bytes = base64.b64decode(image_data)
             # Сохраняем файл

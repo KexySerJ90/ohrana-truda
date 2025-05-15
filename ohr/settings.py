@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.localhost',"127.0.0.1", "10.135.75.86", 'ikb1-ohrana-truda.ru']
+ALLOWED_HOSTS = ['.localhost',"127.0.0.1", "10.135.75.86", 'ohrana-truda.m35.dzm']
 INTERNAL_IPS = ["127.0.0.1", "10.135.75.86"]
 
 # Application definition
@@ -104,6 +104,7 @@ TEMPLATES = [
                 'study.context_processors.subject_completions',
                 'study.context_processors.achievements',
                 'main.context_processors.notifications',
+                'main.context_processors.personal',
             ],
         },
     },
@@ -213,8 +214,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 EMAIL_RECIPIENT_LIST = env('EMAIL_RECIPIENT_LIST')
-
-PHONE = '12345'
 
 RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_PRIVATE_KEY')
@@ -341,8 +340,14 @@ AXES_NEVER_LOCKOUT_GET_USERS = lambda request: [
 # ADMINS=[('admin', 'serega_soad_90@mail.ru'),]
 # SERVER_EMAIL = 'serega_soad_90@mail.ru'
 
-ALLOWED_EXTENSIONS = ('pdf', 'docx', 'doc', '.xlsx', 'rtf')
+ALLOWED_EXTENSIONS = ('pdf', 'docx', 'doc', '.xlsx', 'rtf', 'xlsx', 'pptx')
 MAX_FILE_SIZE = 200 * 1024 * 1024
 
 API_URL_KANDINSKY = 'https://api-key.fusionbrain.ai/'
 
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: request.user.is_superuser,
+}
+
+TELEPHONE=env('TELEPHONE')
+POCHTA=env('POCHTA')

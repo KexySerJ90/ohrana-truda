@@ -45,9 +45,9 @@ class VideoAdmin(admin.ModelAdmin):
 
 @admin.register(SubjectCompletion)
 class SubjectCompletionAdmin(SimpleHistoryAdmin):
-    fields = ['user_fio', 'user_department', 'subjects', 'study_completed', 'completed', 'score', 'user_calculate_date']
+    fields = ['user_fio', 'user_department', 'subjects', 'study_completed', 'completed', 'score', 'user_calculate_date','data']
     list_display = ['user_fio', 'user_department', 'subjects', 'slide_order', 'study_completed', 'completed',
-                    'user_calculate_date']
+                    'user_calculate_date', 'data']
     readonly_fields = ['user_department', 'user_calculate_date', 'user_fio']
     actions = ['reset_current_slide', 'reset_current_test']
     ordering = ['users__cat2', 'users', '-completed']

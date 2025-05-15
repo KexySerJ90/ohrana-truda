@@ -5,7 +5,8 @@ from main.models import Notice
 from study.models import Subject, SubjectCompletion
 from users.models import User
 
-class BaseUserView:
+class BaseUserMixin:
+    """Представление для установления параметров базового пользователя"""
     def handle_subjects(self, user):
         sub_titles = None
         if user.status == 'leader':
@@ -54,9 +55,11 @@ class UserQuerysetMixin:
 
         """
         # Проверяем статус пользователя и его права
-        if user.status == User.Status.LEADER or user.is_superuser or user.is_staff:
+        if user.is_staff or user.is_superuser:
+            return get_user_model().objects.filter(is_active=True).prefetch_related('subject_completions__subjects').select_related('profile__profession').order_by('cat2','status')
+        if user.status == get_user_model().Status.LEADER or user.zamestitel:
             # Получаем активных пользователей с той же категорией и предзагружаем связанные данные
-            return User.objects.filter(
+            return get_user_model().objects.filter(
                 cat2=user.cat2,
                 is_active=True
             ).prefetch_related('subject_completions__subjects').select_related('profile__profession').order_by('status')

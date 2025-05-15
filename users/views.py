@@ -23,8 +23,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, FormView
 
 from main.models import SentMessage
 from ohr import settings
-from study.models import Achievement
-from study.utils import BaseUserView
+from study.utils import BaseUserMixin
 from .forms import LoginUserForm, RegisterUserForm, ProfileUserForm, UserPasswordChangeForm, WelcomeSocialForm, \
     OTPForm, ReserveEmailForm, SecretQuestionForm, SecretQuestionVerifyForm, UserForgotPasswordForm
 from .models import MailDevice, OTP, SecurityQuestion, Profile
@@ -37,6 +36,7 @@ from typing import Optional, Any, Dict
 
 
 class LoginUser(ProfileRequiredMixin, LoginView):
+    """Представление для авторизации пользователя"""
     form_class = LoginUserForm
     template_name = 'users/login.html'
     extra_context = {'title': 'Авторизация'}
@@ -78,6 +78,7 @@ class LoginUser(ProfileRequiredMixin, LoginView):
 
 
 class VerifyOTPView(FormView):
+    """Представление для проверки OTP"""
     template_name = 'users/verify_otp.html'
     form_class = OTPForm
     success_url = reverse_lazy('users:profile')
@@ -114,6 +115,8 @@ class VerifyOTPView(FormView):
 
 
 class ResendOtpView(View):
+    """Представление для повторной отправки OTP"""
+
     def post(self, request):
         user_email = request.session.get('user_email')
         if user_email:
@@ -141,7 +144,8 @@ class ResendOtpView(View):
         return JsonResponse({'success': False, 'message': 'Не удалось отправить код.'})
 
 
-class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
+class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserMixin):
+    """Представление для регистрации пользователя"""
     form_class = RegisterUserForm
     template_name = 'users/register.html'
     extra_context = {'title': "Регистрация"}
@@ -155,7 +159,7 @@ class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
             user.phone = None
         user.save()
         profile_data = {field: form.cleaned_data[field] for field in form.Meta.fields if
-                        field in ['patronymic', 'profession', 'sex','photo', 'date_birth', 'date_of_work']}
+                        field in ['patronymic', 'profession', 'sex', 'photo', 'date_birth', 'date_of_work']}
         Profile.objects.create(
             user=user,
             **profile_data)
@@ -176,6 +180,7 @@ class RegisterUser(ProfileRequiredMixin, CreateView, BaseUserView):
 
 
 class ProfileUser(LoginRequiredMixin, DetailView):
+    """Представление для просмотра профиля пользователя"""
     template_name = 'users/profile.html'
     model = get_user_model()
     extra_context = {'title': "Личный кабинет"}
@@ -185,6 +190,7 @@ class ProfileUser(LoginRequiredMixin, DetailView):
 
 
 class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
+    """Представление для редактирования профиля пользователя"""
     model = get_user_model()
     form_class = ProfileUserForm
     template_name = 'users/edit_profile.html'
@@ -200,7 +206,8 @@ class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['default_image'] = settings.DEFAULT_USER_WOMAN_IMAGE if self.request.user.profile.sex == Profile.Sex.WOMAN else settings.DEFAULT_USER_IMAGE
+        context[
+            'default_image'] = settings.DEFAULT_USER_WOMAN_IMAGE if self.request.user.profile.sex == Profile.Sex.WOMAN else settings.DEFAULT_USER_IMAGE
         context['title'] = 'Профиль пользователя'
         return context
 
@@ -219,6 +226,7 @@ class EditProfileUser(LoginRequiredMixin, StatusRequiredMixin, UpdateView):
 
 
 class SettingsUser(LoginRequiredMixin, NotSocialRequiredMixin, DetailView):
+    """Представление для просмотра настроек пользователя"""
     template_name = 'users/settings.html'
     model = get_user_model()
     extra_context = {'title': "Настройки", }
@@ -242,6 +250,7 @@ class SettingsUser(LoginRequiredMixin, NotSocialRequiredMixin, DetailView):
 
 
 def email_verification(request: HttpRequest, uidb64: str, token: str) -> HttpResponse:
+    """Представление для верификации по email"""
     unique_id = force_str(urlsafe_base64_decode(uidb64))
     user = get_user_model().objects.get(pk=unique_id)
     if user and user_tokenizer_generate.check_token(user, token):
@@ -274,7 +283,8 @@ def email_verification_failed(request: HttpRequest) -> HttpResponse:
     return render(request, 'users/email-verification-failed.html')
 
 
-class Welcome_social(UpdateView, BaseUserView):
+class Welcome_social(UpdateView, BaseUserMixin):
+    """Представление для регистрации социального пользователя"""
     model = get_user_model()
     form_class = WelcomeSocialForm
     template_name = 'users/welcome_social.html'
@@ -327,6 +337,7 @@ class Welcome_social(UpdateView, BaseUserView):
 
 
 class ReserveMailView(LoginRequiredMixin, NotSocialRequiredMixin, FormView):
+    """Представление для установления резверного email"""
     form_class = ReserveEmailForm
     template_name = 'users/reserve-email.html'
 
@@ -360,6 +371,8 @@ class ReserveMailView(LoginRequiredMixin, NotSocialRequiredMixin, FormView):
 
 
 class TokenVerificationReserveEmailView(LoginRequiredMixin, View):
+    """Представление для отправки токена на резервный email"""
+
     def post(self, request):
         user = self.request.user
         enter_otp_code = request.POST.get('token')
@@ -377,6 +390,8 @@ class TokenVerificationReserveEmailView(LoginRequiredMixin, View):
 
 
 class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    """Представление для восстановления пароля пользователя"""
+
     def form_valid(self, form):
         user = form.save()
         user.two_factor_enabled = False

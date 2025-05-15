@@ -28,7 +28,7 @@ class User(AbstractUser):
     reserve_email=models.EmailField(default='',blank=True, null=True, verbose_name='Резервный Email')
     secret_answer = models.CharField(max_length=255, blank=True, null=True, verbose_name='Секретный ответ')
     is_social_user = models.BooleanField(default=False, verbose_name="Социальный юзер?")
-
+    zamestitel = models.BooleanField(default=False, verbose_name="Заместитель")
 
     class Meta:
         verbose_name = "Пользователь"

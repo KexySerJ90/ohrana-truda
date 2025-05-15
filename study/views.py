@@ -11,12 +11,14 @@ from django.views.generic import ListView, RedirectView
 from main.models import Notice
 from study.models import Subject, SubjectCompletion, Video, Answer, Question, UserAnswer, Achievement
 from study.utils import UserQuerysetMixin, create_notice_if_not_exists
-from users.models import Profile, User
+from users.models import Profile, User, Departments
 from users.permissions import StatusRequiredMixin
-
+from django.contrib import messages
+from datetime import date
 
 @login_required
 def subject_detail(request: HttpRequest, subject_slug: str) -> HttpResponse:
+    """Представление для просмотра обучающих слайдов"""
     subject = get_object_or_404(Subject, slug=subject_slug)
     progress = get_object_or_404(SubjectCompletion, users=request.user, subjects=subject)
 
@@ -66,6 +68,8 @@ def subject_detail(request: HttpRequest, subject_slug: str) -> HttpResponse:
 
 
 class VideoInstruktajView(LoginRequiredMixin, View):
+    """Представление для просмотра видео инструктажа"""
+
     def get(self, request: HttpRequest, video_slug: str) -> HttpResponse:
         profile = Profile.objects.get(user=request.user)
         video = get_object_or_404(Video, slug=video_slug)
@@ -79,16 +83,21 @@ class VideoInstruktajView(LoginRequiredMixin, View):
 
 
 class AnswerView(RedirectView):
-    permanent = False
+    """Представление для выбора ответа на инструктаже"""
+    permanent = False  # Указывает, что перенаправление не является постоянным (HTTP 302)
 
     def get_redirect_url(self, *args, **kwargs):
+        # Получаем объект ответа (Answer) по его идентификатору (answer_id) из URL
         answer = get_object_or_404(Answer, id=kwargs['answer_id'])
+        # Извлекаем следующее видео, связанное с ответом
         next_video = answer.next_video
+        # Возвращаем URL для перенаправления на детальную страницу следующего видео
         return reverse_lazy('study:video_detail', kwargs={'video_slug': next_video.slug})
 
 
 @login_required
 def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
+    """Представление для прохождения тестирования"""
     subject = get_object_or_404(Subject, slug=test_slug)
     user_completion = get_object_or_404(SubjectCompletion, users=request.user, subjects=subject)
     incorrect_answers = user_completion.user_answers.exclude(selected_answer=F('question__correct_option'))
@@ -139,14 +148,18 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
         UserAnswer.objects.bulk_create(answers_to_create)
         if user_completion.score >= len(questions) - 3:
             user_completion.completed = True
+            if not user_completion.data or (user_completion.data and (date.today() - user_completion.data).days >= 365):
+                user_completion.data = date.today()
             user_completion.save()
-            first_test_achievement, first_test_created = Achievement.objects.get_or_create(user=request.user, type='first_test')
+            first_test_achievement, first_test_created = Achievement.objects.get_or_create(user=request.user,
+                                                                                           type='first_test')
             if first_test_created:
-                exams=SubjectCompletion.objects.filter(users=request.user)
+                exams = SubjectCompletion.objects.filter(users=request.user)
                 if all(exam.completed for exam in exams):
                     Achievement.objects.get_or_create(user=request.user, type='all_exams_passed')
                 if user_completion.score == 10:
-                    free_tester_achievement, free_tester_created= Achievement.objects.get_or_create(user=request.user, type='free_tester')
+                    free_tester_achievement, free_tester_created = Achievement.objects.get_or_create(user=request.user,
+                                                                                                     type='free_tester')
                     if free_tester_created:
                         if all(exam.score == 10 for exam in exams):
                             Achievement.objects.get_or_create(user=request.user, type='master_of_exams')
@@ -156,13 +169,13 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
             ).exclude(pk=request.user.pk).first()  # Исключаем текущего пользователя
             admins = get_user_model().objects.filter(is_superuser=True)
             if leader:
-                create_notice_if_not_exists(user=request.user, role=leader,subject= subject)
+                create_notice_if_not_exists(user=request.user, role=leader, subject=subject)
             for admin in admins:
                 create_notice_if_not_exists(user=request.user, role=admin, subject=subject)
             Notice.objects.create(
                 user=request.user,
                 message=f"Поздравляем, вы прошли обучение по предмету '{subject}'!",
-                is_study = True
+                is_study=True
             )
         request.session.pop('questions', None)
         request.session.pop('subject', None)
@@ -178,6 +191,7 @@ def test_view(request: HttpRequest, test_slug: str) -> HttpResponse:
 
 
 class MyResult(LoginRequiredMixin, StatusRequiredMixin, ListView):
+    """Представление для просмотра личных результатов обучения"""
     model = get_user_model()
     template_name = 'study/results.html'
     extra_context = {'title': "Мои результаты"}
@@ -187,17 +201,40 @@ class MyResult(LoginRequiredMixin, StatusRequiredMixin, ListView):
 
 
 class LeaderResultsView(LoginRequiredMixin, ListView, UserQuerysetMixin):
+    """Представление для просмотра результатов сотрудников отделения"""
     template_name = 'study/leader_results.html'
-    paginate_by = 4
+    paginate_by = 5
     context_object_name = 'users'
-    extra_context = {'title': "Результаты подразделения"}
 
     def get_queryset(self):
         user = self.request.user
-        return self.get_user_queryset(user)
+        queryset = self.get_user_queryset(user)
+        cat2 = self.request.GET.get('department')
+        if cat2:
+            queryset = queryset.filter(cat2=cat2)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Результаты подразделения"
+        context['departments'] = Departments.objects.all().order_by('name')
+        context['subjects'] = Subject.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_superuser or request.user.is_staff or request.user.zamestitel:  # Check if the user is an admin
+            user_id = request.POST.get('user_id')
+            subject_id = request.POST.get('subject_id')
+            if user_id and subject_id:  # Validate that both ids are provided
+                user = get_user_model().objects.get(id=user_id)
+                subject = Subject.objects.get(id=subject_id)
+                SubjectCompletion.objects.get_or_create(users=user, subjects=subject)
+                messages.success(request, f'Успешно добавлен курс для пользователя {user.username}.')
+            return redirect('study:leader_results')
 
 
 class Achievements(LoginRequiredMixin, ListView):
+    """Представление для просмотра достижений"""
     template_name = 'study/achievements.html'
     context_object_name = 'achieve'
     title_page = 'Достижения'
@@ -256,7 +293,6 @@ class Achievements(LoginRequiredMixin, ListView):
         )
         if all_achievements_completed and 'all_achievements' not in user_achievements:
             Achievement.objects.create(user=user, type='all_achievements')
-
 
         # Проверяем, выполнены ли все достижения
         context['all_complete'] = all(achievement['is_completed'] for achievement in context['achievements'])

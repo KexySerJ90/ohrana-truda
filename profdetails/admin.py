@@ -34,5 +34,23 @@ class JobDetailsAdmin(SimpleHistoryAdmin):
     list_filter = ['department','working_conditions']
     list_select_related = ['profession','department']
     ordering = ['date_of_sout', 'department']
+    actions = ['copy_job_details']
+
+    @admin.action(description='Копировать похожие рабочие места')
+    def copy_job_details(self, request, queryset):
+        for obj in queryset:
+            new_obj = JobDetails(
+                profession=obj.profession,
+                department=obj.department,
+                working_conditions=obj.working_conditions,
+                date_of_sout=obj.date_of_sout,
+                opr=obj.opr
+            )
+            new_obj.save()
+
+        message_bit = f"Скопировано {queryset.count()} рабочих мест"
+        self.message_user(request, message_bit)
+
+
 
 

@@ -22,7 +22,7 @@ ratingButtons.forEach(button => {
         }).then(response => response.json())
         .then(data => {
             // Обновляем значение на кнопке
-            ratingSum.querySelector('strong').textContent = data.rating_sum;
+            ratingSum.querySelector('.stronger').textContent = data.rating_sum;
         })
         .catch(error => console.error(error));
     });

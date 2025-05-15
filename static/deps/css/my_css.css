@@ -260,6 +260,13 @@ ul.control li a:hover {
     }
 }
 
+.incomplete-subject {
+        background-color: rgba(255, 193, 7, 0.1);
+        border-left: 4px solid #ffc107;
+    }
+.form-switch .form-check-input {
+    cursor: pointer;
+    }
 /* Медиа-запросы для адаптивного дизайна */
 @media (max-width: 768px) {
     .navbar-nav .nav-link {
@@ -462,6 +469,57 @@ input[type="number"]:focus {
     -moz-appearance: textfield;
 }
 
+
+.answers {
+  display: block;
+  width: auto; /* Позволяет кнопке адаптироваться к содержимому */
+  min-width: 200px; /* Минимальная ширина для кнопки */
+  height: auto;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: sans-serif;
+  text-decoration: none;
+  color: #333;
+  border: 2px solid #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all .35s;
+  padding: 0 10px; /* Добавление горизонтальных отступов */
+  box-sizing: border-box; /* Учитывать padding в ширине и высоте */
+  margin: 5px 10px;
+}
+
+.answers span {
+  position: relative;
+  z-index: 2;
+}
+
+.answers:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #0d6efd;
+  transition: all .35s;
+}
+
+.answers:hover {
+  color: #fff;
+}
+
+.answers:hover:after {
+  width: 100%;
+}
+
+
+#department-filter-form select.form-control:hover {
+        background-color: #f7f7f7; /* Светлый серый оттенок */
+        border-color: #007bff; /* Синий акцент */
+        box-shadow: 0 0 0 0.25rem rgba(0,123,255,.1); /* Легкая тень вокруг элемента */
+    }
 /* ДОСТИЖЕНИЯ */
 .icon-achievment {
     font-size: 48px;
@@ -1050,6 +1108,11 @@ div[class*=box] {
 .bi-star-fill {
     color: gold;
 }
+
+.stronger {
+    font-weight: bold;
+}
+
 
 @import url("//fonts.googleapis.com/css?family=Roboto:500");
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");

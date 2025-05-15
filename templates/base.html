@@ -43,8 +43,9 @@
                         <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' user.cat2.slug %}">{{user.cat2.name}}</a></li>
                         {% endif %}
                         <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'obshie' %}">Локально-нормативные документы</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'administraciya' %}">ФЗ и другие документы по охране труда</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'administraciya' %}">ФЗ, Государственные приказы, постановления</a></li>
                         <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'sout' %}">СОУТ</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url 'main:maindoc' 'shablony' %}">Шаблоны</a></li>
                         <li><a class="dropdown-item text-white" href="{% url 'profdetails:siz' %}">Калькулятор СИЗ</a></li>
                         {% endif %}
                     </ul>
@@ -89,17 +90,17 @@
                                     Мой профиль
                                 </a>
                                 <ul class="dropdown-menu">
-                                    {% if not request.user.status%}
+                                    {% if not user.status%}
                                         <li><a class="dropdown-item text-white" href="{% url 'user:welcome_social' %}">Завершить регистрацию</a></li>
                                     {% else %}
                                     <li><a class="dropdown-item  text-white" href="{% url 'user:profile' %}">Личный кабинет</a></li>
-                                    <li><a class="dropdown-item  text-white" href="{% url 'user:settings_user' %}">Настройки</a></li>
+                                    {% if not user.is_social_user %}<li><a class="dropdown-item  text-white" href="{% url 'user:settings_user' %}">Настройки</a></li>{% endif %}
                                     {% if user.subject.all or user.is_admin or user.is_staff %}
                                     <li><a class="dropdown-item text-white" href="{% url 'study:result' %}">Мои результаты</a></li>
                                     {% endif %}
                                     </li>
-                                    {% if user.status == 'leader' or user.is_admin or user.is_staff %}
-                                    <li><a class="dropdown-item text-white" href="{% url 'study:leader_results' %}">Моё подразделение</a></li>
+                                    {% if user.status == 'leader' or user.is_admin or user.is_staff or user.zamestitel %}
+                                    <li><a class="dropdown-item text-white" href="{% url 'study:leader_results' %}">{% if user.is_superuser or user.is_staff %}Для СОТа{% else %}Моё подразделение{% endif %}</a></li>
                                     {% endif %}
                                     </li>
                                         <li><a class="dropdown-item  text-white" href="{% url 'profdetails:sout_user' %}">Класс условий труда</a>
@@ -178,12 +179,12 @@
         <div class="row">
             <div class="col-lg-4">
                 <h5>Контакты</h5>
-                <p>Телефон: +7 (XXX) XXX-XX-XX</p>
-                <p>Email: info@example.com</p>
+                <p>Телефон: {{telephone}}</p>
+                <p>Email: {{pochta}}</p>
             </div>
             <div class="col-lg-4">
                 <h5>Поддержка</h5>
-                <p><a class="text-white me-2" href="{% url 'main:contact' %}">Свяжитесь с нами</a></p>
+                <p><a class="text-white me-2" href="{% url 'main:contact' %}">Задай вопрос</a></p>
                 <p><a class="text-white me-2" href="{% url 'main:about' %}">Про нас</a></p>
             </div>
             <div class="col-lg-4">
@@ -197,6 +198,7 @@
         </div>
         <hr class="my-3">
         <p>&copy; {% now 'Y' %} Все права защищены</p>
+        <p class="fs-6"><a class="text-white me-2" href="{% url 'main:consent' %}">Пользовательское соглашение</a></p>
     </div>
 </footer>
 

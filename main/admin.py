@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django_mptt_admin.admin import DjangoMpttAdmin
 from simple_history.admin import SimpleHistoryAdmin
@@ -14,7 +14,7 @@ from users.models import Departments
 class CustomUploadFileAdminForm(forms.ModelForm):
     class Meta:
         model = UploadFiles
-        fields = ['cat', 'title','file','is_common','description']  # поля, которые будут отображаться в форме
+        fields = ['cat', 'title', 'file', 'is_common', 'description']  # поля, которые будут отображаться в форме
 
     def clean(self):
         cleaned_data = super().clean()
@@ -30,8 +30,6 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-
-
 @admin.register(TagPost)
 class TagPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("tag",)}
@@ -39,12 +37,12 @@ class TagPostAdmin(admin.ModelAdmin):
 
 @admin.register(UploadFiles)
 class UploadFilesAdmin(admin.ModelAdmin):
-    list_select_related=['cat']
+    list_select_related = ['cat']
     list_filter = ['cat']
-    search_fields = ['cat__name','title']
+    search_fields = ['cat__name', 'title']
     ordering = ['cat', '-uploaded_at']
-    readonly_fields = ['is_common','uploaded_at']
-    form=CustomUploadFileAdminForm
+    readonly_fields = ['is_common', 'uploaded_at']
+    form = CustomUploadFileAdminForm
     actions = ['delete_is_common_files']
 
     def save_model(self, request, obj, form, change):
@@ -85,10 +83,9 @@ class UploadFilesAdmin(admin.ModelAdmin):
         self.message_user(request, message_bit)
 
 
-
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_select_related = ['post','user']
+    list_select_related = ['post', 'user']
     list_filter = ['user', 'post']
     readonly_fields = []
 
@@ -96,6 +93,7 @@ class RatingAdmin(admin.ModelAdmin):
         super().__init__(model, admin_site)
         # Получаем все поля модели
         self.readonly_fields = [field.name for field in model._meta.get_fields()]
+
 
 @admin.register(Comment)
 class CommentAdmin(DjangoMpttAdmin):
@@ -105,8 +103,8 @@ class CommentAdmin(DjangoMpttAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(SimpleHistoryAdmin):
-    fields = ['title', 'slug', 'content', 'photo', 'post_photo', 'category', 'tags','views','is_published']
-    readonly_fields = ['post_photo','views']
+    fields = ['title', 'slug', 'content', 'photo', 'post_photo', 'category', 'tags', 'views', 'is_published']
+    readonly_fields = ['post_photo', 'views']
     prepopulated_fields = {"slug": ("title",)}
     filter_vertical = ['tags']
     list_display = ('title', 'post_photo', 'time_create', 'is_published', 'category')
@@ -133,11 +131,12 @@ class ArticleAdmin(SimpleHistoryAdmin):
         count = queryset.update(is_published=Article.Status.DRAFT)
         self.message_user(request, f"{count} записей сняты с публикации!", messages.WARNING)
 
+
 @admin.register(UniqueView)
 class UniqueViewAdmin(admin.ModelAdmin):
     search_fields = ['article']
-    readonly_fields = ['article', 'ip_address','timestamp']
-    list_filter=['ip_address','article']
+    readonly_fields = ['article', 'ip_address', 'timestamp']
+    list_filter = ['ip_address', 'article']
     list_select_related = ['article']
 
 
@@ -145,7 +144,7 @@ class UniqueViewAdmin(admin.ModelAdmin):
 class NotificationAdmin(admin.ModelAdmin):
     fields = ['user', 'comment', 'is_read']
     search_fields = ['user__username']
-    readonly_fields = ['user', 'comment','is_read']
+    readonly_fields = ['user', 'comment', 'is_read']
     list_select_related = ['user', 'comment']
     list_filter = ['user']
 
@@ -161,7 +160,7 @@ class NoticeAdmin(admin.ModelAdmin):
 
 @admin.register(UserLoginHistory)
 class UserLoginHistoryAdmin(admin.ModelAdmin):
-    readonly_fields = ['user', 'login_time','ip_address','location','device_type','browser','os']
+    readonly_fields = ['user', 'login_time', 'ip_address', 'location', 'device_type', 'browser', 'os']
     list_filter = ['user']
     list_select_related = ['user']
 
@@ -169,5 +168,5 @@ class UserLoginHistoryAdmin(admin.ModelAdmin):
 @admin.register(SentMessage)
 class SentMessageAdmin(admin.ModelAdmin):
     list_select_related = ['user']
-    readonly_fields = ['user', 'purpose','timestamp']
-    list_filter = ['user','purpose']
+    readonly_fields = ['user', 'purpose', 'timestamp']
+    list_filter = ['user', 'purpose']

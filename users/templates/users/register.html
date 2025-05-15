@@ -30,7 +30,12 @@
             <small class="form-text text-danger">{{ f.errors }}</small>
           </div>
         {% endfor %}
-
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="agreementCheckbox" required>
+          <label class="form-check-label" for="agreementCheckbox">
+            Нажимая на регистрацию, я соглашаюсь передать свои персональные данные
+          </label>
+        </div>
         <button class="btn btn-dark w-100" type="submit">Зарегистрироваться</button>
       </form>
   </div>

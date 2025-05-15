@@ -1,14 +1,21 @@
-<li class="list-group-item">
-    <strong>{{ subject.subjects }}:</strong>
-    {% if subject.completed %}
-    <span>Сдал</span>
-    {% else %}
-    {% if user.profile.calculate_date > 0 %}
-    <span class="text-warning">Не сдал</span>
-    <p>До окончания сдачи осталось <strong>{{ user.profile.calculate_date }} дней</strong></p>
-    {% else %}
-    <span class="text-danger">Внимание</span>
-    <p class="blink text-danger">Вас должны немедленно отстранить от работы</p>
-    {% endif %}
-    {% endif %}
-</li>
+{% if not request.GET.show_incomplete or not subject.completed %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start {% if not subject.completed %}incomplete-subject{% endif %}">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ subject.subjects }}</div>
+                            {% if subject.completed %}
+                            <span class="text-success"><i class="bi bi-check-circle-fill me-1"></i>Сдан {{subject.data}}</span>
+                            {% else %}
+                            {% if user.profile.calculate_date > 0 %}
+                            <span class="text-warning"><i class="bi bi-exclamation-triangle-fill me-1"></i>Не сдал</span>
+                            <small class="d-block">Осталось дней: <strong>{{ user.profile.calculate_date }}</strong></small>
+                            {% else %}
+                            <span class="text-danger"><i class="bi bi-x-circle-fill me-1"></i>Просрочено</span>
+                            <small class="text-danger d-block">Требуется отстранение</small>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        {% if not subject.completed %}
+                        <span class="badge bg-warning rounded-pill">!</span>
+                        {% endif %}
+                    </li>
+                    {% endif %}

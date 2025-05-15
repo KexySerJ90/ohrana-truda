@@ -1,45 +1,114 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_admin or user.is_staff %}
+<div class="d-flex justify-content-end mb-3">
+    <form method="GET" action="" id="department-filter-form" class="w-auto">
+        <div class="form-group">
+            <label for="department">Выберите подразделение:</label>
+            <select name="department" id="department" class="form-select" onchange="this.form.submit()">
+                <option value="">Все подразделения</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}"{% if department.id == request.GET.department %} selected{% endif %}>{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+<!-- Красивый переключатель фильтрации -->
+<div class="d-flex align-items-center mb-4">
+    <form method="GET" action="" class="d-flex align-items-center">
+        <div class="form-check form-switch me-3">
+            <input class="form-check-input" type="checkbox" role="switch"
+                   name="show_incomplete" id="show_incomplete"
+                   {% if request.GET.show_incomplete %}checked{% endif %}
+                   onchange="this.form.submit()"
+                   style="width: 3em; height: 1.5em;">
+            <label class="form-check-label ms-2 fw-bold" for="show_incomplete">
+                Только не завершенные тесты
+            </label>
+        </div>
+        <button type="submit" class="btn btn-sm btn-outline-secondary ms-2" style="display: none;">
+            Применить
+        </button>
+    </form>
+</div>
+
 {% for user in users %}
 <div class="container mt-4">
-    <div class="card">
+    <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center"
      {% if user.status == 'medic' %} style="background-color: #9eeaf9;"
      {% elif user.status == 'worker' %} style="background-color: #a3cfbb;"
      {% endif %}>
-    <h5>Информация о работнике: {{ user.first_name }} {{ user.last_name }}
+    <h5 class="mb-0">Информация о работнике: {{ user.first_name }} {{ user.last_name }}
         {% if user.profile.patronymic %}{{ user.profile.patronymic }}{% endif %} ({{user}}), {% if user.profile.profession %}{{ user.profile.profession }}
         {% else %}{{ user.get_status_display }}{% endif %}</h5>
     {% if user.profile.photo %}
-        <img id="profile-photo" src="{{ user.profile.photo.url }}" class="rounded-circle" style="width: 130px; height: 130px; border-radius: 50%;">
+        <img src="{{ user.profile.photo.url }}" class="rounded-circle shadow" style="width: 80px; height: 80px; object-fit: cover;">
     {% endif %}
 </div>
         <div class="card-body">
-            <p class="card-text">Дата приема на работу: <strong>{{ user.profile.date_of_work }}</strong></p>
-            <ul class="list-group">
+            <p class="card-text text-muted"><i class="bi bi-calendar-check me-2"></i>Дата приема: <strong>{{ user.profile.date_of_work }}</strong></p>
+            <ul class="list-group list-group-flush">
                 {% for subject in user.subject_completions.all %}
-                     {% include 'includes/study.html' %}
+                    {% include 'includes/study.html' %}
                 {% endfor %}
-                {% if not user.status == 'leader' %}
-                <br>
-                <p class="card-text">Был в сети:
-    <strong>
-        {% if user.is_online %}
-            Онлайн
-        {% else %}
-            {{ user.last_activity|date:"d.m.Y H:i" }}
-        {% endif %}
-    </strong>
-</p>
-                {% endif %}
             </ul>
+
+            {% if not user.status == 'leader' and not request.GET.show_incomplete %}
+            <div class="mt-3">
+                <p class="card-text">
+                    <i class="bi bi-clock-history me-2"></i>Был в сети:
+                    <strong>
+                        {% if user.is_online %}
+                            <span class="text-success">Онлайн</span>
+                        {% else %}
+                            {{ user.last_activity|date:"d.m.Y H:i" }}
+                        {% endif %}
+                    </strong>
+                </p>
+            </div>
+            {% endif %}
+
+            {% if request.user.is_superuser or request.user.is_staff and not request.GET.show_incomplete %}
+            <form method="post" action="{% url 'study:leader_results' %}" class="mt-3">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-8">
+                        <label for="subject" class="form-label">Добавить курс:</label>
+                        <select class="form-select" name="subject_id" required>
+                            <option value="">Выберите курс</option>
+                            {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject.get_title_display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-plus-circle"></i> Добавить
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
         </div>
     </div>
 </div>
 {% endfor %}
-<br>
+
 {% endblock %}
+
 {% block navigation %}
 {% include 'includes/nav.html' %}
 {% endblock %}

@@ -9,7 +9,7 @@ class AuthorPermissionsMixin:
         return self.request.user.cat2.slug == self.kwargs['dep_slug']
 
     def is_special_category(self):
-        special_categories = ['administraciya', 'sout', 'obshie']
+        special_categories = ['administraciya', 'sout', 'obshie', 'shablony']
         return self.kwargs['dep_slug'] in special_categories
 
 

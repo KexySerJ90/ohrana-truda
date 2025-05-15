@@ -166,8 +166,8 @@ class ProfileUserForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ['photo', 'username', 'last_name', 'first_name', 'patronymic', 'sex', 'masked_phone', 'cat2', 'status',
-                  'profession', 'date_birth']
+        fields = ['photo', 'username', 'masked_phone', 'cat2', 'status', 'first_name', 'last_name',  'patronymic', 'profession',
+                  'sex', 'date_birth']
         labels = {
             'first_name': 'Имя',
             'last_name': 'Фамилия',

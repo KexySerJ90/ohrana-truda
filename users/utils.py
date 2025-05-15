@@ -36,6 +36,7 @@ def generate_otp() -> tuple:
     return otp_secret, otp_code
 
 def send_message(message: str, recipient: str, otp_code: str, user) -> None:
+    """Представление для отправки сообщений"""
     send_mail(
                     message,
                     f'{message}: {otp_code}',
@@ -55,6 +56,7 @@ def login_required_redirect(view_func):
 
 
 class ProfessionChoiceField(forms.ModelChoiceField):
+    """Пользовательское поле для выбора профессии"""
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         kwargs['queryset'] = Profession.objects.all()
         kwargs['widget'] = ModelSelect2Widget(
@@ -72,6 +74,7 @@ def sent_count(user,purpose):
 
 
 class CustomEmailWidget(widgets.EmailInput):
+    """Пользовательское поле, которое блокирует ввод кириллицы"""
     def __init__(self, attrs=None):
         default_attrs = {'class': 'form-control', 'oninput': "withoutCyr(this)", 'placeholder': 'Введите ваш E-mail'}
         if attrs:
